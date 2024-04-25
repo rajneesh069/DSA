@@ -3,15 +3,16 @@ package arrays;
 import java.util.Arrays;
 
 public class swap {
-    static void swapFn(int[] arr) {
-        int temp = arr[0];
-        arr[0] = arr[1];
-        arr[1] = temp;
+    static int[] swapFn(int[] arr, int index1, int index2) {
+        int temp = arr[index1];
+        arr[index1] = arr[index2];
+        arr[index2] = temp;
+        return arr;
     }
 
     public static void main(String[] args) {
         int[] nums = { 1, 2 };
-        swapFn(nums);
+        swapFn(nums, 0, 1);
         System.out.println(Arrays.toString(nums));
     }
 }
