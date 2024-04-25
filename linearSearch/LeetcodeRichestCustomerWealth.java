@@ -1,4 +1,4 @@
-package libearSearch;
+package linearSearch;
 
 public class LeetcodeRichestCustomerWealth {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package libearSearch;
+package linearSearch;
 
 public class MinIn2DArray {
     public static void main(String[] args) {

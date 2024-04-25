@@ -1,4 +1,4 @@
-package libearSearch;
+package linearSearch;
 
 public class MaxIn2DArray {
     public static void main(String[] args) {

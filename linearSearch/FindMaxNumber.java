@@ -1,4 +1,4 @@
-package libearSearch;
+package linearSearch;
 
 public class FindMaxNumber {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package libearSearch;
+package linearSearch;
 
 public class LeetCodeQ1 {
     public static void main(String[] args) {

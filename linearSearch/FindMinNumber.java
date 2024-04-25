@@ -1,4 +1,4 @@
-package libearSearch;
+package linearSearch;
 
 public class FindMinNumber {
     public static void main(String[] args) {

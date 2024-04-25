@@ -1,4 +1,4 @@
-package libearSearch;
+package linearSearch;
 
 import java.util.Arrays;
 
