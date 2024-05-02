@@ -1,22 +1,24 @@
 package leetcode;
 
-import java.util.Arrays;
-
 public class MaxAreaOfTheContainer {
     public static void main(String[] args) {
         int[] height = { 1, 8, 6, 2, 5, 4, 8, 3, 7 };
+        // int[] height = { 2, 1 };
         System.out.println(maxArea(height));
     }
 
     static int maxArea(int[] height) {
-        Arrays.sort(height);
-        int max = height[height.length - 1];
-        for (int i = height.length - 1; i > 0; i--) {
-            if (height[i] < max) {
-                max = height[i];
-                break;
-            }
+        int max = -1;
+        for (int i = 0; i < height.length; i++) {
+            
         }
-        return max * max;
+        
+        //O(n^2)
+        // for (int i = 0; i < height.length; i++) {
+        //     for (int j = 0; j <= i; j++) {
+        //         max = Math.max(max, ((i - j) * Math.min(height[i], height[j])));
+        //     }
+        // }
+        return max;
     }
 }
