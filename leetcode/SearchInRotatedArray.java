@@ -2,13 +2,13 @@ package leetcode;
 
 public class SearchInRotatedArray {
     public static void main(String[] args) {
-        int[] arr = { 3,1 };
+        int[] arr = { 1, 1, 3 };
         System.out.println(pivotElementWithDuplicateElementsIndex(arr));
-        System.out.println(pivotElementIndex(arr));
-        // System.out.println(searchIndex(arr, 0));
+        // System.out.println(pivotElementansWithUniqueElementsans(arr));
+
     }
 
-    static boolean searchIndex(int[] arr, int target) {
+    static boolean searchans(int[] arr, int target) {
         int ans = -1;
         int ind = pivotElementWithDuplicateElementsIndex(arr);
         int search1 = binarySearchAscending(0, ind, target, arr);
@@ -22,18 +22,20 @@ public class SearchInRotatedArray {
     }
 
     // this won't work for duplicate values
-    static int pivotElementIndex(int[] arr) {
-        int index = -1;
+    static int pivotElementansWithUniqueElementsIndex(int[] arr) {
+        int ans = -1;
         int start = 0;
         int end = arr.length - 1;
         while (start <= end) {
             int mid = start + (end - start) / 2;
-            if (mid < arr.length - 1 && mid > 0) {
-                if (arr[mid] < arr[mid - 1]) {
-                    index = mid - 1;
+            if (mid < arr.length - 1) {
+                if (arr[mid] > arr[mid + 1]) {
+                    ans = mid;
                     break;
-                } else if (arr[mid] > arr[mid + 1]) {
-                    index = mid;
+                } else if (mid == 0) {
+                    start++;
+                } else if (arr[mid] < arr[mid - 1]) {
+                    ans = mid - 1;
                     break;
                 } else if (arr[start] > arr[mid]) {
                     end = mid - 1;
@@ -41,46 +43,53 @@ public class SearchInRotatedArray {
                     start = mid + 1;
                 }
             } else {
+                ans = mid;
                 break;
             }
 
         }
-        return index;
+        return ans;
     }
 
     // works for duplicate values
     static int pivotElementWithDuplicateElementsIndex(int[] arr) {
-        int index = -1;
+        int ans = -1;
         int start = 0;
         int end = arr.length - 1;
         while (start <= end) {
             int mid = start + (end - start) / 2;
-            if (mid < arr.length - 1 && mid >= 1) {
-                if (arr[mid] < arr[mid - 1]) {
-                    index = mid - 1;
-                    break;
-                } else if (arr[mid] > arr[mid + 1]) {
-                    index = mid;
-                    break;
-                } else if (arr[start] == arr[mid] && arr[mid] == arr[end]) {
+            if (mid < arr.length - 1) {
+                if (arr[mid] > arr[mid + 1]) {
+                    ans = mid;
+                    return ans;
+                } else if (mid == 0) {
+                    start++;
+                } else if (arr[mid] < arr[mid - 1]) {
+                    return mid - 1;
+                } else if (arr[start] > arr[mid]) {
+                    end = mid - 1;
+                } else if (arr[start] < arr[mid]) {
+                    start = mid + 1;
+                } else {
                     if (arr[start] > arr[start + 1]) {
                         return start;
                     }
-                    start = start + 1;
-                    if (arr[end] < arr[end - 1]) {
-                        return end - 1;
-                    }
-                    end = end - 1;
-                } else if (arr[start] > arr[mid]) {
-                    end = mid - 1;
-                } else if (arr[start] <= arr[mid]) {
-                    start = mid + 1;
+                    start++;
                 }
+                /*
+                 * else if(arr[start]<arr[mid] || (arr[start] == arr [mid] && arr[mid] >
+                 * arr[end])){
+                 * start = mid+1;
+                 * }else{
+                 * end = mid-1;
+                 * }
+                 */
             } else {
-                return mid;
+                ans = mid;
+                break;
             }
         }
-        return index;
+        return ans;
     }
 
     static int binarySearchAscending(int start, int end, int target, int[] arr) {
