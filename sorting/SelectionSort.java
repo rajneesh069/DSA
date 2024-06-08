@@ -1,10 +1,13 @@
-package bubbleSort;
+package sorting;
 
 import java.util.Arrays;
 
+//O(n^2)
+//not a stable sorting algo
+
 public class SelectionSort {
     public static void main(String[] args) {
-        int[] arr = { 4, 5, 1, 3, 2 };
+        int[] arr = { -3, -99, 0, 1, 56, 76 };
         System.out.println(Arrays.toString(selectionSort(arr)));
     }
 
