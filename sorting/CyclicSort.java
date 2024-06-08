@@ -2,9 +2,7 @@ package sorting;
 
 import java.util.Arrays;
 
-import arrays.swap;
-
-public class CycleSort {
+public class CyclicSort {
 
     /*
      * when numbers are given in a range from 1 to n(unsorted ofc) then use cyclic
