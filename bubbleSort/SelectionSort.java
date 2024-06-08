@@ -2,7 +2,6 @@ package bubbleSort;
 
 import java.util.Arrays;
 
-
 public class SelectionSort {
     public static void main(String[] args) {
         int[] arr = { 4, 5, 1, 3, 2 };
@@ -19,10 +18,10 @@ public class SelectionSort {
         return max;
     }
 
-    static void swap(int[] arr, int ind1, int ind2) {
-        int temp = arr[ind2];
-        arr[ind2] = arr[ind1];
-        arr[ind1] = temp;
+    static void swap(int[] arr, int first, int second) {
+        int temp = arr[second];
+        arr[second] = arr[first];
+        arr[first] = temp;
     }
 
     static int[] selectionSort(int[] arr) {
