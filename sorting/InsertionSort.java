@@ -21,8 +21,10 @@ public class InsertionSort {
     static int[] insertionSort(int[] arr) {
         for (int i = 0; i < arr.length - 1; i++) {
             for (int j = i + 1; j > 0; j--) {
-                /* keep in mind we are traversing the subarrays from opposite side hence
-                everything will be sorted at once */
+                /*
+                 * keep in mind we are traversing the subarrays from opposite side hence
+                 * everything will be sorted at once
+                 */
                 if (arr[j] < arr[j - 1]) {
                     swap(arr, j - 1, j);
                 } else {
