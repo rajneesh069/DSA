@@ -13,7 +13,7 @@ public class SelectionSort {
 
     static int getMaxIndex(int[] arr, int end) {
         int max = 0;
-        for (int j = 0; j < end; j++) {
+        for (int j = 0; j <= end; j++) {
             if (arr[max] < arr[j]) {
                 max = j;
             }
@@ -29,9 +29,9 @@ public class SelectionSort {
 
     static int[] selectionSort(int[] arr) {
         for (int i = 0; i < arr.length; i++) {
-            int end = arr.length - i;
+            int end = arr.length - i - 1;
             int max = getMaxIndex(arr, end);
-            swap(arr, max, end - 1);
+            swap(arr, max, end);
         }
         return arr;
     }
