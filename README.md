@@ -25,20 +25,19 @@ After execution of `someFunction()`, it'll return(5 here) to that line(`int a = 
 
 1. Identify if problem could be broken down into smaller problems
 2. Write recurrence relation if needed
-3. Draw thre recursion tree
+3. Draw the recursion tree
 4. About the tree :
    a. See the flow of the functions, and how they are called.
-   b. Identify and focus on left tree calls (firstly lest side will be evaluated (in fibo(n-1)+fibo(n-2), fibo(n-1) will be called first))
-   and the left tree calls
-   c. Until the left tree call completes right side won't be called
+   b. Identify and focus on left tree calls (firstly left side will be evaluated (in fibo(n-1)+fibo(n-2), fibo(n-1) will be called first)) and right tree calls
+   c. Until the left tree call completes, right side won't be called
    d. See how the values are returned 'at each step!'
-   e. See where the function call comes out of.
+   e. See where the function call comes out.
 
 #### Types of recurrence relation
 
 1. Linear (fibo(n-1) + fibo(n-2))
 2. Divide and Conquer (Binary Search)
-   f(n) = O(1) + f(n/2) -> Recurrence Relation for Binary Search, O(1) denotes some constant time comparison/operation and since the search space is reduced by a factor(of 2 here), which is very fast.
+   f(n) = O(1) + f(n/2) -> Recurrence Relation for Binary Search, O(1) denotes some constant time comparison/operation and since the search space is reduced by a factor(of 2 here), it is very fast.
 
 #### Variables in Recursion :
 
@@ -56,7 +55,8 @@ public class BinarySearch{
 
     }
 
-    static int search(int[] arr, int target){ //we'll return the index, so return type is int.
+    //we'll return the index, so return type is int.
+    static int search(int[] arr, int target){
     }
 }
 
@@ -64,11 +64,11 @@ public class BinarySearch{
 
 In the above code snippet we can clearly see that return type is easy to figure out. Now we'll try to think about the arguments, i.e., what arguments to pass and what should be their data type.
 
-Now in the body of the function we'll need three varibles of `int` type which are : `start`, `end` and `mid`, and the next function call will require the `start` and `end` of the previous call hence we'll need to pass them in the arguments of the function (`mid` could be evaluated).
+Now in the body of the function we'll need three varibles of `int` type which are : `start`, `end` and `mid`, and the next function call will require the `start` and `end` of the previous call hence we'll need to pass them in the arguments of the function (`mid` would be evaluated in the body itself so needs not to be passed).
 
 `Whatever you'll put in the arguments is going to go in the next function call, remember that!`
 
-And since we want to divide the array into the half(see the recurrence relation) then obviosuly we'll need the previous `end` and `start` and the only way to get it is : through arguments!
+And since we want to divide the array in half(see the recurrence relation) then obviously we'll need the previous `end` and `start` and the only way to get it is : through arguments!
 
 `mid` here is the variable which will be in the body of the function because it will be specific(calculated for each function based on `start` and `end`) for each function.
 
@@ -126,7 +126,7 @@ public class BinarySearch{
         }else if(target < arr[mid]){
             end = mid-1;
            return search(arr, target, start, end);
-           //function call made with updated end variable and addded the return statement
+           //function call made with updated end variable and added the return statement
         }else{
             start = mid+1;
            return  search(arr, target, start, end);
