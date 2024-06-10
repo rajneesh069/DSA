@@ -1,5 +1,42 @@
 # Notes
 
+## Binary Search tid-bits
+
+1. You find target when start = end = target.
+2. Create an `ans` variable to store the potential answer.
+3. To find the last occurence of a repeated element in a sorted array, use `start = mid+1` in the `else` statement to break the loop and make sure you're storing the answer in that only.
+4. To find the last occurence, use `end = mid-1` to break the loop.
+
+#### Following example illustrates those useful insights :
+
+```java
+    public class BSTidBits{
+        public static void main(String[] args){
+
+        }
+
+        static int binarySearch(int[] arr, int target){
+            int ans = -1;
+            int start = 0;
+            int end = arr.length-1;
+            while(start<=end){
+                int mid = start + (end - start)/2;
+                if(arr[mid] < target){
+                    start = mid+1;
+                }else if(arr[mid] > target){
+                    end = mid-1;
+                }else{
+                    start = mid+1;
+                    //gives the last occurence of the repeated element, and of course
+                    //helps in breaking the loop as start will exceed end.
+                    ans = mid;
+                }
+            }
+        }
+    }
+
+```
+
 ## Recursion
 
 ### Do not overthink. Overthink about recursion after solving the problem.
@@ -137,3 +174,38 @@ public class BinarySearch{
 }
 
 ```
+
+## Time Complexity
+
+### Time Complexity != Time Taken
+
+#### It is actually how (in what fashion) the time increases as the input size increases.
+
+1. Constants and less power terms are ignored while writing the function in the big O notation. We are not interested in actual time, but how does it grow when `dataset is large`.
+2. Always look for worst case time complexity.
+
+#### General trend : O(1) < O(log(n)) < O(n) < O(n^2) < O(2^n)
+
+Other time complexities like `nlog(n)` exist too, we'll have to figure out the trend accordingly if asked to compare.
+Exponential time complexity is the worst as even for the small amount of data it will take a lot of time.
+
+#### Big-O notation gives the upper bound, i.e., the time complexity won't exceed the function inside it.
+
+For example, O(N^3) means that the algorithm could have time complexities of the order of 1, N^2, NlogN, logN but shouldn't exceed N^3.
+
+f(N) = O(g(N))
+lim (N -> inf) f(N)/g(N) < inf
+
+#### Big-Omega gives the lower bound, i.e., the time complexity should be atleast the function inside it.
+
+Opposite of Big-O
+
+f(N) = O(g(N))
+lim (N -> inf) f(N)/g(N) > 0
+
+#### Theta Notation gives the upper and lower bound both, like if the upper and lower bound both are N^2 for an alogrithm then Theta(N^2) will represent that.
+
+Theta(N^2)
+inf > lim (N -> inf) f(N)/g(N) > 0
+
+##### Little O Notation gives the loose upper bound, not strict like Big O.
