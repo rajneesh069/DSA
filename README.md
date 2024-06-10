@@ -23,7 +23,7 @@ public class Main{
 
 After execution of `someFunction()`, it'll return(5 here) to that line(`int a = someFunction()`) defined above and ans will be assigned the return value of `someFunction()`.
 
-1. Identify if problem could be breoken down into smaller problems
+1. Identify if problem could be broken down into smaller problems
 2. Write recurrence relation if needed
 3. Draw thre recursion tree
 4. About the tree :
