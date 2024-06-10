@@ -12,7 +12,8 @@ public class Main {
             return;
         }
         System.out.println("n: " + n);
-        message(n + 1);
+        message(n + 1); // since this is the last line which is the function call, this is tail
+                        // recursion
     }
 
 }
