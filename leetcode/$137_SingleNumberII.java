@@ -1,6 +1,6 @@
-package bitwiseManipulation;
+package leetcode;
 
-public class FindNonRepeatingNumberGeneral {
+public class $137_SingleNumberII {
     public static void main(String[] args) {
         int[] arr = { -2, -2, 1, 1, 4, 1, 4, 4, -4, -2 };
         // int[] arr = { 6, 6, 6, 4, 4, 4, 3 };
