@@ -241,5 +241,24 @@ For binary search : a1 = 1, b1 = 1/2, e1(x) = 0, g(x) = c
 
 ## Bit Manipulation Tid bits
 
-#### If you do '&' operation with 1, then the bits remain same.
-#### 
+### AND
+
+1. If you do '&' operation with 1, then the bits remain same.
+   1 & a = a
+
+### XOR
+
+1. If you do '^' operation with 1, it gives the complement of that number.
+2. a ^ a = 0
+3. a ^ 0 = a
+
+### Left shift operator
+
+1. a<<1 = a*2 -> a << b = a * 2^b(generally true unless there's an overflow). Multiplies by 2.
+   Add 0 when you need an extra bit
+   Eg. 1010 << 1 = 10100 which is 20 in decimal.
+
+### Right shift operator
+
+1. a>>b = a/(2^b), divides by 2.(always true)
+   1010 >> 1 = 0101, which is 5 in decimal. Leading zeroes are ignored in every number system.
