@@ -209,3 +209,37 @@ Theta(N^2)
 inf > lim (N -> inf) f(N)/g(N) > 0
 
 ##### Little O Notation gives the loose upper bound, not strict like Big O.
+
+Little O is the less than and Big O is less than or equal to.
+
+#### Little omega gives the loose lower bound, not strict like Big Omega.
+
+Little omega is less than and Big Omega is less than or equal to.
+
+## Space Complexity
+
+It is the `input` space and the `auxiliary` space. In interviews we can't do anything about the input space hence we care about `auxiliary` space.
+
+### Recursive Algorithms
+
+Space complexity = Height of the tree, and remember that the interlinked function calls will be in the stack at the same time NOT the unlinked ones!
+
+For fibonacci, the space complexity is O(n).
+
+Types of Recurrence relations :
+
+1. Linear
+2. Divide and Conquer
+
+Recursions have recurrence relations, i.e., can be represented in the form of an equation.
+
+#### Divide and Conquer Recurrence Relation :
+
+##### Form : T(x) = a1*T(b1*x+e1*(x)) + a2*T(b2*x+e2*(x)) +....+ak*T(bk*x+ek\*(x)) + g(x);
+
+For binary search : a1 = 1, b1 = 1/2, e1(x) = 0, g(x) = c
+
+## Bit Manipulation Tid bits
+
+#### If you do '&' operation with 1, then the bits remain same.
+#### 
