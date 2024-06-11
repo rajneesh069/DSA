@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 public class CyclicSort {
     public static void main(String[] args) {
-        int[] arr = { 3, -1, 1, 2, 0, 4, -2, -10 };
+        int[] arr = { 3, 4, -1, 1, }; // it gives wrong answer for this
         System.out.println((sort(arr)));
     }
 
@@ -33,7 +33,7 @@ public class CyclicSort {
             }
             System.out.println(Arrays.toString(arr));
             for (int j = 0; j < arr.length; j++) {
-                if (arr[j] != j + 1) {
+                if (arr[j] > 0 && arr[j] != j + 1) {
                     return j + 1;
                 }
             }

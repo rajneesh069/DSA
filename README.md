@@ -262,3 +262,22 @@ For binary search : a1 = 1, b1 = 1/2, e1(x) = 0, g(x) = c
 
 1. a>>b = a/(2^b), divides by 2.(always true)
    1010 >> 1 = 0101, which is 5 in decimal. Leading zeroes are ignored in every number system.
+
+Examples :
+
+1. Find ith bit in a number
+   Ans. Use masking.
+   110101, find the 3rd bit(from right obviously)
+   110101 & (1<<2) = 1.
+   1 << (n-1) -> and with this value, and here n = 3;
+   110101
+   &000100
+   This will give 1.
+
+2. Set ith bit
+   110101, set the 4th bit.
+   OR it with the proper mask, i.e., (1<<3) OR 110101
+
+3. Reset ith bit
+   110101, reset the 5th bit.
+   AND it with the complement of the mask, i.e., !(1<<4) & 110101
