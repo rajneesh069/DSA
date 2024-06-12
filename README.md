@@ -263,9 +263,10 @@ For binary search : a1 = 1, b1 = 1/2, e1(x) = 0, g(x) = c
 
 ### Left shift operator(<<)
 
-1. a<<1 = a*2 -> a << b = a * 2^b(generally true unless there's an overflow). Multiplies by 2.
-   Add 0 when you need an extra bit
-   Eg. 1010 << 1 = 10100 which is 20 in decimal.
+1. a<<1 = a*2 -> a << b = a * 2^b(generally true unless there's an overflow). Multiplies by 2. Add 0 when you need an extra bit
+
+Eg. 1010 << 1 = 10100 which is 20 in decimal.
+
 2. 1 << (n-1) = 1 \* 2^(n-1)
 
 ### Right shift operator(>>)
@@ -277,17 +278,26 @@ Examples :
 
 1. Find ith bit in a number
    Ans. Use masking.
-   110101, find the 3rd bit(from right obviously)
+
+   "110101, find the 3rd bit(from right obviously)
+
    110101 & (1<<2) = 1.
+
    1 << (n-1) -> and with this value, and here n = 3;
+
    110101
    &000100
+
    This will give 1.
 
 2. Set ith bit
+
    110101, set the 4th bit.
+
    OR it with the proper mask, i.e., (1<<3) OR 110101
 
 3. Reset ith bit
+
    110101, reset the 5th bit.
+
    AND it with the complement of the mask, i.e., !(1<<4) & 110101
