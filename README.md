@@ -257,6 +257,7 @@ For binary search : a1 = 1, b1 = 1/2, e1(x) = 0, g(x) = c
 1. a<<1 = a*2 -> a << b = a * 2^b(generally true unless there's an overflow). Multiplies by 2.
    Add 0 when you need an extra bit
    Eg. 1010 << 1 = 10100 which is 20 in decimal.
+2. 1 << (n-1) = 1 \* 2^(n-1)
 
 ### Right shift operator(>>)
 
