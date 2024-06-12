@@ -241,6 +241,13 @@ For binary search : a1 = 1, b1 = 1/2, e1(x) = 0, g(x) = c
 
 ## Bit Manipulation
 
+1. n & (-n) gives us the position right most set bit.
+2. XOR from 0 to a :
+   1. a % 4 == 0 : a
+   2. a % 4 == 1 : 1
+   3. a % 4 == 2 : a + 1
+   4. a % 4 == 3 : 0
+
 ### AND(&)
 
 1. If you do '&' operation with 1, then the bits remain same.
