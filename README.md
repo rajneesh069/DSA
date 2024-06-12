@@ -263,16 +263,22 @@ For binary search : a1 = 1, b1 = 1/2, e1(x) = 0, g(x) = c
 
 ### Left shift operator(<<)
 
-1. a<<1 = a*2 -> a << b = a * 2^b(generally true unless there's an overflow). Multiplies by 2. Add 0 when you need an extra bit
+1. a<<1 = a*2 -> a << b = a * 2^b(generally true unless there's an overflow). 
 
-Eg. 1010 << 1 = 10100 which is 20 in decimal.
+    Multiplies by 2. 
+
+    Add 0 when you need an extra bit
+
+    Eg. 1010 << 1 = 10100 which is 20 in decimal.
 
 2. 1 << (n-1) = 1 \* 2^(n-1)
 
 ### Right shift operator(>>)
 
 1. a>>b = a/(2^b), divides by 2.(always true)
-   1010 >> 1 = 0101, which is 5 in decimal. Leading zeroes are ignored in every number system.
+   1010 >> 1 = 0101, which is 5 in decimal. 
+   
+   Leading zeroes are ignored in every number system.
 
 Examples :
 
