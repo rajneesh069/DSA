@@ -71,7 +71,7 @@ After execution of `someFunction()`, it'll return(5 here) to that line(`int a = 
    c. Until the left tree call completes, right side won't be called.
 
    d. See how the values are returned 'at each step!'
-   
+
    e. See where the function call comes out.
 
 #### Types of recurrence relation
@@ -267,21 +267,21 @@ For binary search : a1 = 1, b1 = 1/2, e1(x) = 0, g(x) = c
 
 ### Left shift operator(<<)
 
-1. a<<1 = a*2 -> a << b = a * 2^b(generally true unless there's an overflow). 
+1. a<<1 = a*2 -> a << b = a * 2^b(generally true unless there's an overflow).
 
-    Multiplies by 2. 
+   Multiplies by 2.
 
-    Add 0 when you need an extra bit
+   Add 0 when you need an extra bit
 
-    Eg. 1010 << 1 = 10100 which is 20 in decimal.
+   Eg. 1010 << 1 = 10100 which is 20 in decimal.
 
 2. 1 << (n-1) = 1 \* 2^(n-1)
 
 ### Right shift operator(>>)
 
 1. a>>b = a/(2^b), divides by 2.(always true)
-   1010 >> 1 = 0101, which is 5 in decimal. 
-   
+   1010 >> 1 = 0101, which is 5 in decimal.
+
    Leading zeroes are ignored in every number system.
 
 Examples :
@@ -311,3 +311,5 @@ Examples :
    110101, reset the 5th bit.
 
    AND it with the complement of the mask, i.e., !(1<<4) & 110101
+
+#### Time complexity of Sieve Of Eratostheneses = O(N\*log(logN))
