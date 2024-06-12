@@ -65,9 +65,13 @@ After execution of `someFunction()`, it'll return(5 here) to that line(`int a = 
 3. Draw the recursion tree
 4. About the tree :
    a. See the flow of the functions, and how they are called.
-   b. Identify and focus on left tree calls (firstly left side will be evaluated (in fibo(n-1)+fibo(n-2), fibo(n-1) will be called first)) and right tree calls
-   c. Until the left tree call completes, right side won't be called
+
+   b. Identify and focus on left tree calls (firstly left side will be evaluated (in fibo(n-1)+fibo(n-2), fibo(n-1) will be called first)) and right tree calls.
+
+   c. Until the left tree call completes, right side won't be called.
+
    d. See how the values are returned 'at each step!'
+   
    e. See where the function call comes out.
 
 #### Types of recurrence relation
