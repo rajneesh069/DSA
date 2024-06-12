@@ -248,6 +248,7 @@ For binary search : a1 = 1, b1 = 1/2, e1(x) = 0, g(x) = c
    3. a % 4 == 2 : a + 1
    4. a % 4 == 3 : 0
 3. bit ^ 1 = flipped bit
+4. To find ith set bit, do 1<<(i-1) : This is masking and is used at many places.
 
 ### AND(&)
 
