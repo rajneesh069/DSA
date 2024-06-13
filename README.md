@@ -1,5 +1,11 @@
 # Notes
 
+## !!!Some important things!!!
+
+### 1. `char to int conversion : char - '0'`
+
+### 2. number of digits in a number(say, a) = (int)(Math.log(a)) + 1
+
 ## Binary Search tid-bits
 
 1. You find target when start = end = target.
@@ -245,7 +251,6 @@ For binary search : a1 = 1, b1 = 1/2, e1(x) = 0, g(x) = c
 
 ## Bitwise Operators and Bit Manipulation
 
-0. `char to int conversion : char - '0'`
 1. n & (-n) gives us the position right most set bit.
 2. XOR from 0 to a :
    1. a % 4 == 0 : a
