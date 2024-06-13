@@ -188,14 +188,14 @@ public class BinarySearch{
 1. Constants and less power terms are ignored while writing the function in the big O notation. We are not interested in actual time, but how does it grow when `dataset is large`.
 2. Always look for worst case time complexity.
 
-#### General trend : O(1) < O(log(n)) < O(n) < O(n^2) < O(2^n)
+#### General trend : O(1) < O(log(n)) < O(n) < O(n<sup>2</sup>) < O(2<sup>n</sup>)
 
 Other time complexities like `nlog(n)` exist too, we'll have to figure out the trend accordingly if asked to compare.
 Exponential time complexity is the worst as even for the small amount of data it will take a lot of time.
 
 #### Big-O notation gives the upper bound, i.e., the time complexity won't exceed the function inside it.
 
-For example, O(N^3) means that the algorithm could have time complexities of the order of 1, N^2, NlogN, logN but shouldn't exceed N^3.
+For example, O(N<sup>3</sup>) means that the algorithm could have time complexities of the order of 1, N<sup>2</sup>, NlogN, logN but shouldn't exceed N<sup>3</sup>.
 
 f(N) = O(g(N))
 lim (N -> inf) f(N)/g(N) < inf
@@ -207,9 +207,9 @@ Opposite of Big-O
 f(N) = O(g(N))
 lim (N -> inf) f(N)/g(N) > 0
 
-#### Theta Notation gives the upper and lower bound both, like if the upper and lower bound both are N^2 for an alogrithm then Theta(N^2) will represent that.
+#### Theta Notation gives the upper and lower bound both, like if the upper and lower bound both are N<sup>2</sup> for an alogrithm then Theta(N<sup>2</sup>) will represent that.
 
-Theta(N^2)
+Theta(N<sup>2</sup>)
 inf > lim (N -> inf) f(N)/g(N) > 0
 
 ##### Little O Notation gives the loose upper bound, not strict like Big O.
@@ -267,7 +267,7 @@ For binary search : a1 = 1, b1 = 1/2, e1(x) = 0, g(x) = c
 
 ### Left shift operator(<<)
 
-1. a<<1 = a*2 -> a << b = a * 2^b(generally true unless there's an overflow).
+1. a<<1 = a*2 -> a << b = a * 2<sup>b</sup>(generally true unless there's an overflow).
 
    Multiplies by 2.
 
@@ -275,11 +275,11 @@ For binary search : a1 = 1, b1 = 1/2, e1(x) = 0, g(x) = c
 
    Eg. 1010 << 1 = 10100 which is 20 in decimal.
 
-2. 1 << (n-1) = 1 \* 2^(n-1)
+2. 1 << (n-1) = 1 \* 2<sup>(n-1)</sup>
 
 ### Right shift operator(>>)
 
-1. a>>b = a/(2^b), divides by 2.(always true)
+1. a>>b = a/(2<sup>b</sup>), divides by 2.(always true)
    1010 >> 1 = 0101, which is 5 in decimal.
 
    Leading zeroes are ignored in every number system.
@@ -313,3 +313,17 @@ Examples :
    AND it with the complement of the mask, i.e., !(1<<4) & 110101
 
 #### Time complexity of Sieve Of Eratostheneses = O(N\*log(logN))
+
+## Modulo Properties
+
+1. (a+b)%m = ((a%m) + (b%m))%m
+2. (a-b)%m = ((a%m) - (b%m)+m)%m
+3. (a\*b)%m = ((a%m)\*(b%m))%m
+4. (a/b)%m = ((a%m)\*((b<sup>-1</sup>)%m))%m
+
+   (b<sup>-1</sup>)%m is known as multiplicative modulo inverse.
+   It also means that `b` and `m` are co-primes.
+
+5. (a%m)%m = a % m
+6. m<sup>x</sup> % m = 0, for all x > 0.
+7. If p is a prime number which is not a divisor of b then ab<sup>p-1</sup>%p = a%p, due to Fermat's little theorem.
