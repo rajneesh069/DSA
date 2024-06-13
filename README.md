@@ -243,7 +243,7 @@ Recursions have recurrence relations, i.e., can be represented in the form of an
 
 For binary search : a1 = 1, b1 = 1/2, e1(x) = 0, g(x) = c
 
-## Bit Manipulation
+## Bitwise Operators and Bit Manipulation
 
 1. n & (-n) gives us the position right most set bit.
 2. XOR from 0 to a :
@@ -286,7 +286,25 @@ For binary search : a1 = 1, b1 = 1/2, e1(x) = 0, g(x) = c
 
 Examples :
 
-1. Find ith bit in a number
+1. a<sup>b</sup> in O(log(b)) time complexity using right shift operator
+
+   ```java
+   // O(log(b)) -> time complexity
+
+    public static int pow(int base, int index) {
+       int ans = 1;
+       while (index != 0) {
+           if ((index & 1) != 0) {
+               ans = ans * base;
+           }
+           base *= base;
+           index = index >> 1;
+       }
+       return ans;
+   }
+   ```
+
+2. Find ith bit in a number
    Ans. Use masking.
 
    "110101, find the 3rd bit(from right obviously)
@@ -300,13 +318,13 @@ Examples :
 
    This will give 1.
 
-2. Set ith bit
+3. Set ith bit
 
    110101, set the 4th bit.
 
    OR it with the proper mask, i.e., (1<<3) OR 110101
 
-3. Reset ith bit
+4. Reset ith bit
 
    110101, reset the 5th bit.
 
