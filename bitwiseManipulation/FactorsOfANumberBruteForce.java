@@ -8,10 +8,11 @@ public class FactorsOfANumberBruteForce {
     }
 
     static void factors(int n) {
-        ArrayList<Integer> list = new ArrayList<Integer>();
-
+        ArrayList<Integer> list = new ArrayList<Integer>(); // to print the bigger factors in ascending order
+        // Time Complexity : O(sqrt(n))
+        // Space Complexity : O(sqrt(n))
         int i = 1;
-        while (i * i <= n) {
+        while (i * i <= n) { // optimization -> check till sqrt(n)
             if (n % i == 0) {
                 if (n / i == i) {
                     System.out.print(i + " ");
