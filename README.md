@@ -327,3 +327,17 @@ Examples :
 5. (a%m)%m = a % m
 6. m<sup>x</sup> % m = 0, for all x > 0.
 7. If p is a prime number which is not a divisor of b then ab<sup>p-1</sup>%p = a%p, due to Fermat's little theorem.
+
+## GCD/HCF
+
+Definition : HCF of 2 numbers(say, a and b) is the `minimum positive` value of the equation `ax+by`, where `x and y are integers`.
+
+Whatever HCF you'll get will be `common`.
+
+So, suppose 3x + 9y = 18, then the GCD of 3 and 9 will be 3 and will come out as `common`, so the equation reduces to x+3y = 6, i.e., 18 is divisible by 3. That gives us the solution to die-hard problem that yes using 3L and 9L bucket we can form 18L of water, because 3 came out as common and gave us an integer so combination of x and y will be there.
+
+For, 2x+4y = 5 however, we can't do it, as 2 will be HCF and come out as common from the equation which won't divide 5 hence no combination of x and y will ever result in 5 as an answer.
+
+If GCD is 1, then you can form any type RHS from the combination of x and y.
+
+### Euclid's algorithm : gcd(a,b) = gcd(rem(b,a),a)
