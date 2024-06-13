@@ -1,6 +1,6 @@
 package bitwiseManipulation;
 
-public class FindLCMOfANumber {
+public class FindLCMOfTwoNumbers {
     public static void main(String[] args) {
         System.out.println(LCM(33, 11));
     }
