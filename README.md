@@ -341,3 +341,9 @@ For, 2x+4y = 5 however, we can't do it, as 2 will be HCF and come out as common 
 If GCD is 1, then you can form any type RHS from the combination of x and y.
 
 ### Euclid's algorithm : gcd(a,b) = gcd(rem(b,a),a)
+
+## LCM
+
+Definition : Minimum number dvisible by both the numbers.
+
+HCF \* LCM = Product of 2 numbers
