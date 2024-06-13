@@ -2,7 +2,7 @@ package recursion;
 
 public class ProductOfDigits {
     public static void main(String[] args) {
-        System.out.println(product(12356));
+        System.out.println(product(55));
     }
 
     static int product(int num) {
