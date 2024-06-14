@@ -2,7 +2,7 @@ package javaPlayground;
 
 public class j1 {
     public static void main(String[] args) {
-        int[] arr = { 2, 2, 1, 2, 2, 2, 2 };
+        int[] arr = { 1, 1, 2 };
         System.out.println(pivotElementIndexAmongNonUniqueElements(arr));
     }
 
@@ -54,11 +54,10 @@ public class j1 {
                 ans = mid - 1;
                 break;
             } else if (arr[start] < arr[mid]) { // I'm on the left
-
                 start = mid + 1;
             } else if (arr[start] == arr[mid] && arr[mid] == arr[end]) {
                 // Ignore the repeating elements
-                if (arr[start] > arr[start + 1]) {
+                if (start < end && arr[start] > arr[start + 1]) {
                     ans = start;
                     break;
                 }
@@ -67,7 +66,6 @@ public class j1 {
             } else if (arr[start] == arr[mid] && arr[mid] != arr[end]) { // I'm on the left
                 start = mid + 1;
             } else {
-
                 end = mid - 1;
             }
         }

@@ -11,7 +11,7 @@ public class CreateTargetArrayInTheGivenOrder {
 
     static int[] createTargetArray(int[] nums, int[] index) {
         ArrayList<Integer> ans = new ArrayList<Integer>();
-        //ans[index[i]] = nums[i];
+        // ans[index[i]] = nums[i];
         for (int i = 0; i < nums.length; i++) {
             int val = nums[i];
             int ind = index[i];
