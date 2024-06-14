@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class BubbleSort {
     public static void main(String[] args) {
-        int[] arr = { 9, 2, 1, -1, 225, 63 };
+        int[] arr = { 4, 3, 2, 1 };
         // arr.length-1 = 2
         // start=0 3,6,7
         // start=1 ++start -> start = 2
@@ -12,8 +12,9 @@ public class BubbleSort {
 
         int start = 0;
         int end = arr.length - 1;
-        sort(arr, start, end);
+        // sort(arr, start, end);
         // loopCode(arr);
+        bubbleSortPatternAnalogy(arr, end, start);
         System.out.println(Arrays.toString(arr));
     }
 
@@ -42,5 +43,18 @@ public class BubbleSort {
             swap(arr, start, start + 1);
         }
         sort(arr, ++start, end);
+    }
+
+    static void bubbleSortPatternAnalogy(int[] arr, int row, int col) {
+        if (row == 0) {
+            return;
+        } else if (col < row) {
+            if (arr[col] > arr[col + 1]) {
+                swap(arr, col + 1, col);
+            }
+            bubbleSortPatternAnalogy(arr, row, col + 1);
+        } else {
+            bubbleSortPatternAnalogy(arr, --row, 0);
+        }
     }
 }
