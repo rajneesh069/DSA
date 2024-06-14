@@ -6,6 +6,25 @@
 
 ### 2. number of digits in a number(say, a) = (int)(Math.log(a)) + 1
 
+3. Linear Search program in which the list has not been passed as an index, it contains a very important concept that the function call returns finally to the place where it wa called:
+
+```java
+static ArrayList<Integer> search(int[] arr, int target, int start) {
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        if (start == arr.length) {
+            return list;
+        }
+        if (arr[start] == target) {
+            list.add(start);
+        }
+
+        ArrayList<Integer> ansFromBelow = search(arr, target, ++start); // very clever line!
+        list.addAll(ansFromBelow);
+
+        return list;
+    }
+```
+
 ## Binary Search tid-bits
 
 1. You find target when start = end = target.
