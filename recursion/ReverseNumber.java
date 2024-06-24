@@ -4,7 +4,6 @@ public class ReverseNumber {
     public static void main(String[] args) {
         StringBuilder ans = new StringBuilder("");
         System.out.println(reverse(1234, ans));
-        // System.out.println(reverse(1234, 0));
         System.out.println(reverse(1258));
     }
 
@@ -27,7 +26,7 @@ public class ReverseNumber {
     // ans = digit + ans * 10;
     // return reverse(num, ans);
     // }
-    
+
     static int reverse(int num) {
         if (num == 0) {
             return 0;
@@ -35,4 +34,5 @@ public class ReverseNumber {
         int digits = (int) (Math.log10(num)) + 1;
         return (int) ((num % 10) * (Math.pow(10, digits - 1))) + reverse(num / 10);
     }
+
 }

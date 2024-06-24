@@ -2,7 +2,7 @@ package recursion;
 
 public class CheckIfArrayIsSorted {
     public static void main(String[] args) {
-        int[] arr = { 1 };
+        int[] arr = { 1, 2, 3 };
         System.out.println(isSorted(arr, 0));
     }
 
@@ -10,6 +10,6 @@ public class CheckIfArrayIsSorted {
         if (start == arr.length - 1) {
             return true;
         }
-        return arr[start] >= arr[start + 1] && isSorted(arr, ++start);
+        return arr[start] <= arr[start + 1] && isSorted(arr, ++start); // ascending order
     }
 }
