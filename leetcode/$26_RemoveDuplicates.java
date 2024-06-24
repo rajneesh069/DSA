@@ -1,6 +1,5 @@
 package leetcode;
 
-import java.util.ArrayList;
 
 public class $26_RemoveDuplicates {
     public static void main(String[] args) {
