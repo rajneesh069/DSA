@@ -6,7 +6,7 @@
 
 ### 2. number of digits in a number(say, a) = (int)(Math.log(a)) + 1
 
-3. Linear Search program in which the list has not been passed as an index, it contains a very important concept that the function call returns finally to the place where it wa called:
+3. Linear Search program in which the list has not been passed as an argument, it contains a very important concept that the function call returns finally to the place where it was called:
 
 ```java
 static ArrayList<Integer> search(int[] arr, int target, int start) {
@@ -30,7 +30,7 @@ static ArrayList<Integer> search(int[] arr, int target, int start) {
 1. You find target when start = end = target.
 2. Create an `ans` variable to store the potential answer.
 3. To find the last occurence of a repeated element in a sorted array, use `start = mid+1` in the `else` statement to break the loop and make sure you're storing the answer in that only.
-4. To find the last occurence, use `end = mid-1` to break the loop.
+4. To find the first occurence, use `end = mid-1` to break the loop.
 
 #### Following example illustrates those useful insights :
 
@@ -85,9 +85,9 @@ public class Main{
 
 After execution of `someFunction()`, it'll return(5 here) to that line(`int a = someFunction()`) defined above and ans will be assigned the return value of `someFunction()`.
 
-1. Identify if problem could be broken down into smaller problems
-2. Write recurrence relation if needed
-3. Draw the recursion tree
+1. Identify if problem could be broken down into smaller problems.
+2. Write recurrence relation if needed.
+3. Draw the recursion tree.
 4. About the tree :
    a. See the flow of the functions, and how they are called.
 
@@ -95,7 +95,7 @@ After execution of `someFunction()`, it'll return(5 here) to that line(`int a = 
 
    c. Until the left tree call completes, right side won't be called.
 
-   d. See how the values are returned 'at each step!'
+   d. See how the values are returned 'at each step'!
 
    e. See where the function call comes out.
 
@@ -130,13 +130,13 @@ public class BinarySearch{
 
 In the above code snippet we can clearly see that return type is easy to figure out. Now we'll try to think about the arguments, i.e., what arguments to pass and what should be their data type.
 
-Now in the body of the function we'll need three varibles of `int` type which are : `start`, `end` and `mid`, and the next function call will require the `start` and `end` of the previous call hence we'll need to pass them in the arguments of the function (`mid` would be evaluated in the body itself so needs not to be passed).
+Now in the body of the function we'll need three varibles of `int` type which are : `start`, `end` and `mid`, and the next function call will require the `start` and `end` of the previous call hence we'll need to pass them in the arguments of the function as well (`mid` would be evaluated in the body itself, so needs not to be passed).
 
 `Whatever you'll put in the arguments is going to go in the next function call, remember that!`
 
 And since we want to divide the array in half(see the recurrence relation) then obviously we'll need the previous `end` and `start` and the only way to get it is : through arguments!
 
-`mid` here is the variable which will be in the body of the function because it will be specific(calculated for each function based on `start` and `end`) for each function.
+`mid` here is the variable which will be in the body of the function because it will be specific(based on `start` and `end`) for each function.
 
 ##### Whichever variable is needed in the future function calls pass them as arguments/parameters of the function and whichever are specific to a function call need to be kept in the body.
 
@@ -195,7 +195,7 @@ public class BinarySearch{
            //function call made with updated end variable and added the return statement
         }else{
             start = mid+1;
-           return  search(arr, target, start, end);
+           return search(arr, target, start, end);
            //function call made with updated start variable and added the return statement
         }
 
@@ -277,7 +277,7 @@ For binary search : a1 = 1, b1 = 1/2, e1(x) = 0, g(x) = c
    3. a % 4 == 2 : a + 1
    4. a % 4 == 3 : 0
 3. bit ^ 1 = flipped bit
-4. To find ith set bit, do 1<<(i-1) : This is masking and is used at many places.
+4. To find ith set bit in 'n', do (1<<(i-1)) & (n) : This is masking and is used at many places.
 
 ### AND(&)
 
@@ -338,7 +338,7 @@ Examples :
 
    1 << (n-1) -> and with this value, and here n = 3;
 
-   110101
+   0110101
    &000100
 
    This will give 1.
