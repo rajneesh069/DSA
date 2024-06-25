@@ -1,4 +1,4 @@
-package recursion;
+package recursion.searching;
 
 import java.util.ArrayList;
 
