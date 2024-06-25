@@ -31,6 +31,11 @@ public class OOP1 {
         System.out.println("mishra.marks: " + mishra.marks);// > 90
         System.out.println("mishra.rollNo: " + mishra.rollNo); // > 25
 
+        Student random;
+        for (int i = 0; i < 1000000; i++) { // simulating a good load on memory so that garbage collection hits
+            random = new Student();
+        }
+
     }
 }
 
@@ -43,7 +48,7 @@ class Student {
     String name;
 
     Student() {
-
+        System.out.println("Object has been created.");
         // calling another constructor from another constructor(in this case, the
         // default one), here 'this' calls the constructor.
 
@@ -62,6 +67,18 @@ class Student {
         this.marks = marks;
         this.name = name;
         this.rollNo = rollNo;
+    }
+
+    // In C++, we have destructors which basically gets exectued when an object is
+    // destroyed and we can execute manual code. In Java, since it's garbage
+    // collected we cannot really call a destructor but can call a finalize method
+    // to tell what to do after Garbage Collection removes the object from Heap
+    // Memory. Garbage collection automatically hits when there is a good load on
+    // heap memory.
+
+    @Override
+    protected void finalize() throws Throwable {
+        System.out.println("Object is getting destroyed.");
     }
 
 }
