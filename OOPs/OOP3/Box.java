@@ -1,5 +1,6 @@
 package OOPs.OOP3;
 
+@SuppressWarnings("unused")
 public class Box {
     double h, w, l;
     double price; // declared just for a use case of super keyword.
