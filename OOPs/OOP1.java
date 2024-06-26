@@ -1,6 +1,7 @@
 package OOPs;
 
 public class OOP1 {
+    @SuppressWarnings("unused")
     public static void main(String[] args) {
         Student rajneesh = new Student(80, 56, "Rajneesh");
         // new keyword instantiates the class, and the Student(80, 56, "Rajneesh") is
@@ -68,6 +69,13 @@ class Student {
         this.name = name;
         this.rollNo = rollNo;
     }
+
+    // Student(int marks, int rollNo, String name) {
+    // marks = marks;
+    // 'this' keyword here helps in distinguishing the local and object variables
+    // this.name = name;
+    // this.rollNo = rollNo;
+    // }
 
     // In C++, we have destructors which basically gets exectued when an object is
     // destroyed and we can execute manual code. In Java, since it's garbage

@@ -5,6 +5,7 @@ import OOPs.OOP2.InnerClasses.Example.InnerExampleClass;
 // A top-level class can't be static because the static keyword is used in the context
 // of nested classes. It indicates that the static class (inner) is independent of
 // the outer class in which it is defined and can be instantiated without an object of the parent class.
+@SuppressWarnings("unused")
 public class InnerClasses {
 
     static class Example {

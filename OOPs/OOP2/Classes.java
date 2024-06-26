@@ -4,6 +4,7 @@ public class Classes {
     // String name;
     // int age;
 
+    @SuppressWarnings("unused")
     public static void main(String[] args) {
         Classes obj1 = new Classes();
         // System.out.println(obj1.age); // > 0

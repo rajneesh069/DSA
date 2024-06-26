@@ -14,7 +14,8 @@ public class SingletonClass {
     }
 
     private static SingletonClass instance; // instance made static because it needs to get called inside a static
-    // method and needs to get checked if it is null or not.
+    // method and needs to get checked if it is null or not. also, so that we
+    // maintain a single instance of this class.
 
     // SingletonClass someObj = new SingletonClass(); -> cannot be done elsewhere,
     // hence object of this class cannot be instantiated.
