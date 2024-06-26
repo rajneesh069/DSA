@@ -6,11 +6,12 @@ public class Human {
     int salary;
     boolean married;
     static long population; // without objects too static variables can be accessed. no need to reference it
-    // by an object.
+    // by an object and they are shared across the instances of the class.
 
     static void message() {
         System.out.println("Hello world");
-        // System.out.println(this.age); // gives error, because message is a 'static' method and since 'this' represents
+        // System.out.println(this.age); // gives error, because message is a 'static'
+        // method and since 'this' represents
         // an object of the class and 'static' methods are independent of objects hence
         // can't be used inside a static method.
     }
@@ -20,7 +21,7 @@ public class Human {
         this.married = married;
         this.name = name;
         this.salary = salary;
-        Human.population += 1;
+        Human.population += 1; // static methods/variables are accessed via the class name itself
     }
 
 }
