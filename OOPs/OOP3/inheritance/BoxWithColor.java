@@ -1,4 +1,4 @@
-package OOPs.OOP3;
+package OOPs.OOP3.inheritance;
 
 //Multi-level inheritance
 //Box -> BoxWithWeight ->  BoxWithColor

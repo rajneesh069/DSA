@@ -1,6 +1,7 @@
-package OOPs.OOP3;
+package OOPs.OOP3.inheritance;
 
-@SuppressWarnings("unused")
+// Multiple and Hybrid inheritance is not supported in Java, it can be implemented using interfacs.
+
 public class Main {
     public static void main(String[] args) {
         Box box1 = new Box();

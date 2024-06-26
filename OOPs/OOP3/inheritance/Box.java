@@ -1,4 +1,4 @@
-package OOPs.OOP3;
+package OOPs.OOP3.inheritance;
 
 @SuppressWarnings("unused")
 public class Box {

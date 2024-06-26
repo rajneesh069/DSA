@@ -1,4 +1,4 @@
-package OOPs.OOP3;
+package OOPs.OOP3.inheritance;
 
 // Child class = Parent class's non-private methods and properties + some extra methods and properties 
 
