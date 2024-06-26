@@ -16,5 +16,8 @@ public class Main {
 
         BoxWithColor box5 = new BoxWithColor("blue");
         System.out.println(box5.color + " " + box5.price);
+
+        BoxWithColor box6 = new BoxWithColor(100.12d, 100, "green");
+        System.out.println(box6.weight + " " + box6.price + " " + box6.color);
     }
 }

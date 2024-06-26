@@ -6,6 +6,12 @@ public class BoxWithWeight extends Box {
     double weight;
     double price;
 
+    BoxWithWeight(double weight, int price) {
+        super(price);
+        this.weight = weight;
+        this.price = price;
+    }
+
     BoxWithWeight() {
         // Box(); // one class cannot call the constructor of any other class,
         // it is not considered a constructor here, rather

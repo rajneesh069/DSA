@@ -3,7 +3,7 @@ package OOPs.OOP3;
 @SuppressWarnings("unused")
 public class Box {
     double h, w, l;
-    double price; // declared just for a use case of super keyword.
+    int price; // declared just for a use case of super keyword.
     private String color;
 
     Box() {
@@ -25,6 +25,10 @@ public class Box {
         this.h = b.h;
         this.w = b.w;
         this.l = b.l;
+    }
+
+    Box(int price) {
+        this.price = price;
     }
 
     Box(double side) { // cube

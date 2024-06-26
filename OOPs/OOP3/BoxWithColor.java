@@ -16,4 +16,9 @@ public class BoxWithColor extends BoxWithWeight {
         this.color = color;
     }
 
+    BoxWithColor(double weight, int price, String color) {
+        super(weight, price);
+        this.color = color;
+    }
+
 }

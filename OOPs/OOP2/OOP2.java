@@ -1,6 +1,6 @@
 package OOPs.OOP2;
-
 //Since Human class is 'public' and in same folder so no need to import it. 
+
 // If it were in a different folder then you'll need to make its properties like name and others public 
 // by adding a public keyword before it so that it could be printed in another file/package like 'rajneesh.name'. 
 
@@ -9,6 +9,7 @@ import static OOPs.example.Message.messageFn; //imported from the example packag
 //Everything is eventually called inside a 'static' method(which is main obviously) and non-static methods/variables
 //need an object's reference to work in 'static' environments.
 
+@SuppressWarnings("unused")
 public class OOP2 {
     public static void main(String[] args) {
         // packages are simply folders!!!
