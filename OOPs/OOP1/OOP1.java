@@ -1,4 +1,4 @@
-package OOPs;
+package OOPs.OOP1;
 
 public class OOP1 {
     @SuppressWarnings("unused")
