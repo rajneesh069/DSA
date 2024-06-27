@@ -17,4 +17,9 @@ public class PetrolEngine implements Engine {
         System.out.println("Petrol Engine Car stop.");
     }
 
+    @Override
+    public void type(String type) {
+        System.out.printf("Type : %s Engine", type);
+    }
+
 }

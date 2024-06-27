@@ -21,4 +21,9 @@ public class Car implements Engine, Brakes, MediaPlayer {
         System.out.println("Car accelerated.");
     }
 
+    @Override
+    public void type(String type) {
+        System.out.println("Obsolete");
+    }
+
 }

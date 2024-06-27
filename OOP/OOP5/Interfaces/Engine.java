@@ -8,4 +8,6 @@ public interface Engine {
     void stop();
 
     void acc();
+
+    void type(String type);
 }
