@@ -14,7 +14,7 @@ package OOPs.OOP3.polymorphism;
 
 // Overriding depends on objects, and static doesn't hence can't be overridden
 // Static methods can be inherited, but can't be overridden because they are independent of objects.
-// If you put final keyword before a class name it won't be inherited and implicitly all the methods will be marked as final too.
+// If you put final keyword before a class name it won't be inherited.
 // 'final' methods(of the parent class) cannot be overridden.
 
 public class Main {
