@@ -1,4 +1,4 @@
-package recursion.stringsQuestions;
+package recursion.subsequencesAndSubsets;
 
 public class RemoveAString {
     public static void main(String[] args) {

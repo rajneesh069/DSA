@@ -1,4 +1,4 @@
-package recursion.stringsQuestions;
+package recursion.subsequencesAndSubsets;
 
 import java.util.ArrayList;
 
