@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class LinearSearch2 {
     public static void main(String[] args) {
-        int[] arr = { 1, 2, 69, 3 };
+        int[] arr = { 1, 2, 69, 3, 69, 69 };
         int target = 69;
         int start = 0;
         System.out.println(search(arr, target, start));
