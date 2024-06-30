@@ -4,9 +4,10 @@ import java.util.ArrayList;
 
 public class Permutations {
     public static void main(String[] args) {
-        String p = "", up = "abc";
+        String p = "", up = "abcd";
         // permutations(p, up);
-        System.out.println(permutationsArrayList(p, up));
+        // System.out.println(permutationsArrayList(p, up));
+        System.out.println(permutationsCount(p, up));
     }
 
     static void permutations(String p, String up) {
@@ -36,6 +37,22 @@ public class Permutations {
             ans.addAll(temp);
         }
         return ans;
+
+    }
+
+    static int permutationsCount(String current, String s) {
+        int count = 0;
+        if (s.isEmpty()) {
+            count++;
+            return count;
+        }
+
+        for (int i = 0; i < current.length() + 1; i++) {
+            int prevCount = permutationsCount(
+                    current.substring(0, i) + s.charAt(0) + current.substring(i, current.length()), s.substring(1));
+            count += prevCount;
+        }
+        return count;
 
     }
 }
