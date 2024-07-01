@@ -1,5 +1,6 @@
 package javaPlayground;
 
+@SuppressWarnings("unused")
 public class test {
 
     public test() {

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 //They are a single line functions and generally don't have names.
 //They enable functional features in Java.
 
+@SuppressWarnings("unused")
 public class Main {
     public static void main(String[] args) {
 
