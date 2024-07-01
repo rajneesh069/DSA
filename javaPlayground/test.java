@@ -1,11 +1,18 @@
 package javaPlayground;
 
 public class test {
-    public static void main(String[] args) {
-        System.out.println(fibo(5));
+
+    public test() {
+
     }
 
-    static int fibo(int n) {
-        return (int) ((Math.pow((1 + Math.sqrt(5)) / 2, n)) / Math.sqrt(5));
+    private class testClass {
+        public int a = 10;
+    }
+
+    public static void main(String[] args) {
+        test obj1 = new test();
+        testClass obj = obj1.new testClass();
+        int b = obj.a;
     }
 }

@@ -3,7 +3,7 @@ package OOP.OOP2;
 
 import static OOP.example.Message.messageFn;
 
-//Everything is eventually called inside a 'static' method(which is main obviously) and non-static methods/variables
+//Everything is eventually called inside a 'static' method(which is main obviously) and non-static methods/variables/things
 //need an object's reference to work in 'static' environments.
 
 @SuppressWarnings("unused")
