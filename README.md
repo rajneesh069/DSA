@@ -391,9 +391,9 @@ Definition : Minimum number dvisible by both the numbers.
 
 HCF \* LCM = Product of 2 numbers
 
-## Binary Trees
+## Trees
 
-1. It consists of nodes.
+1. It consists of nodes. In case of binary they are atmost 2 in number.
 2. Nodes &rarr; root , internal, leaf.
 3. Leaf : They have no children.
 4. Root : Topmost node is root.
@@ -404,8 +404,6 @@ HCF \* LCM = Product of 2 numbers
 #### `Time complexity while inserting, removing or traversing a binary tree(balanced) is O(log(N)).`
 
 ```java
-package binaryTrees;
-
 import java.util.Scanner;
 
 public class BinaryTree {
@@ -465,7 +463,7 @@ public class BinaryTree {
 
 ```
 
-### &rarr; Binary Search Trees
+## &rarr; Binary Search Trees
 
 - The left child node always contains value less than the parent node.
 - The right child node always contains value greater than the parent node.
@@ -480,8 +478,6 @@ public class BinaryTree {
 #### Because, in unbalanced the time complexity of worst case rises upto O(N).
 
 ```java
-package binaryTrees;
-
 public class BST {
     public BST() {
 
@@ -638,8 +634,6 @@ private Node rightRotate(Node p) {
 - Case 4 : Right - Left : Right rotate the child node(c) of the unbalanced node(p) and then left rotate the unbalanced node(p).
 
 ```java
-package binaryTrees;
-
 public class AVL {
     private class Node {
         private int value;
@@ -759,5 +753,4 @@ public class AVL {
         display("Right child of " + node.value + " is : ", node.right);
     }
 }
-
 ```
