@@ -6,10 +6,14 @@ public class Main {
         // Scanner scanner = new Scanner(System.in);
         // tree.populate(scanner);
         // tree.display();
-        int[] nums = { 1, 2, 3, 4, 5 };
+        int[] arr = { 1, 2, 3, 4, 5 };
 
-        BST bst = new BST();
-        bst.populateSorted(nums, 0, nums.length);
-        bst.display();
+        // BST bst = new BST();
+        // bst.populateSorted(nums, 0, nums.length);
+        // bst.display();
+
+        AVL tree = new AVL();
+        tree.populate(arr);
+        tree.display();
     }
 }
