@@ -2,11 +2,13 @@
 
 ## !!!Some important things!!!
 
-### 1. `char to int conversion : char - '0'`
+#### - `char to int conversion : char - '0'`
 
-### 2. number of digits in a number(say, a) = (int)(Math.log(a)) + 1
+#### - `number of digits in a number(say, a) = (int)(Math.log(a)) + 1`
 
-3. Linear Search program in which the list has not been passed as an argument, it contains a very important concept that the function call returns finally to the place where it was called:
+### Linear Search Recursion
+
+Linear Search program in which the list has not been passed as an argument, it contains a very important concept that the function call returns finally to the place where it was called:
 
 ```java
 static ArrayList<Integer> search(int[] arr, int target, int start) {
@@ -31,6 +33,7 @@ static ArrayList<Integer> search(int[] arr, int target, int start) {
 2. Create an `ans` variable to store the potential answer.
 3. To find the last occurence of a repeated element in a sorted array, use `start = mid+1` in the `else` statement to break the loop and make sure you're storing the answer in that only.
 4. To find the first occurence, use `end = mid-1` to break the loop.
+5. If asked for searching in a sorted array(or `if sorted array mentioned`) then `think of Binary Search.` Or the time complexity of O(log(N)) is required.
 
 #### Following example illustrates those useful insights :
 
@@ -62,11 +65,16 @@ static ArrayList<Integer> search(int[] arr, int target, int start) {
 
 ```
 
+### Cyclic sort
+
+1. Array contains elements from (1,n) or (0, n) then you can think of cyclic sort.
+2. Could be the case that some element is missing in between the range, then also cyclic sort could be applied.
+
 ## Recursion
 
 ### Do not overthink. Overthink about recursion after solving the problem.
 
-##### Function calls return finally to the place they were called.
+#### Function calls return finally to the place they were called.
 
 ##### !!! Important !!!
 
@@ -83,12 +91,13 @@ public class Main{
 }
 ```
 
-After execution of `someFunction()`, it'll return(5 here) to that line(`int a = someFunction()`) defined above and ans will be assigned the return value of `someFunction()`.
+After execution of `someFunction()`, it'll return(69 here) to that line(`int a = someFunction()`) defined above and ans will be assigned the return value of `someFunction()`.
 
 1. Identify if problem could be broken down into smaller problems.
 2. Write recurrence relation if needed.
 3. Draw the recursion tree.
 4. About the tree :
+
    a. See the flow of the functions, and how they are called.
 
    b. Identify and focus on left tree calls (firstly left side will be evaluated (in fibo(n-1)+fibo(n-2), fibo(n-1) will be called first)) and right tree calls.
@@ -101,15 +110,15 @@ After execution of `someFunction()`, it'll return(5 here) to that line(`int a = 
 
 #### Types of recurrence relation
 
-1. Linear (fibo(n-1) + fibo(n-2))
-2. Divide and Conquer (Binary Search)
+1. Linear: (fibo(n-1) + fibo(n-2))
+2. Divide and Conquer (e.g. Binary Search) :
    f(n) = O(1) + f(n/2) -> Recurrence Relation for Binary Search, O(1) denotes some constant time comparison/operation and since the search space is reduced by a factor(of 2 here), it is very fast.
 
 #### Variables in Recursion :
 
-1. Arguments -> think about it
+1. Arguments (updated value is passed from previous function to the current function) -> think about it
 2. Return type -> easy to figure out
-3. Body of the function -> think about it
+3. Body of the function (variable's value doesn't persist and is re-calculated each time) -> think about it
 
 Here's the example of Binary Search :
 
@@ -138,7 +147,7 @@ And since we want to divide the array in half(see the recurrence relation) then 
 
 `mid` here is the variable which will be in the body of the function because it will be specific(based on `start` and `end`) for each function.
 
-##### Whichever variable is needed in the future function calls pass them as arguments/parameters of the function and whichever are specific to a function call need to be kept in the body.
+#### Whichever variable is needed in the future function calls pass them as arguments/parameters of the function and whichever are specific to a function call should be kept in the body.
 
 ```java
 public class BinarySearch{
@@ -168,9 +177,9 @@ public class BinarySearch{
 
 ```
 
-##### But there's an error in the above code, can you spot it?
+#### But there's an error in the above code, can you spot it?
 
-#### It is that whenever we call the function we don't return anything and whenever you have a return type always return the function.
+### It is that whenever we call the function we don't return anything and `whenever you have a return type always return the function`.
 
 ##### Final code :
 
@@ -210,13 +219,13 @@ public class BinarySearch{
 
 #### It is actually how (in what fashion) the time increases as the input size increases.
 
-1. Constants and less power terms are ignored while writing the function in the big O notation. We are not interested in actual time, but how does it grow when `dataset is large`.
-2. Always look for worst case time complexity.
+1. Constants and less power terms are ignored(only degree terms are kept) while writing the function in the big O notation. We are not interested in actual time, but how does it grow when `dataset increases and becomes large`.
+2. Always look for the worst case time complexity.
 
 #### General trend : O(1) < O(log(n)) < O(n) < O(n<sup>2</sup>) < O(2<sup>n</sup>)
 
 Other time complexities like `nlog(n)` exist too, we'll have to figure out the trend accordingly if asked to compare.
-Exponential time complexity is the worst as even for the small amount of data it will take a lot of time.
+Exponential time complexity is the worst as even for the small amount of data the time grows exponentially.
 
 #### Big-O notation gives the upper bound, i.e., the time complexity won't exceed the function inside it.
 
@@ -251,7 +260,7 @@ It is the `input` space and the `auxiliary` space. In interviews we can't do any
 
 ### Recursive Algorithms
 
-Space complexity = Height of the tree, and remember that the interlinked function calls will be in the stack at the same time NOT the unlinked ones!
+Space complexity = Height of the recursion tree, and remember that the interlinked function calls will be in the stack at the same time and NOT the unlinked ones!
 
 For fibonacci, the space complexity is O(n).
 
@@ -393,7 +402,7 @@ HCF \* LCM = Product of 2 numbers
 
 ## Trees
 
-1. It consists of nodes. In case of binary they are atmost 2 in number.
+1. It consists of nodes. In case of a binary tree, they are atmost 2 in number.
 2. Nodes &rarr; root , internal, leaf.
 3. Leaf : They have no children.
 4. Root : Topmost node is root.
@@ -754,3 +763,13 @@ public class AVL {
     }
 }
 ```
+
+### Segment Trees : Performs query(sum, average, product, max, min, etc.) in a range(in an array).
+
+- Not a BST.
+- Disadvantage : Extra Space.
+- Time Complexity : O(log(n))
+- It is a full binary tree, every node has 2 children except leaf nodes.
+  Leaf nodes = n-1. Internal Nodes = n. Total Nodes = 2n-1.
+
+#### Update function is also of O(log(n)) time.
