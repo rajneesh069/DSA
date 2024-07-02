@@ -6,10 +6,10 @@ public class Main {
         // Scanner scanner = new Scanner(System.in);
         // tree.populate(scanner);
         // tree.display();
-        int[] nums = { 5, 7, 2, 9, 3, 22 };
+        int[] nums = { 1, 2, 3, 4, 5 };
 
         BST bst = new BST();
-        bst.populate(nums);
+        bst.populateSorted(nums, 0, nums.length);
         bst.display();
     }
 }
