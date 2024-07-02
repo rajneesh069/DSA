@@ -390,3 +390,374 @@ If GCD is 1, then you can form any type RHS from the combination of x and y.
 Definition : Minimum number dvisible by both the numbers.
 
 HCF \* LCM = Product of 2 numbers
+
+## Binary Trees
+
+1. It consists of nodes.
+2. Nodes &rarr; root , internal, leaf.
+3. Leaf : They have no children.
+4. Root : Topmost node is root.
+5. Internal : Nodes with atleast 1 child.
+6. `Height of a tree =  Max(height(leftSubtree), height(rightSubtree)).`
+7. `Height of a node is Max number of edges from that node to the leaf node.`
+
+#### `Time complexity while inserting, removing or traversing a binary tree(balanced) is O(log(N)).`
+
+```java
+package binaryTrees;
+
+import java.util.Scanner;
+
+public class BinaryTree {
+    private Node root; // intially null
+
+    private static class Node {
+        int value;
+        Node left;
+        Node right;
+
+        public Node(int value) {
+            this.value = value;
+        }
+
+    }
+
+    public void populate(Scanner scanner) {
+        System.out.println("Input the value of root node: ");
+        root = new Node(scanner.nextInt());
+        populate(scanner, root);
+    }
+
+    private void populate(Scanner scanner, Node node) {
+        System.out.print("Do you want to add a left node to  " + node.value + ": ");
+        boolean left = scanner.nextBoolean();
+        if (left) {
+            System.out.print("Enter the value of the left node: ");
+            int val = scanner.nextInt();
+            node.left = new Node(val);
+            populate(scanner, node.left);
+        }
+
+        System.out.print("Do you want to add a right node to " + node.value + ": ");
+        boolean right = scanner.nextBoolean();
+        if (right) {
+            System.out.print("Enter the value of the right node: ");
+            int val = scanner.nextInt();
+            node.right = new Node(val);
+            populate(scanner, node.right);
+        }
+    }
+
+    public void display() {
+        display(this.root, "");
+    }
+
+    private void display(Node node, String indent) {
+        if (node == null) {
+            return;
+        }
+        System.out.println(indent + node.value);
+        display(node.left, "\t");
+        display(node.right, "\t");
+    }
+
+}
+
+```
+
+### &rarr; Binary Search Trees
+
+- The left child node always contains value less than the parent node.
+- The right child node always contains value greater than the parent node.
+- BSTs are helpful while traversing, inserting or removing elements as they follow above constraints and have a time complexity of O(log(N)).
+
+### What are Balanced Binary Search Trees?
+
+#### Height(Left Subtree) - Height(Right Subtree) <=1.
+
+### Why Balanced Binary Search Trees?
+
+#### Because, in unbalanced the time complexity of worst case rises upto O(N).
+
+```java
+package binaryTrees;
+
+public class BST {
+    public BST() {
+
+    }
+
+    private Node root;
+
+    private class Node {
+        private int value;
+        private int height;
+        private Node right;
+        private Node left;
+
+        public Node(int value) {
+            this.value = value;
+        }
+
+    }
+
+    public void populate(int[] nums) {
+        for (int i = 0; i < nums.length; i++) {
+            insert(nums[i]);
+        }
+    }
+
+    public boolean isEmpty() {
+        return root == null;
+    }
+
+    public int height(Node node) {
+        if (node == null) {
+            return -1;
+        }
+        return node.height;
+    }
+
+    public void insert(int value) {
+        root = insert(root, value);
+    }
+
+    private Node insert(Node node, int value) {
+        if (node == null) {
+            node = new Node(value);
+            return node;
+        }
+
+        if (value < node.value) {
+            node.left = insert(node.left, value);
+        }
+
+        else if (value > node.value) {
+            node.right = insert(node.right, value);
+        }
+
+        node.height = Math.max(height(node.left), height(node.right)) + 1;
+
+        return node;
+
+    }
+
+    public void display() {
+        display(root, "Root Value is : ");
+    }
+
+    private void display(Node node, String details) {
+        if (node == null) {
+            return;
+        }
+        System.out.println(details + node.value);
+        display(node.left, "Left node value of " + node.value + " is: ");
+        display(node.right, "Right node value of " + node.value + " is: ");
+    }
+
+    public boolean isBalanced() {
+        return isBalanced(root);
+    }
+
+    private boolean isBalanced(Node node) {
+        if (node == null) {
+            return true;
+        }
+        return Math.abs(height(node.left) - height(node.right)) <= 1 && isBalanced(node.left) && isBalanced(node.right);
+    }
+
+    public void populateSorted(int[] nums, int start, int end) {
+        if (start >= end) {
+            return;
+        }
+
+        int mid = start + (end - start) / 2;
+        this.insert(nums[mid]);
+        populateSorted(nums, start, mid);
+        populateSorted(nums, mid + 1, end);
+
+    }
+
+}
+
+```
+
+Some self balancing binary search trees are : AVL trees, Red Black Tree etc.
+
+### Algo for AVL trees :
+
+1. Insert the node normally.
+2. From `bottom-up` check for the unbalanced node(p).
+3. Then according to the following `4 cases`, rotate the tree while leaving the balanced part of the tree.
+
+- `Time Complexity  : O(log(N))`
+
+- Parent unbalanced Node : p
+- Child Node : c
+- Node which is displaced : t
+
+1. Left Rotate :
+
+```java
+private Node leftRotate(Node c) {
+        Node p = c.right;
+        Node t = p.left;
+
+        c.right = t;
+        p.left = c;
+
+        p.height = Math.max(height(p.left), height(p.right)) + 1;
+        c.height = Math.max(height(c.left), height(c.right)) + 1;
+
+        return p;
+    }
+```
+
+2. Right Rotate :
+
+```java
+private Node rightRotate(Node p) {
+
+        Node c = p.left;
+        Node t = c.left;
+
+        c.right = p;
+        p.left = t;
+
+        p.height = Math.max(height(p.left), height(p.right)) + 1;
+        c.height = Math.max(height(c.left), height(c.right)) + 1;
+
+        return c;
+    }
+
+```
+
+- Case 1 : Left - Left : Right rotate the unbalanced node(p).
+- Case 2 : Left - Right : Left rotate the child node(c) of the unbalanced node(p) and then right rotate the unbalanced node(p).
+- Case 3 : Right - Right : Left rotate the unbalanced node(p).
+- Case 4 : Right - Left : Right rotate the child node(c) of the unbalanced node(p) and then left rotate the unbalanced node(p).
+
+```java
+package binaryTrees;
+
+public class AVL {
+    private class Node {
+        private int value;
+        private int height;
+        private Node left;
+        private Node right;
+
+        private Node(int value) {
+            this.value = value;
+        }
+    }
+
+    private Node root;
+
+    public void insert(int value) {
+        root = insert(root, value);
+    }
+
+    private int height(Node node) {
+        if (node == null) {
+            return -1;
+        }
+
+        return node.height;
+    }
+
+    private Node insert(Node node, int value) {
+        if (node == null) {
+            node = new Node(value);
+            return node;
+        }
+
+        if (value > node.value) {
+            node.right = insert(node.right, value);
+        }
+        if (value < node.value) {
+            node.left = insert(node.left, value);
+        }
+
+        node.height = Math.max(height(node.left), height(node.right)) + 1;
+
+        return rotate(node);
+
+    }
+
+    private Node rotate(Node node) {
+        if (height(node.left) - height(node.right) > 1) {
+            // left heavy
+            if (height(node.left.left) - height(node.left.right) > 0) {
+                // left-left case
+                return rightRotate(node);
+            }
+            if (height(node.left.left) - height(node.left.right) < 0) {
+                // left-right case
+                node.left = leftRotate(node.left);
+                return rightRotate(node);
+            }
+        }
+        if (height(node.left) - height(node.right) < -1) {
+            // right heavy
+            if (height(node.right.left) - height(node.right.right) < 0) {
+                // right-right
+                return leftRotate(node);
+            }
+            if (height(node.right.left) - height(node.right.right) > 0) {
+                // right-left case
+                node.right = rightRotate(node.right);
+                return leftRotate(node);
+            }
+        }
+        return node;
+    }
+
+    private Node leftRotate(Node c) {
+        Node p = c.right;
+        Node t = p.left;
+
+        c.right = t;
+        p.left = c;
+
+        p.height = Math.max(height(p.left), height(p.right)) + 1;
+        c.height = Math.max(height(c.left), height(c.right)) + 1;
+
+        return p;
+    }
+
+    private Node rightRotate(Node p) {
+
+        Node c = p.left;
+        Node t = c.left;
+
+        c.right = p;
+        p.left = t;
+
+        p.height = Math.max(height(p.left), height(p.right)) + 1;
+        c.height = Math.max(height(c.left), height(c.right)) + 1;
+
+        return c;
+    }
+
+    public void populate(int[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            root = insert(root, arr[i]);
+        }
+    }
+
+    public void display() {
+        display("Root node is : ", root);
+    }
+
+    private void display(String details, Node node) {
+        if (node == null) {
+            return;
+        }
+        System.out.println(details + node.value);
+        display("Left child of " + node.value + " is : ", node.left);
+        display("Right child of " + node.value + " is : ", node.right);
+    }
+}
+
+```
