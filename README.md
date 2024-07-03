@@ -770,6 +770,6 @@ public class AVL {
 - Disadvantage : Extra Space.
 - Time Complexity : O(log(n))
 - It is a full binary tree, every node has 2 children except leaf nodes.
-  Leaf nodes = n-1. Internal Nodes = n. Total Nodes = 2n-1.
+- Leaf nodes = n-1. Internal Nodes = n. Total Nodes = 2n-1.
 
 #### Update function is also of O(log(n)) time.
