@@ -19,7 +19,7 @@ public class SubsetsForRepeatedElements {
         for (int i = 0; i < arr.length; i++) {
             start = 0;
             if (i > 0 && arr[i] == arr[i - 1]) {
-                start = end + 1;
+                start = end + 1; // add the duplicate element in the newly created subset
             }
             end = outer.size() - 1;
             int n = outer.size();
