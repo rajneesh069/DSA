@@ -3,20 +3,9 @@ package linkedList;
 public class SinglyLinkedList {
     public static void main(String[] args) {
         SinglyLinkedList list = new SinglyLinkedList();
-        // list.insertFirst(1);
-        // list.insertFirst(2);
-        // list.insertFirst(3);
-        // list.insertFirst(4);
-
-        list.add(1); // index = 0
-        list.add(2);
-        list.add(3);
-        list.add(5);
-        list.add(6); // index = 5
-        list.add(4, 3);
-        list.delete(5);
+        int[] array = { 1, 2, 3, 4, 5 };
+        list.addRecursively(array);
         list.display();
-        System.out.println(list.find(3));
     }
 
     private class Node {
@@ -133,6 +122,26 @@ public class SinglyLinkedList {
         }
         System.out.print("END\n");
         System.out.println("Size: " + this.size);
+    }
+
+    // add using recursion
+    public void addRecursively(int[] array) {
+        for (int i = 0; i < array.length; i++) {
+            head = addRecursively(head, array[i]);
+        }
+    }
+
+    private Node addRecursively(Node node, int value) {
+        if (node == null) {
+            Node newNode = new Node(value);
+            newNode.next = null;
+            this.size++;
+            return newNode;
+        }
+
+        node.next = addRecursively(node.next, value);
+        tail = node;
+        return node;
     }
 
 }
