@@ -5,6 +5,7 @@ public class SLL {
         SLL list = new SLL();
         int[] array = { 1, 2, 3, 4, 5 };
         list.addRecursively(array);
+        list.insert(22, 3);
         list.display();
     }
 
@@ -38,7 +39,7 @@ public class SLL {
         tail.next = newNode;
         tail = newNode;
         this.size++;
-        // newNode.next = null; -> Java does it implicitly.
+        // newNode.next = null;
     }
 
     // add using recursion
@@ -72,6 +73,22 @@ public class SLL {
         newNode.next = head;
         head = newNode;
         this.size++;
+    }
+
+    // insert with recursion
+    public void insert(int value, int index) {
+        head = insert(head, value, index);
+    }
+
+    private Node insert(Node node, int value, int index) {
+        if (index == 0) {
+            Node newNode = new Node(value);
+            newNode.next = node.next;
+            this.size++;
+            return newNode;
+        }
+        node.next = insert(node.next, value, index - 1);
+        return node;
     }
 
     private Node getNode(int index) {
