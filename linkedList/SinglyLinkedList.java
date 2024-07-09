@@ -144,4 +144,20 @@ public class SinglyLinkedList {
         return node;
     }
 
+    // insert with recursion
+    public void insert(int value, int index) {
+        head = insert(head, value, index);
+    }
+
+    private Node insert(Node node, int value, int index) {
+        if (index == 0) {
+            Node newNode = new Node(value);
+            newNode.next = node.next;
+            this.size++;
+            return newNode;
+        }
+        node.next = insert(node.next, value, index - 1);
+        return node;
+    }
+
 }
