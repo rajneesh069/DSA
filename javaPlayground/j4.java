@@ -4,9 +4,8 @@ package javaPlayground;
 public class j4 {
     public static void main(String[] args) {
         j4 bst = new j4();
-        for (int i = 0; i < 6; i++) { // this will form a skewed tree
-            bst.insert(i);
-        }
+        int[] arr = { 1, 2, 3, 4, 5 };
+        bst.insertSorted(arr);
         bst.display();
     }
 
@@ -53,6 +52,21 @@ public class j4 {
         return node;
     }
 
+    public void insertSorted(int[] arr) {
+        insertSortedArray(root, arr, 0, arr.length);
+    }
+
+    private void insertSortedArray(Node node, int[] arr, int start, int end) {
+        if (start >= end) {
+            return;
+        }
+
+        int mid = start + (end - start) / 2;
+        insert(arr[mid]);
+        insertSortedArray(root, arr, start, mid);
+        insertSortedArray(root, arr, mid + 1, end);
+    }
+
     public void display() {
         display("Root node is : ", root);
         System.out.println("Height of the tree is : " + root.height);
@@ -64,8 +78,8 @@ public class j4 {
         }
 
         System.out.println(details + node.value);
-        display("Left node is : ", node.left);
-        display("Right node is : ", node.right);
+        display("Left node of " + node.value + " is : ", node.left);
+        display("Right node of " + node.value + " is : ", node.right);
     }
 
 }
