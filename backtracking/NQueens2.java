@@ -1,5 +1,6 @@
 package backtracking;
 
+@SuppressWarnings("unused")
 public class NQueens2 {
     public static void main(String[] args) {
 
