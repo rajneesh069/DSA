@@ -6,6 +6,7 @@ public class DynamicStack {
         for (int i = 0; i < 15; i++) {
             stack.push(i);
         }
+        System.out.println(stack.peek());
 
     }
 
@@ -31,6 +32,10 @@ public class DynamicStack {
             return -1;
         }
         return data[top--];
+    }
+
+    public int peek() {
+        return data[top];
     }
 
     private boolean isFull() {
