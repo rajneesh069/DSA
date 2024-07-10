@@ -90,17 +90,15 @@ public class j6 {
     }
 
     public void insertAfter(int index, int value) {
-        if (index < 0 || index >= size) {
+        if (head == null) {
+            this.add(value);
+            return;
+        } else if (index < 0 || index >= size) {
             System.out.println("Out of bounds.");
             return;
         } else if (index == size - 1) {
             this.add(value);
             this.size++;
-            return;
-        }
-
-        else if (head == null) {
-            System.out.println("Linked list is empty.");
             return;
         }
 
