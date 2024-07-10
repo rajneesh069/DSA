@@ -108,6 +108,7 @@ public class AVL {
 
     public void display() {
         display("Root node is : ", root);
+        System.out.println("Height is : " + root.height);
     }
 
     private void display(String details, Node node) {
