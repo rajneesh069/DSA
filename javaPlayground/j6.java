@@ -4,7 +4,7 @@ public class j6 {
     public static void main(String[] args) {
         j6 SLL = new j6();
         for (int i = 0; i < 10; i++) {
-            SLL.insertFirst(i);
+            SLL.add(i);
         }
         SLL.display();
         int deletedValue = SLL.delete(2);
