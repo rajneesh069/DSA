@@ -7,7 +7,7 @@ public class CircularQueue {
             queue.add(i);
         }
         queue.remove();
-        queue.add(10);
+        queue.add(99);
         queue.display();
         // for (int i = 0; i < 10; i++) {
         // System.out.println(queue.remove());
@@ -62,13 +62,13 @@ public class CircularQueue {
 
     public void display() {
         if (isEmpty()) {
-            System.out.println("Linked List is empty.");
+            System.out.println("Queue is empty.");
             return;
         }
 
         int i = first;
         do {
-            System.out.print(data[i] + " <- ");
+            System.out.print(data[i] + " -> ");
             i = (i + 1) % data.length;
         } while (i != last);
         System.out.print("END");
