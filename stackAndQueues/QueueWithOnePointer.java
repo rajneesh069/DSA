@@ -1,6 +1,5 @@
 package stackAndQueues;
 
-import java.util.Arrays;
 
 public class QueueWithOnePointer {
     public static void main(String[] args) {
