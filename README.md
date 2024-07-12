@@ -472,7 +472,59 @@ public class BinaryTree {
 
 ```
 
-## &rarr; Binary Search Trees
+### Traversal Methods
+
+#### Pre-order : N &rarr; L &rarr; R
+
+- Used for evaluating mathematical expressions or making a copy.
+- Convert string/array in a Binary Tree or serialize data.
+
+```java
+private void preOrder(Node node){
+    if(node==null){
+        return;
+    }
+
+    System.out.println(node.value +"\s");
+    preOrder(node.left);
+    preOrder(node.right);
+}
+```
+
+#### In-order : L &rarr; N &rarr; R
+
+- For sorted order traversal in a Binary Tree, we can use this.
+
+```java
+private void inOrder(Node node){
+    if(node==null){
+        return;
+    }
+
+    inOrder(node.left);
+    System.out.println(node.value +"\s");
+    inOrder(node.right);
+}
+```
+
+#### Post-order : L &rarr; R &rarr; N
+
+- To delete something from the Binary Tree.
+- When we perform bottom-up calculation(like calculating the height or diameter of a tree), then we can use it.
+
+```java
+private void postOrder(Node node){
+    if(node==null){
+        return;
+    }
+
+    postOrder(node.left);
+    postOrder(node.right);
+    System.out.println(node.value +"\s");
+}
+```
+
+## Binary Search Trees
 
 - The left child node always contains value less than the parent node.
 - The right child node always contains value greater than the parent node.
@@ -589,7 +641,7 @@ public class BST {
 
 Some self balancing binary search trees are : AVL trees, Red Black Tree etc.
 
-### Algo for AVL trees :
+## AVL tree :
 
 1. Insert the node normally.
 2. From `bottom-up` check for the unbalanced node(p).
@@ -641,6 +693,8 @@ private Node rightRotate(Node p) {
 - Case 2 : Left - Right : Left rotate the child node(c) of the unbalanced node(p) and then right rotate the unbalanced node(p).
 - Case 3 : Right - Right : Left rotate the unbalanced node(p).
 - Case 4 : Right - Left : Right rotate the child node(c) of the unbalanced node(p) and then left rotate the unbalanced node(p).
+
+### Code of AVL Tree
 
 ```java
 public class AVL {
@@ -764,7 +818,7 @@ public class AVL {
 }
 ```
 
-### Segment Trees : Performs query(sum, average, product, max, min, etc.) in a range(in an array).
+## Segment Trees : Perform query(sum, average, product, max, min, etc.) in a range(in an array).
 
 - Not a BST.
 - Disadvantage : Extra Space.

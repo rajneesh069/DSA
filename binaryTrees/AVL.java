@@ -119,4 +119,6 @@ public class AVL {
         display("Left child of " + node.value + " is : ", node.left);
         display("Right child of " + node.value + " is : ", node.right);
     }
+
+    
 }

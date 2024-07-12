@@ -6,7 +6,7 @@ public class Main {
         // Scanner scanner = new Scanner(System.in);
         // tree.populate(scanner);
         // tree.display();
-        int[] arr = { 1, 2, 3, 43, 22, 99, 5 };
+        int[] arr = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
         // BST bst = new BST();
         // bst.populateSorted(nums, 0, nums.length);
