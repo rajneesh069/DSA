@@ -1,4 +1,4 @@
-package binaryTrees;
+package leetcode;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -6,10 +6,9 @@ import java.util.List;
 import java.util.Queue;
 
 @SuppressWarnings("unused")
-public class BFS {
+public class $637_AverageOfLevelsInBinaryTree {
     private class TreeNode {
         private int value;
-        // private int height;
         private TreeNode left;
         private TreeNode right;
 
@@ -20,8 +19,8 @@ public class BFS {
 
     private TreeNode root;
 
-    private List<List<Integer>> BFSTraversal() {
-        List<List<Integer>> result = new ArrayList<>();
+    private List<Double> BFSTraversal() {
+        List<Double> result = new ArrayList<>();
         if (root == null) {
             return result;
         }
@@ -32,10 +31,10 @@ public class BFS {
 
         while (!queue.isEmpty()) {
             int levelSize = queue.size();
-            List<Integer> currentLevelList = new ArrayList<Integer>(levelSize);
+            double averageLevel = 0;
             for (int i = 0; i < levelSize; i++) {
                 TreeNode currentNode = queue.poll();
-                currentLevelList.add(currentNode.value);
+                averageLevel += currentNode.value;
                 if (currentNode.left != null) {
                     queue.offer(currentNode.left);
                 }
@@ -43,10 +42,9 @@ public class BFS {
                     queue.offer(currentNode.right);
                 }
             }
-            result.add(currentLevelList);
+            result.add((averageLevel) / (levelSize));
         }
 
         return result;
     }
-
 }
