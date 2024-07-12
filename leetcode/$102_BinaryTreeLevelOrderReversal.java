@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+@SuppressWarnings("unused")
 public class $102_BinaryTreeLevelOrderReversal {
     private class TreeNode {
         private int value;
