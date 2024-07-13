@@ -2,9 +2,13 @@
 
 ## !!!Some important things!!!
 
+### - Always use pen and paper and dry run it!
+
 #### - `char to int conversion : char - '0'`
 
 #### - `number of digits in a number(say, a) = (int)(Math.log(a)) + 1`
+
+#### - Once you identify that the question is from a certain algo, stick to it and tweak it as per needs.
 
 ### Linear Search Recursion
 
@@ -890,3 +894,9 @@ public class BFS {
 }
 
 ```
+
+#### Tips related to BFS questions
+
+- While solving BFS questions, you should `consider deque` if you need to traverse the tree in left to right and then right to left manner, basically, deque shouldn't be out of picture.
+
+- 
