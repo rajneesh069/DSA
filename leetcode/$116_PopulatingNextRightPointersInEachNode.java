@@ -19,26 +19,46 @@ public class $116_PopulatingNextRightPointersInEachNode {
             return null;
         }
 
-        Queue<Node> queue = new LinkedList<>();
-        queue.offer(root);
+        // Space Complexity : O(N)
+        // Queue<Node> queue = new LinkedList<>();
+        // queue.offer(root);
 
-        while (!queue.isEmpty()) {
-            int levelSize = queue.size();
-            for (int i = 0; i < levelSize; i++) {
-                Node currentNode = queue.poll();
+        // while (!queue.isEmpty()) {
+        // int levelSize = queue.size();
+        // for (int i = 0; i < levelSize; i++) {
+        // Node currentNode = queue.poll();
 
-                currentNode.next = queue.peek();
-                if (currentNode.left != null) {
-                    queue.offer(currentNode.left);
+        // currentNode.next = queue.peek();
+        // if (currentNode.left != null) {
+        // queue.offer(currentNode.left);
+        // }
+        // if (currentNode.right != null) {
+        // queue.offer(currentNode.right);
+        // }
+        // if (i == levelSize - 1) {
+        // currentNode.next = null;
+        // }
+        // }
+        // }
+
+        // Space Complexity : O(1)
+
+        Node leftMost = root;
+        while (leftMost.left != null) {
+            leftMost.left.next = leftMost.right;
+            Node current = leftMost;
+            while (current != null) {
+                if (current.next != null && current.right != null) {
+                    current.right.next = current.next.left;
                 }
-                if (currentNode.right != null) {
-                    queue.offer(currentNode.right);
-                }
-                if (i == levelSize - 1) {
-                    currentNode.next = null;
+                current = current.next; // check if it's null or not
+                if (current != null && current.left != null) {
+                    current.left.next = current.right;
                 }
             }
+            leftMost = leftMost.left;
         }
+
         return root;
     }
 
