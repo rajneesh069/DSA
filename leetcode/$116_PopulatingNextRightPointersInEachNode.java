@@ -3,6 +3,7 @@ package leetcode;
 import java.util.LinkedList;
 import java.util.Queue;
 
+@SuppressWarnings("unused")
 public class $116_PopulatingNextRightPointersInEachNode {
     // given -> perfect binary tree
     private class Node {
@@ -48,13 +49,11 @@ public class $116_PopulatingNextRightPointersInEachNode {
             leftMost.left.next = leftMost.right;
             Node current = leftMost;
             while (current != null) {
+                current.left.next = current.right;
                 if (current.next != null && current.right != null) {
                     current.right.next = current.next.left;
                 }
-                current = current.next; // check if it's null or not
-                if (current != null && current.left != null) {
-                    current.left.next = current.right;
-                }
+                current = current.next;
             }
             leftMost = leftMost.left;
         }

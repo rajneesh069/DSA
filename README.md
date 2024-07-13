@@ -839,6 +839,8 @@ public class AVL {
 ## Breadth First Search or Level Order Traversal
 
 - Iterative approach is more intuitive in this case.
+- When you've reached at the end of a level, the whole next level is already in the queue.
+- Or it can be said that when you remove a node it's children of the next level are already inside the queue.
 
 ```java
 package binaryTrees;
@@ -884,6 +886,8 @@ public class BFS {
                 if (currentNode.right != null) {
                     queue.offer(currentNode.right);
                 }
+                // at this point the next level children of the node which was polled
+                // is already in the queue.
             }
             result.add(currentLevelList);
         }
@@ -899,4 +903,4 @@ public class BFS {
 
 - While solving BFS questions, you should `consider deque` if you need to traverse the tree in left to right and then right to left manner, basically, deque shouldn't be out of picture.
 
-- 
+-
