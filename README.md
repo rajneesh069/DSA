@@ -903,4 +903,62 @@ public class BFS {
 
 - While solving BFS questions, you should `consider deque` if you need to traverse the tree in left to right and then right to left manner, basically, deque shouldn't be out of picture.
 
--
+- Depending on the question, you might need to change the way how nodes are stored, don't just stick to the original order, improvise if need, like in case of symmetric trees.
+
+```java
+package leetcode;
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class $101_SymmetricTree {
+    public class TreeNode {
+        public int val;
+        public TreeNode left;
+        public TreeNode right;
+
+        public TreeNode(int val) {
+            this.val = val;
+        }
+    }
+
+    public boolean isSymmetric(TreeNode root) {
+
+        if (root == null) {
+            return true;
+        }
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root.left);
+        queue.offer(root.right);
+
+        while (!queue.isEmpty()) {
+            TreeNode left = queue.poll();
+            TreeNode right = queue.poll();
+
+            if (left == null && right == null) {
+                continue;
+            }
+
+            if (left == null || right == null) {
+                return false;
+            }
+
+            if (left.val != right.val) {
+                return false;
+            }
+
+            // here we can see how the elements are stored differently in the queue
+            // as per requirements
+            queue.offer(left.left);
+            queue.offer(right.right);
+            queue.offer(left.right);
+            queue.offer(right.left);
+
+        }
+
+        return true;
+    }
+}
+
+```

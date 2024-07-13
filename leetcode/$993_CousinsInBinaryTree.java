@@ -32,7 +32,7 @@ public class $993_CousinsInBinaryTree {
         }
         Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
-        
+
         boolean foundX = false;
         boolean foundY = false;
 
@@ -71,11 +71,11 @@ public class $993_CousinsInBinaryTree {
 
             }
 
-            foundX = binarySearch(currentLevelNodes, x);
-            foundY = binarySearch(currentLevelNodes, y);
-            System.out.println(foundX + " "+ foundY);
+            foundX = linearSearch(currentLevelNodes, x);
+            foundY = linearSearch(currentLevelNodes, y);
+            System.out.println(foundX + " " + foundY);
             System.out.println(currentLevelNodes);
-            if(foundX && foundY){
+            if (foundX && foundY) {
                 return true;
             }
         }
@@ -83,9 +83,9 @@ public class $993_CousinsInBinaryTree {
         return (foundX & foundY);
     }
 
-    public static boolean binarySearch(List<Integer> currentLevelNodes, int target) {
-        for(int i=0; i<currentLevelNodes.size(); i++){
-            if(currentLevelNodes.get(i)==target){
+    public static boolean linearSearch(List<Integer> currentLevelNodes, int target) {
+        for (int i = 0; i < currentLevelNodes.size(); i++) {
+            if (currentLevelNodes.get(i) == target) {
                 return true;
             }
         }
