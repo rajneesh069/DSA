@@ -861,7 +861,7 @@ public class j8 {
 
 A stack is a linear data structure that follows the Last In, First Out (LIFO) principle. This means that the last element added to the stack will be the first one to be removed. Stacks are used in various applications such as expression evaluation, function call management in recursion, and backtracking algorithms.
 
-- Key Operations:
+Key Operations:
 
 1. Push: Add an element to the top of the stack.
 2. Pop: Remove and return the top element from the stack.
@@ -1003,7 +1003,8 @@ public class DynamicStack {
 Definition of Queue
 A queue is a linear data structure that follows the First In, First Out (FIFO) principle. This means that the first element added to the queue will be the first one to be removed. Queues are used in various applications such as task scheduling, handling requests in a server, and breadth-first search (BFS) in graphs.
 
-- Key Operations:
+
+Key Operations:
 
 1. Enqueue (or Offer): Add an element to the end of the queue.
 2. Dequeue (or Poll): Remove and return the front element from the queue.
