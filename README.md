@@ -404,6 +404,1015 @@ Definition : Minimum number dvisible by both the numbers.
 
 HCF \* LCM = Product of 2 numbers
 
+## Linked List
+
+A linked list is a linear data structure in which elements, known as nodes, are stored in a sequential manner. Each node contains two parts:
+
+1. Data: The value or data stored in the node.
+2. Reference (or Pointer): A reference or pointer to the next node in the sequence.
+
+### Singly Linked List
+
+```java
+package linkedList;
+
+public class SinglyLinkedList {
+    public static void main(String[] args) {
+        SinglyLinkedList list = new SinglyLinkedList();
+        int[] array = { 1, 2, 3, 4, 5 };
+        list.addRecursively(array);
+        list.display();
+    }
+
+    private class Node {
+        private int value;
+        private Node next;
+
+        private Node(int value) {
+            this.value = value;
+        }
+
+    }
+
+    private Node head; // head is initially null
+    private Node tail; // tail is initially null
+    private int size;
+
+    public SinglyLinkedList() {
+        this.size = 0;
+    }
+
+    public void add(int value) { // 18 -> 7
+        Node newNode = new Node(value);
+        this.size += 1;
+        if (head == null) {
+            head = newNode;
+            tail = head;
+            return; // neat way of initializing the first node
+        }
+        tail.next = newNode;
+        tail = newNode;
+
+    }
+
+    public void add(int value, int index) {
+        Node node = new Node(value);
+        Node temp = head;
+        this.size++;
+        if (index == 0) {
+            node.next = head;
+            head = node;
+            return;
+        }
+
+        else if (index == size) {
+            tail.next = node;
+            tail = node;
+            return;
+        }
+        for (int i = 0; i < index; i++) {
+            if (i == index - 1) {
+                Node preserveNextNode = temp.next;
+                temp.next = node;
+                node.next = preserveNextNode;
+                break;
+            }
+            temp = temp.next;
+        }
+    }
+
+    public void delete(int index) {
+        this.size--;
+        if (index == 0) {
+            head = head.next;
+            return;
+        }
+        Node temp = head;
+        for (int i = 0; i < index; i++) {
+            if (i == index - 1) {
+                Node node = temp.next;
+                temp.next = node.next;
+                return;
+            }
+            temp = temp.next;
+        }
+        if (head == null) {
+            tail = null;
+        }
+    }
+
+    public Node nodeAtIndex(int index) { // a utility function for getting node at a particular index
+        Node temp = head;
+        for (int i = 0; i < index; i++) {
+            temp = temp.next;
+        }
+        return temp;
+    }
+
+    public void insertFirst(int value) {
+        Node newNode = new Node(value);
+        this.size += 1;
+        newNode.next = head;
+        head = newNode;
+        if (tail == null) {
+            tail = head;
+        }
+    }
+
+    public Node find(int value) {
+        Node temp = head;
+        for (int i = 0; i < size; i++) {
+            if (temp.value == value) {
+                return temp;
+            }
+            temp = temp.next;
+        }
+        return null;
+    }
+
+    public void display() {
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.value + " -> ");
+            temp = temp.next;
+        }
+        System.out.print("END\n");
+        System.out.println("Size: " + this.size);
+    }
+
+    // add using recursion
+    public void addRecursively(int[] array) {
+        for (int i = 0; i < array.length; i++) {
+            head = addRecursively(head, array[i]);
+        }
+    }
+
+    private Node addRecursively(Node node, int value) {
+        if (node == null) {
+            Node newNode = new Node(value);
+            newNode.next = null;
+            this.size++;
+            return newNode;
+        }
+
+        node.next = addRecursively(node.next, value);
+        tail = node;
+        return node;
+    }
+
+    // insert with recursion
+    public void insert(int value, int index) {
+        head = insert(head, value, index);
+    }
+
+    private Node insert(Node node, int value, int index) {
+        if (index == 0) {
+            Node newNode = new Node(value);
+            newNode.next = node.next;
+            this.size++;
+            return newNode;
+        }
+        node.next = insert(node.next, value, index - 1);
+        return node;
+    }
+
+}
+```
+
+### Doubly Linked List
+
+```java
+package linkedList;
+
+public class DoublyLinkedList {
+    public static void main(String[] args) {
+        DoublyLinkedList list = new DoublyLinkedList();
+        list.insert(0, 0);
+        list.add(1);
+        list.display();
+    }
+
+    private class Node {
+        private int value;
+        private Node next = null;
+        private Node previous = null;
+
+        private Node(int value) {
+            this.value = value;
+        }
+    }
+
+    private Node head;
+    private Node tail;
+    private int size = 0;
+
+    public DoublyLinkedList() {
+        this.size = 0;
+    }
+
+    public void add(int value) {
+        Node newNode = new Node(value);
+        this.size++;
+        if (head == null) { // for the first node, we don't need to update the head ever
+            head = newNode;
+            tail = newNode;
+            return;
+        }
+
+        newNode.previous = tail;
+        tail.next = newNode;
+        tail = newNode;
+    }
+
+    public void insertFirst(int value) {
+        Node newNode = new Node(value);
+        this.size++;
+        if (tail == null) { // for the first node, we don't need to update the tail ever again
+            head = newNode;
+            tail = newNode;
+            return;
+        }
+
+        newNode.next = head;
+        head.previous = newNode;
+        head = newNode;
+
+    }
+
+    public void display() {
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.value + " -> ");
+            temp = temp.next;
+        }
+        System.out.print("NULL\n");
+        System.out.println("Size: " + this.size);
+        return;
+    }
+
+    public void displayInverted() {
+        Node temp = tail;
+        while (temp != null) {
+            System.out.print(temp.value + " -> ");
+            temp = temp.previous;
+        }
+        System.out.print("NULL\n");
+        System.out.println("Size: " + this.size);
+    }
+
+    public Node getNodeAtIndex(int index) {
+        Node temp = head;
+        for (int i = 0; i < index; i++) {
+            temp = temp.next;
+        }
+        return temp;
+    }
+
+    public void delete(int index) {
+        if (index < 0 || index >= size) {
+            System.out.println("Cannot be deleted. Index out of bounds.");
+            return;
+        }
+
+        this.size--; // size is at least 1
+        Node nodeToBeDeleted = getNodeAtIndex(index);
+
+        if (nodeToBeDeleted == head) {
+            if (head.next != null) { // head.next will be null if there's only one element
+                head = head.next;
+                head.previous = null;
+            } else {
+                head = null;
+                tail = null;
+            }
+            return;
+        } else if (nodeToBeDeleted == tail) {
+            if (tail.previous != null) {
+                tail = tail.previous;
+                tail.next = null;
+            } else { // tail.previous will be null if and only there's one element
+                head = null;
+                tail = null;
+            }
+            return;
+        }
+
+        nodeToBeDeleted.previous.next = nodeToBeDeleted.next;
+        nodeToBeDeleted.next.previous = nodeToBeDeleted.previous;
+    }
+
+    public void insert(int value, int index) {
+        if (index < 0) {
+            System.out.println("Index out of bounds.");
+            return;
+        }
+        Node newNode = new Node(value);
+        Node nodeAtThatIndex = getNodeAtIndex(index);
+        if (nodeAtThatIndex != null && nodeAtThatIndex == head) {
+            this.size++;
+            newNode.next = head;
+            head.previous = newNode;
+            head = newNode;
+            head.previous = null;
+        } else if (nodeAtThatIndex != null && nodeAtThatIndex != tail) {
+            this.size++;
+            newNode.previous = nodeAtThatIndex;
+            newNode.next = nodeAtThatIndex.next;
+            nodeAtThatIndex.next.previous = newNode;
+            nodeAtThatIndex.next = newNode;
+        } else {
+            this.add(value);
+            return;
+        }
+    }
+
+}
+
+```
+
+### Circular Linked List
+
+- Demonstrates the implementation without tail and how to traverse through the list.
+
+```java
+package javaPlayground;
+
+public class j8 {
+    public static void main(String[] args) {
+        j8 CLL = new j8();
+        for (int i = 0; i < 10; i++) {
+            CLL.add(i);
+        }
+        CLL.display();
+        CLL.insertAfter(9, 33);
+        CLL.display();
+    }
+
+    private class Node {
+        private int value;
+        private Node next;
+
+        private Node(int value) {
+            this.value = value;
+        }
+    }
+
+    private int size;
+    private Node head;
+
+    /*
+     * To reach the node just before the head
+     * Node temp = head;
+     * do{
+     * temp = temp.next;
+     * }while(temp.next!=head);
+     * Now temp, just before head and obviously since temp.next == head, hence for
+     * that last node the do{} block won't run obviously.
+     */
+
+    public void add(int value) {
+        if (head == null) {
+            Node headNode = new Node(value);
+            head = headNode;
+            headNode.next = head;
+            this.size++;
+            return;
+        }
+
+        Node newNode = new Node(value);
+        Node temp = head;
+        do {
+            temp = temp.next;
+        } while (temp.next != head);
+        temp.next = newNode;
+        newNode.next = head;
+        this.size++;
+        return;
+    }
+
+    public void insertFirst(int value) {
+        if (head == null) {
+            Node headNode = new Node(value);
+            head = headNode;
+            headNode.next = head;
+            this.size++;
+            return;
+        }
+
+        Node temp = head;
+        Node newNode = new Node(value);
+        newNode.next = head;
+
+        do {
+            temp = temp.next;
+        } while (temp.next != head);
+
+        temp.next = newNode;
+        head = newNode;
+        this.size++;
+    }
+
+    public void insertAfter(int index, int value) {
+        if (index < 0 || index >= size) {
+            System.out.println("Index out of bounds, cannot insert.");
+            return;
+        } else if (index == size - 1) {
+            this.add(value);
+            this.size++;
+        } else {
+            Node newNode = new Node(value);
+            Node temp = head;
+            int i = 0;
+            do {
+                temp = temp.next;
+                i++;
+            } while (temp.next != head && i < index);
+            newNode.next = temp.next;
+            temp.next = newNode;
+            this.size++;
+            return;
+        }
+    }
+
+    public void display() {
+        display(head);
+    }
+
+    private void display(Node node) {
+        if (node == null) {
+            System.out.println("Linked list is empty.");
+            return;
+        }
+
+        Node temp = node;
+        do {
+            System.out.print(temp.value + " -> ");
+            temp = temp.next;
+        } while (temp != head); // keep this in mind, we have to go till head
+        System.out.print("HEAD\n");
+        System.out.println("Size: " + size);
+    }
+
+}
+
+```
+
+## Stack
+
+A stack is a linear data structure that follows the Last In, First Out (LIFO) principle. This means that the last element added to the stack will be the first one to be removed. Stacks are used in various applications such as expression evaluation, function call management in recursion, and backtracking algorithms.
+
+- Key Operations:
+
+1. Push: Add an element to the top of the stack.
+2. Pop: Remove and return the top element from the stack.
+3. Peek (or Top): Return the top element without removing it.
+4. isEmpty: Check if the stack is empty.
+5. Size: Get the number of elements in the stack.
+
+### Custom Stack
+
+```java
+package stackAndQueues;
+public class Stack {
+    public static void main(String[] args) {
+        Stack stack = new Stack(15);
+        for (int i = 0; i < 10; i++) {
+            stack.push(i);
+        }
+        for (int i = 0; i < 10; i++) {
+            int val = stack.pop();
+            System.out.println(val);
+        }
+    }
+
+    private int[] data;
+    private int top = -1;
+    private static final int DEFAULT_SIZE = 10;
+
+    public Stack() {
+        // data = new int[DEFAULT_SIZE];
+        this(DEFAULT_SIZE); // calls the appropriate constructor
+    }
+
+    public Stack(int size) {
+        data = new int[size];
+    }
+
+    public boolean push(int value) {
+        if (isFull()) {
+            System.out.println("Cannot add to a full stack.");
+            return false;
+        }
+        data[++this.top] = value;
+        return true;
+    }
+
+    public int pop() {
+        if (isEmpty()) {
+            System.out.println("Cannot remove from an empty stack.");
+            return -1;
+        }
+        return data[this.top--];
+    }
+
+    public int peek() {
+        if (isEmpty()) {
+            System.out.println("Cannot peek in an empty stack.");
+            return -1;
+        }
+        return data[top];
+    }
+
+    private boolean isFull() {
+        return top == data.length - 1;
+    }
+
+    private boolean isEmpty() {
+        return top == -1;
+    }
+
+}
+
+```
+
+### Dynamic Stack
+
+```java
+package stackAndQueues;
+
+public class DynamicStack {
+    public static void main(String[] args) {
+        DynamicStack stack = new DynamicStack();
+        for (int i = 0; i < 15; i++) {
+            stack.push(i);
+        }
+        System.out.println(stack.peek());
+
+    }
+
+    private int top = -1;
+    private static final int DEFAULT_SIZE = 10;
+    private int[] data;
+
+    public DynamicStack() {
+        this.data = new int[DEFAULT_SIZE];
+    }
+
+    public boolean push(int value) {
+        if (isFull()) {
+            resize();
+        }
+        data[++this.top] = value;
+        return true;
+    }
+
+    public int pop() {
+        if (isEmpty()) {
+            System.out.println("Cannot pop from an empty stack.");
+            return -1;
+        }
+        return data[top--];
+    }
+
+    public int peek() {
+        return data[top];
+    }
+
+    private boolean isFull() {
+        return top == data.length - 1;
+    }
+
+    private boolean isEmpty() {
+        return top == -1;
+    }
+
+    private void resize() {
+        int[] temp = new int[data.length * 2];
+        for (int i = 0; i < data.length; i++) {
+            temp[i] = data[i];
+        }
+        this.data = temp; // very important line
+    }
+
+}
+
+```
+
+## Queue
+
+Definition of Queue
+A queue is a linear data structure that follows the First In, First Out (FIFO) principle. This means that the first element added to the queue will be the first one to be removed. Queues are used in various applications such as task scheduling, handling requests in a server, and breadth-first search (BFS) in graphs.
+
+- Key Operations:
+
+1. Enqueue (or Offer): Add an element to the end of the queue.
+2. Dequeue (or Poll): Remove and return the front element from the queue.
+3. Peek (or Front): Return the front element without removing it.
+4. isEmpty: Check if the queue is empty.
+5. Size: Get the number of elements in the queue.
+
+### Queue Methods
+
+| Method       | Action                     | Empty Queue Behavior            | Exception Thrown         |
+| ------------ | -------------------------- | ------------------------------- | ------------------------ |
+| `add(E e)`   | Inserts element            | Throws `IllegalStateException`  | `IllegalStateException`  |
+| `offer(E e)` | Inserts element            | Returns `false`                 | None                     |
+| `peek()`     | Retrieves head (no remove) | Returns `null`                  | None                     |
+| `element()`  | Retrieves head (no remove) | Throws `NoSuchElementException` | `NoSuchElementException` |
+| `poll()`     | Retrieves and removes head | Returns `null`                  | None                     |
+| `remove()`   | Retrieves and removes head | Throws `NoSuchElementException` | `NoSuchElementException` |
+
+```java
+package stackAndQueues;
+
+public class Queue {
+    public static void main(String[] args) {
+        Queue queue = new Queue();
+        for (int i = 0; i < 15; i++) {
+            queue.add(i);
+        }
+        System.out.println(queue.remove());
+        System.out.println(queue.remove());
+    }
+
+    private int[] data;
+    private int first = 0;
+    private int current = -1;
+    private static final int DEFAULT_SIZE = 10;
+
+    public Queue() {
+        this(DEFAULT_SIZE);
+    }
+
+    public Queue(int size) {
+        this.data = new int[size];
+    }
+
+    public boolean add(int value) {
+        if (isFull()) {
+            System.out.println("Cannot add to a full queue.");
+            return false;
+        }
+        data[++this.current] = value;
+        return true;
+    }
+
+    public int remove() {
+        if (isEmpty()) {
+            System.out.println("Cannot remove from an empty queue.");
+            return -1;
+        }
+        return data[this.first++];
+    }
+
+    private boolean isFull() {
+        return this.current == data.length - 1;
+    }
+
+    private boolean isEmpty() {
+        return this.current == -1;
+    }
+
+}
+
+```
+
+### Queue with One Pointer
+
+```java
+package stackAndQueues;
+
+
+public class QueueWithOnePointer {
+    public static void main(String[] args) {
+        QueueWithOnePointer queue = new QueueWithOnePointer();
+        for (int i = 0; i < 10; i++) {
+            queue.add(i);
+        }
+        queue.remove();
+        queue.remove();
+        queue.display();
+    }
+
+    private int ptr = -1;
+    private int[] data;
+    private static final int DEFAULT_SIZE = 10;
+
+    public QueueWithOnePointer() {
+        this(DEFAULT_SIZE);
+    }
+
+    public QueueWithOnePointer(int size) {
+        this.data = new int[size];
+    }
+
+    public boolean add(int value) {
+        if (isFull()) {
+            System.out.println("Cannot add to a full queue.");
+            return false;
+        }
+        data[++ptr] = value;
+        return true;
+    }
+
+    public int remove() {
+        if (isEmpty()) {
+            System.out.println("Cannot remove from an empty queue.");
+            return -1;
+        }
+        int deletedValue = data[0];
+        for (int i = 0; i < data.length - 1; i++) { // left shifting the array by 1
+            data[i] = data[i + 1];
+        }
+        this.ptr--;
+        return deletedValue;
+    }
+
+    public void display() {
+        for (int i = 0; i <= ptr; i++) {
+            System.out.print(data[i] + " <-\s");
+        }
+        System.out.print("END");
+    }
+
+    private boolean isEmpty() {
+        return ptr == -1;
+    }
+
+    private boolean isFull() {
+        return ptr == data.length - 1;
+    }
+}
+```
+
+### Dynamic Queue
+
+```java
+package stackAndQueues;
+
+public class DynamicQueue {
+    public static void main(String[] args) {
+        DynamicQueue queue = new DynamicQueue();
+
+        queue.add(1);
+        queue.add(2);
+        queue.display();
+
+        queue.remove();
+        queue.display();
+    }
+
+    private int[] data;
+    private int first = 0;
+    private int last = 0;
+    private int size = 0;
+    private static final int DEFAULT_SIZE = 10;
+
+    public DynamicQueue() {
+        this(DEFAULT_SIZE);
+    }
+
+    public DynamicQueue(int initialSize) {
+        this.data = new int[initialSize];
+    }
+
+    private boolean isFull() {
+        return size == data.length;
+    }
+
+    private boolean isEmpty() {
+        return size == 0;
+    }
+
+    private boolean resize() {
+        int[] temp = new int[2 * data.length];
+        for (int i = first; i < size; i++) {
+            temp[i] = data[i];
+        }
+        data = temp;
+        return true;
+    }
+
+    public boolean add(int value) {
+        if (isFull()) {
+            resize();
+        }
+        data[this.last] = value;
+        last = last + 1;
+        this.size++;
+        return true;
+    }
+
+    public int remove() {
+        if (isEmpty()) {
+            System.out.println("Cannot remove from an empty queue.");
+            return -1;
+        }
+
+        int value = data[this.first];
+        first = first + 1;
+        this.size--;
+        return value;
+    }
+
+    public void display() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty.");
+            return;
+        }
+        for (int i = first; i < last; i++) {
+            System.out.print(data[i] + " -> ");
+        }
+        System.out.print("END\n");
+    }
+
+```
+
+## Circular Queue
+
+```java
+package stackAndQueues;
+
+public class CircularQueue {
+    public static void main(String[] args) {
+        CircularQueue queue = new CircularQueue();
+        for (int i = 0; i < 10; i++) {
+            queue.add(i);
+        }
+        queue.remove();
+        queue.add(99);
+        queue.display();
+        // for (int i = 0; i < 10; i++) {
+        // System.out.println(queue.remove());
+        // }
+    }
+
+    private int first = 0;
+    private int last = 0;
+    private int[] data;
+    private int size;
+    private final static int DEFAULT_SIZE = 10;
+
+    public CircularQueue() {
+        this(DEFAULT_SIZE);
+    }
+
+    public CircularQueue(int size) {
+        this.data = new int[size];
+    }
+
+    public boolean add(int value) {
+        if (isFull()) {
+            System.out.println("Cannot add to a full circular queue.");
+            return false;
+        }
+        data[last] = value;
+        this.last = this.last + 1;
+        this.last = (this.last) % data.length;
+        this.size++;
+        return true;
+    }
+
+    public int remove() {
+        if (isEmpty()) {
+            System.out.println("Cannot remove from an empty circular queue.");
+            return -1;
+        }
+        int value = data[this.first];
+        this.first = this.first + 1;
+        this.first = (this.first) % data.length;
+        this.size--;
+        return value;
+    }
+
+    public int peek() {
+        if (isEmpty()) {
+            System.out.println("Cannot peek in an empty circular queue.");
+            return -1;
+        }
+        return data[first];
+    }
+
+    public void display() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty.");
+            return;
+        }
+
+        int i = first;
+        do {
+            System.out.print(data[i] + " -> ");
+            i = (i + 1) % data.length;
+        } while (i != last);
+        System.out.print("END");
+    }
+
+    private boolean isEmpty() {
+        return size == 0;
+    }
+
+    private boolean isFull() {
+        return size == data.length;
+    }
+}
+```
+
+### Dynamic Circular Queue
+
+```java
+package stackAndQueues;
+
+public class DynamicCircularQueue {
+    public static void main(String[] args) {
+        DynamicCircularQueue queue = new DynamicCircularQueue();
+        for (int i = 0; i < 20; i++) {
+            queue.add(i);
+        }
+        queue.remove();
+        queue.display();
+    }
+
+    private int[] data;
+    private int size;
+    private int first;
+    private int last;
+    private final static int DEFAULT_SIZE = 10;
+
+    public DynamicCircularQueue() {
+        this(DEFAULT_SIZE);
+    }
+
+    public DynamicCircularQueue(int initialSize) {
+        this.data = new int[initialSize];
+    }
+
+    private boolean resize() {
+        int[] temp = new int[data.length * 2];
+        int i = 0;
+        do {
+            temp[i] = data[(first + i) % data.length];
+            ++i;
+        } while (i != data.length);
+        first = 0;
+        last = data.length;
+        data = temp;
+        return true;
+    }
+
+    private boolean isFull() {
+        return size == data.length;
+    }
+
+    private boolean isEmpty() {
+        return size == 0;
+    }
+
+    public boolean add(int value) {
+        if (isFull()) {
+            resize();
+        }
+        data[last] = value;
+        last = (last + 1) % data.length;
+        this.size++;
+        return true;
+    }
+
+    public int remove() {
+        if (isEmpty()) {
+            System.out.println("Cannot remove from an empty queue.");
+            return -1;
+        }
+
+        int value = data[first];
+        first = (first + 1) % data.length;
+        this.size--;
+        return value;
+    }
+
+    public int peek() {
+        if (isEmpty()) {
+            System.out.println("Cannot peak in an empty queue.");
+            return -1;
+        }
+        return data[first];
+    }
+
+    public void display() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty.");
+            return;
+        }
+        int i = first;
+        do {
+            System.out.print(data[i] + " -> ");
+            i = (i + 1) % data.length;
+        } while (i != last);
+        System.out.print("END");
+    }
+}
+
+```
+
 ## Trees
 
 1. It consists of nodes. In case of a binary tree, they are atmost 2 in number.
@@ -902,6 +1911,79 @@ public class BFS {
 #### Tips related to BFS questions
 
 - While solving BFS questions, you should `consider deque` if you need to traverse the tree in left to right and then right to left manner, basically, deque shouldn't be out of picture.
+
+```java
+package leetcode;
+
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
+@SuppressWarnings("unused")
+public class $103_BinaryTreeZigZagLevelOrderTraversal {
+    private class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+    }
+
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+
+        if (root == null) {
+            return result;
+        }
+
+        Deque<TreeNode> deque = new LinkedList<>();
+        deque.offerFirst(root); // left to right once done
+        boolean reverse = true;
+
+        while (!deque.isEmpty()) {
+            int levelSize = deque.size();
+            List<Integer> currentLevelList = new ArrayList<>(levelSize);
+            for (int i = 0; i < levelSize; i++) {
+                if (reverse) {
+                    TreeNode currentNode = deque.removeLast();
+                    currentLevelList.add(currentNode.val);
+                    if (currentNode.left != null) {
+                        deque.addFirst(currentNode.left);
+                    }
+
+                    if (currentNode.right != null) {
+                        deque.addFirst(currentNode.right);
+                    }
+                } else {
+                    TreeNode currentNode = deque.removeFirst();
+                    currentLevelList.add(currentNode.val);
+                    if (currentNode.right != null) {
+                        deque.addLast(currentNode.right);
+                    }
+
+                    if (currentNode.left != null) {
+                        deque.addLast(currentNode.left);
+                    }
+                }
+
+            }
+            result.add(currentLevelList);
+            if (reverse == true) {
+                reverse = false;
+            } else {
+                reverse = true;
+            }
+        }
+
+        return result;
+    }
+}
+
+```
 
 - Depending on the question, you might need to change the way how nodes are stored, don't just stick to the original order, improvise if need, like in case of symmetric trees.
 
