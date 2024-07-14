@@ -1485,12 +1485,13 @@ public class BinaryTree {
 
 ```
 
-### Traversal Methods
+## Traversal Methods in [Depth First Search](#depth-first-search-or-top-to-bottom-or-bottom-to-top-traversal)
 
 #### The traversal methods are for Binary Trees in general.
 
 #### Pre-order : N &rarr; L &rarr; R
 
+- Can be seen as "top-to bottom"
 - Used for evaluating mathematical expressions or making a copy.
 - Convert string/array in a Binary Tree or serialize data.
 
@@ -1524,6 +1525,7 @@ private void inOrder(Node node){
 
 #### Post-order : L &rarr; R &rarr; N
 
+- Can be seen as "bottom-to-top"
 - To delete something from the Binary Tree.
 - When we perform bottom-up calculation(like calculating the height or diameter of a tree), then we can use it.
 
@@ -2044,3 +2046,15 @@ public class $101_SymmetricTree {
 }
 
 ```
+
+## Depth First Search Traversal
+
+- The methods (Pre-order, In-Order and Pre-order) have been described [above](#traversal-methods-in-depth-first-search).
+
+Some Tid-bits regarding those methods:-
+
+- Do something at that level and then move down : Use Pre-Order Traversal (N &rarr; L &rarr; R)
+
+- To get the leftmost(smallest value in BST) value in a tree, we can use In-Order Traversal (L &rarr; N &rarr; R)
+
+- Perform some operations on the root at the last, e.g. delete the tree, delete all the left then right and then root node, therefore we'll use Post-Order Traversal (L &rarr; R &rarr; N).
