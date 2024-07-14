@@ -1003,7 +1003,6 @@ public class DynamicStack {
 Definition of Queue
 A queue is a linear data structure that follows the First In, First Out (FIFO) principle. This means that the first element added to the queue will be the first one to be removed. Queues are used in various applications such as task scheduling, handling requests in a server, and breadth-first search (BFS) in graphs.
 
-
 Key Operations:
 
 1. Enqueue (or Offer): Add an element to the end of the queue.
@@ -1657,7 +1656,7 @@ public class BST {
 
 Some self balancing binary search trees are : AVL trees, Red Black Tree etc.
 
-## AVL tree :
+## AVL tree
 
 1. Insert the node normally.
 2. From `bottom-up` check for the unbalanced node(p).
@@ -1986,7 +1985,7 @@ public class $103_BinaryTreeZigZagLevelOrderTraversal {
 
 ```
 
-- Depending on the question, you might need to change the way how nodes are stored, don't just stick to the original order, improvise if need, like in case of symmetric trees.
+- Depending on the question, you might need to change the way how nodes are stored, don't just stick to the original order, improvise if need be, like in the case of symmetric trees.
 
 ```java
 package leetcode;
@@ -2031,7 +2030,7 @@ public class $101_SymmetricTree {
                 return false;
             }
 
-            // here we can see how the elements are stored differently in the queue
+            // here we can see the elements are stored differently in the queue
             // as per requirements
             queue.offer(left.left);
             queue.offer(right.right);
