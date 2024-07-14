@@ -1485,7 +1485,7 @@ public class BinaryTree {
 
 ```
 
-## Traversal Methods in [Depth First Search](#depth-first-search-or-top-to-bottom-or-bottom-to-top-traversal)
+## Traversal Methods in [Depth First Search](#depth-first-search)
 
 #### The traversal methods are for Binary Trees in general.
 
@@ -2047,8 +2047,9 @@ public class $101_SymmetricTree {
 
 ```
 
-## Depth First Search Traversal
+## Depth First Search
 
+- The more intuitive approach is recursion in this algorithm.
 - The methods (Pre-order, In-Order and Pre-order) have been described [above](#traversal-methods-in-depth-first-search).
 
 Some Tid-bits regarding those methods:-
