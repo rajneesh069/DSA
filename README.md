@@ -2308,3 +2308,25 @@ Some Tid-bits regarding those methods:-
 - To get the leftmost(smallest value in BST) value in a tree, we can use In-Order Traversal (L &rarr; N &rarr; R)
 
 - Perform some operations on the root at the last, e.g. to delete a tree, we'll have to delete all the left nodes first then the right nodes and then the root node, therefore we'll use Post-Order Traversal (L &rarr; R &rarr; N).
+
+
+#### Diameter of a binary tree
+```java
+public int diameterOfBinaryTree(TreeNode root) {
+        height(root);
+        return diameter - 1; // we have calculated node wise
+    }
+
+    private int height(TreeNode node) {
+        if (node == null) {
+            return 0;
+        }
+
+        int leftHeight = height(node.left);
+        int rightHeight = height(node.right);
+        int dia = leftHeight + rightHeight + 1;
+        diameter = Math.max(diameter, dia); // diameter is the max value of dia of each individual tree
+
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
+```
