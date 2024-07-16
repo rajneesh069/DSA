@@ -1486,6 +1486,76 @@ public class BinaryTree {
 
 ```
 
+### Finding a Node in a binary tree
+
+```java
+private Node findNode(Node root, Node node, int x) {
+
+        if (root == node) {
+            return node;
+        }
+
+        if (node == null) {
+            return null;
+        }
+
+        if (node.value == x) {
+            return node;
+        }
+
+        Node left = findNode(root, node.left, x);
+        if (left != null) {
+            return left;
+        }
+        return findNode(root, node.right, x);
+
+    }
+```
+
+### Finding level of a node in a binary tree
+
+```java
+package binaryTrees;
+
+@SuppressWarnings("unused")
+public class LevelOfNodes {
+    // We'll find the level of nodes.
+    private class Node {
+        private int value;
+        private Node left;
+        private Node right;
+
+        private Node(int value) {
+            this.value = value;
+        }
+    }
+
+    private Node root;
+
+    private int findLevel(Node node, Node x, int level) {
+        if (root == null) {
+            return -1;
+        }
+
+        if (node == null) {
+            return 0;
+        }
+
+        if (node == x) {
+            return level;
+        }
+
+        int left = findLevel(node.left, x, level + 1);
+        if (left != 0) {
+            return left;
+        }
+        return findLevel(node.right, x, level + 1);
+
+    }
+}
+
+```
+
 ## Traversal Methods in [Depth First Search](#depth-first-search)
 
 #### The traversal methods are for Binary Trees in general.
@@ -1909,6 +1979,154 @@ public class BFS {
 
 }
 
+```
+
+### Finding if the nodes are siblings
+
+```java
+package binaryTrees;
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+@SuppressWarnings("unused")
+
+public class IsSibling {
+    // We'll find if the nodes of a binary tree are siblings.
+
+    private class Node {
+        private int value;
+        private Node left;
+        private Node right;
+
+        private Node(int value) {
+            this.value = value;
+        }
+    }
+
+    private Node root;
+
+    private boolean isSibling(Node root, int x, int y) {
+
+        if (root == null) {
+            return false;
+        }
+
+        Queue<Node> queue = new LinkedList<>();
+        queue.offer(root);
+
+        boolean foundX = false;
+        boolean foundY = false;
+
+        while (!queue.isEmpty()) {
+            int levelSize = queue.size();
+            for (int i = 0; i < levelSize; i++) {
+                // in each iteration, we are looking at the node itself
+                foundX = false;
+                foundY = false;
+                Node currentNode = queue.poll();
+
+                // Sibling check
+                if (currentNode.left != null && currentNode.right != null) {
+                    if ((currentNode.left.value == x && currentNode.right.value == y) ||
+                            (currentNode.left.value == y && currentNode.right.value == x)) {
+                        return true;
+                    }
+                }
+
+                if (currentNode.left != null) {
+                    queue.offer(currentNode.left);
+                }
+                if (currentNode.right != null) {
+                    queue.offer(currentNode.right);
+                }
+
+            }
+        }
+        return false;
+    }
+}
+
+```
+
+### Finding a node using BFS
+
+```java
+    private class Node {
+        private int value;
+        private Node left;
+        private Node right;
+
+        private Node(int value) {
+            this.value = value;
+        }
+    }
+
+    private Node root;
+
+    private Node findNodeByValue(Node root, int val) {
+        if (root == null) {
+            return null;
+        }
+
+        if (root.value == val) {
+            return root;
+        }
+
+        Queue<Node> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            int levelSize = queue.size();
+            for (int i = 0; i < levelSize; i++) {
+                Node currentNode = queue.poll();
+                if (currentNode.value == val) {
+                    return currentNode;
+                }
+
+                if (currentNode.left != null) {
+                    queue.offer(currentNode.left);
+                }
+
+                if (currentNode.right != null) {
+                    queue.offer(currentNode.right);
+                }
+            }
+        }
+
+        return null;
+    }
+
+    private Node findNode(Node root, Node target) {
+        if (root == null) {
+            return null;
+        }
+
+        if (root == target) {
+            return target;
+        }
+
+        Queue<Node> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            int levelSize = queue.size();
+            for (int i = 0; i < levelSize; i++) {
+                Node currentNode = queue.poll();
+                if (currentNode == target) {
+                    return target;
+                }
+
+                if (currentNode.left != null) {
+                    queue.offer(currentNode.left);
+                }
+
+                if (currentNode.right != null) {
+                    queue.offer(currentNode.right);
+                }
+            }
+        }
+
+        return null;
+    }
 ```
 
 #### Tips related to BFS questions
