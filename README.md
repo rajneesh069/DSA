@@ -1486,6 +1486,36 @@ public class BinaryTree {
 
 ```
 
+### Calculating height of a node in a binary tree
+
+```java
+package binaryTrees;
+
+@SuppressWarnings("unused")
+public class HeightOfANode {
+    private class Node {
+        private int value;
+        private Node left;
+        private Node right;
+    }
+
+    private Node root;
+
+    private int height(Node node) {
+        if (node == null) {
+            return 0;
+        }
+
+        int left = height(node.left);
+        int right = height(node.right);
+
+        return Math.max(left, right) + 1;
+
+    }
+}
+
+```
+
 ### Finding a Node in a binary tree
 
 ```java
