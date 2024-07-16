@@ -2050,7 +2050,7 @@ public class $101_SymmetricTree {
 ## Depth First Search
 
 - The more intuitive approach is recursion in this algorithm.
-- The methods (Pre-order, In-Order and Pre-order) have been described [above](#traversal-methods-in-depth-first-search).
+- The methods (Pre-order, In-Order and Post-order) have been described [above](#traversal-methods-in-depth-first-search).
 
 Some Tid-bits regarding those methods:-
 
@@ -2058,4 +2058,4 @@ Some Tid-bits regarding those methods:-
 
 - To get the leftmost(smallest value in BST) value in a tree, we can use In-Order Traversal (L &rarr; N &rarr; R)
 
-- Perform some operations on the root at the last, e.g. delete the tree, delete all the left then right and then root node, therefore we'll use Post-Order Traversal (L &rarr; R &rarr; N).
+- Perform some operations on the root at the last, e.g. to delete a tree, we'll have to delete all the left nodes first then the right nodes and then the root node, therefore we'll use Post-Order Traversal (L &rarr; R &rarr; N).
