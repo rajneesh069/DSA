@@ -87,4 +87,26 @@ public class FindNode {
         return null;
     }
 
+    private Node findNode(Node root, Node node, int x) {
+
+        if (root == node) {
+            return node;
+        }
+
+        if (node == null) {
+            return null;
+        }
+
+        if (node.value == x) {
+            return node;
+        }
+
+        Node left = findNode(root, node.left, x);
+        if (left != null) {
+            return left;
+        }
+        return findNode(root, node.right, x);
+
+    }
+
 }

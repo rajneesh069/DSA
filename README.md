@@ -1422,6 +1422,7 @@ public class DynamicCircularQueue {
 5. Internal : Nodes with atleast 1 child.
 6. `Height of a tree =  Max(height(leftSubtree), height(rightSubtree)).`
 7. `Height of a node is Max number of edges from that node to the leaf node.`
+8. Level of a node = Height of root - Height of the node.
 
 #### `Time complexity while inserting, removing or traversing a binary tree(balanced) is O(log(N)).`
 
