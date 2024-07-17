@@ -2309,8 +2309,12 @@ Some Tid-bits regarding those methods:-
 
 - Perform some operations on the root at the last, e.g. to delete a tree, we'll have to delete all the left nodes first then the right nodes and then the root node, therefore we'll use Post-Order Traversal (L &rarr; R &rarr; N).
 
+- Always use queue or stack when you want to store the node to perform an operation later.
+  (Like flattening a binary tree into a linked list where the left pointers need to be null
+  and right ones need to point to the next node)
 
 #### Diameter of a binary tree
+
 ```java
 public int diameterOfBinaryTree(TreeNode root) {
         height(root);
@@ -2332,6 +2336,7 @@ public int diameterOfBinaryTree(TreeNode root) {
 ```
 
 ### Invert a binary tree
+
 ```java
 package leetcode;
 
