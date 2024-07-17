@@ -1,7 +1,6 @@
 package leetcode;
 
-public class $226_InvertBinaryTree {
-
+public class $104_MaximumDepthOfBinaryTree {
     public class TreeNode {
         int val;
         TreeNode left;
@@ -21,24 +20,15 @@ public class $226_InvertBinaryTree {
         }
     }
 
-    public TreeNode invertTree(TreeNode node) {
+    public int maxDepth(TreeNode node) {
         if (node == null) {
-            return node;
+            return 0;
         }
-
         if (node.left == null && node.right == null) {
-            return node;
+            return 1;
         }
-
-        invertTree(node.left);
-        invertTree(node.right);
-        return swap(node);
-    }
-
-    private TreeNode swap(TreeNode x) {
-        TreeNode temp = x.left;
-        x.left = x.right;
-        x.right = temp;
-        return x;
+        int left = maxDepth(node.left);
+        int right = maxDepth(node.right);
+        return Math.max(left, right) + 1;
     }
 }
