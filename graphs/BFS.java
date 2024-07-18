@@ -6,6 +6,8 @@ import java.util.Queue;
 
 @SuppressWarnings("unused")
 public class BFS {
+    // Time complexity = O(N) + O(2*E)
+    // Space complexity = O(3*N)
     private ArrayList<Integer> traversalBFS(int V, ArrayList<ArrayList<Integer>> adj) {
         // here nodes are of Integer type
         ArrayList<Integer> bfs = new ArrayList<>();
