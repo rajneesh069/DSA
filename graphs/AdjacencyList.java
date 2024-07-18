@@ -3,6 +3,7 @@ package graphs;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+@SuppressWarnings("unused")
 public class AdjacencyList {
     public static void main(String[] args) {
         // 1 -- 2 -- 3 -- 1 -> graph

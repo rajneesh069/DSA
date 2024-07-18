@@ -52,4 +52,6 @@ public class $236_LowestCommonAncestorOfBinaryTree {
         path.setLength(path.length() - 1);
         return false;
     }
+
+    // Optimized Way
 }

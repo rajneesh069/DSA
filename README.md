@@ -2384,3 +2384,170 @@ public class $226_InvertBinaryTree {
 }
 
 ```
+
+### Traversing from one node to another in a binary tree and printing the path
+
+```java
+package leetcode;
+
+public class $2096_StepByStepDirectionsFromABinaryTreeNodeToAnother {
+    public class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode() {
+        }
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+
+    StringBuilder s = new StringBuilder(""), d = new StringBuilder("");
+
+    public String getDirections(TreeNode root, int startValue, int destValue) {
+        traverse(root, startValue, s); // s -> start
+        traverse(root, destValue, d); // d -> destination
+        int i = 0;
+        // Find the common path prefix length
+        while (i < s.length() && i < d.length() && s.charAt(i) == d.charAt(i)) {
+            i++;
+        }
+
+        // Number of steps to move up from the start node to the common ancestor
+        StringBuilder finalPath = new StringBuilder();
+        for (int j = i; j < s.length(); j++) {
+            finalPath.append('U');
+        }
+
+        // Append remaining path to the destination node
+        finalPath.append(d.substring(i));
+
+        return finalPath.toString();
+    }
+
+    // Main thing here is that how you stop the traversal using booleans
+    private boolean traverse(TreeNode root, int value, StringBuilder path) {
+        // Optimize traversal by stopping it the moment value is found!!
+        if (root == null) {
+            return false;
+        }
+
+        if (root.val == value) {
+            return true;
+        }
+
+        path.append("L");
+        if (traverse(root.left, value, path)) {
+            return true;
+        }
+
+        path.setLength(path.length() - 1);
+
+        path.append("R");
+        if (traverse(root.right, value, path)) {
+            return true;
+        }
+        path.setLength(path.length() - 1);
+        return false;
+    }
+}
+
+```
+
+## Graphs
+
+### What is a graph?
+
+- A structure with nodes/vertices and/or edges.
+- A graph could have multiple connected components and we use the concept of `visitedArray` to keep track of the vertices we visit, even if the components don't appear to be connected they could be of the same graph, hence the visited array. (Will become more clear once we dive into algorithms)
+
+### Types of Graph:
+
+1. Directed -> The edges have arrows towards the vertices, hence giving it a direction.
+2. Undirected -> The edges don't have specific directions.
+
+- For an undirected cyclic graph the degree of the graph is 2\*(number of edges).
+
+### Other forms are:
+
+1. Cyclic -> When you start with a node and end up back again at that node.
+2. Acyclic -> When there's no way to reach back to the node you started with.
+
+### Degree of a graph
+
+- For undirected graph:
+  Degree of an undirected cyclic graph = 2 \* E, where E is the number of edges.
+  To calculate degree of a vertex, simply calculate the number of edges attached to it and then sum of them all would be the degree of the grapgh.
+
+- For directed graph:
+  Degree of a directed graph has been defined using the `In-degree` and the `Out-degree` of the nodes. As the name suggests `in-degree` of a node is the edges with arrows pointing inwards the node and `out-degree` is the edges with arrows pointing outwards.
+
+---
+
+### Ways to store a Graph(complex data structure):
+
+1. Adjacency Matrix, space complexity is O(n<sup>2</sup>), that's why avoided.
+2. `Adjacency list, space complexity is ~O(2*n), hence this is preferred. n is the number of edges.`
+   `n being the number of the nodes.`
+
+```java
+package graphs;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+@SuppressWarnings("unused")
+public class AdjacencyList {
+    public static void main(String[] args) {
+        // 1 -- 2 -- 3 -- 1 -> graph
+        int n = 3;
+        ArrayList<ArrayList<Integer>> adj = new ArrayList<>(); // adjacency list
+        
+        // we'll insert (n+1) empty lists in the 'adj' list, where 'n' is the number of
+        // nodes.
+        for (int i = 0; i <= n; i++) {
+            adj.add(new ArrayList<>()); // (n+1) array lists inserted
+        }
+
+        // 1 -- 2
+        adj.get(1).add(2);
+        adj.get(2).add(1);
+
+        // 2 -- 3
+        adj.get(2).add(3);
+        adj.get(3).add(2);
+
+        // 3--1
+        adj.get(3).add(1);
+        adj.get(1).add(3);
+
+        /*
+         * u--v : Undirected graph
+         * adj.get(u).add(v);
+         * adj.get(v).add(u);
+         *
+         * u-->v : Directed graph
+         * adj.get(u).add(v);
+         */
+
+        for (int i = 1; i <= n; i++) {
+            System.out.print("Node " + i + ": ");
+            for (int j = 0; j < adj.get(i).size(); j++) {
+                System.out.print(adj.get(i).get(j) + "\s");
+            }
+            System.out.println();
+        }
+    }
+
+}
+```
+
+For a directed graph one of the `adj.get(u).add(v)` or `adj.get(v).add(u)` is omitted as the direction would be specified.
