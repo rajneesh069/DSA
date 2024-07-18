@@ -20,74 +20,51 @@ public class $2096_StepByStepDirectionsFromABinaryTreeNodeToAnother {
         }
     }
 
-    String s1 = "";
-    String s2 = "";
+    StringBuilder s = new StringBuilder(""), d = new StringBuilder("");
 
     public String getDirections(TreeNode root, int startValue, int destValue) {
-        String s = "";
-        traverse(root, startValue, s1); // s1 -> start
-        traverse(root, destValue, s2); // s2 -> destination
-        System.out.println("s1: " + s1);
-        System.out.println("s2: " + s2);
-        // same path
-        if (s1.length() > s2.length()) {
-            StringBuilder finalPath = new StringBuilder("");
-            if (s1.startsWith(s2)) {
-                while (!s2.isEmpty()) {
-                    finalPath.append("U");
-                    s2.substring(1);
-                }
-                return finalPath.toString();
-            }
-        } else if (s1.length() < s2.length()) {
-            if (s2.startsWith(s1)) {
-                s = s2.substring(s1.length());
-                return s;
-            }
-        }
-        // different path
-
-        // 1. same subtree
-        if (s1.charAt(0) == s2.charAt(0)) {
-            StringBuilder finalPath = new StringBuilder("");
-            s1 = s1.substring(1);
-            s2 = s2.substring(1);
-            while (!s1.isEmpty()) {
-                finalPath.append("U");
-                s.substring(1);
-            }
-            finalPath.append(s2);
-            return finalPath.toString();
+        traverse(root, startValue, s); // s -> start
+        traverse(root, destValue, d); // d -> destination
+        int i = 0;
+        // Find the common path prefix length
+        while (i < s.length() && i < d.length() && s.charAt(i) == d.charAt(i)) {
+            i++;
         }
 
-        // 2. different subtree
-        if (s1.charAt(0) != s2.charAt(0)) {
-            StringBuilder finalPath = new StringBuilder("");
-            while (!s1.isEmpty()) {
-                finalPath = finalPath.append("U");
-                s1.substring(1);
-            }
-            finalPath = finalPath.append(s2);
-            return finalPath.toString();
+        // Number of steps to move up from the start node to the common ancestor
+        StringBuilder finalPath = new StringBuilder();
+        for (int j = i; j < s.length(); j++) {
+            finalPath.append('U');
         }
-        return s;
+
+        // Append remaining path to the destination node
+        finalPath.append(d.substring(i));
+
+        return finalPath.toString();
     }
 
-    private void traverse(TreeNode root, int value, String s) {
+    private boolean traverse(TreeNode root, int value, StringBuilder path) {
+        // Optimize traversal by stopping it the moment value is found!!
         if (root == null) {
-            return;
+            return false;
         }
 
         if (root.val == value) {
-            if (s1.isEmpty()) {
-                s1 = s;
-            } else if (s2.isEmpty()) {
-                s2 = s;
-            }
-            return;
+            return true;
         }
 
-        traverse(root.left, value, s + ("L"));
-        traverse(root.right, value, s + ("R"));
+        path.append("L");
+        if (traverse(root.left, value, path)) {
+            return true;
+        }
+
+        path.setLength(path.length() - 1);
+
+        path.append("R");
+        if (traverse(root.right, value, path)) {
+            return true;
+        }
+        path.setLength(path.length() - 1);
+        return false;
     }
 }
