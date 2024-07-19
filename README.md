@@ -2632,7 +2632,9 @@ public class DFS {
 
 ```
 
-- The following code illustrates the `conversion of adjacency matrix to adjacency list` along with DFS traversal.
+---
+
+The following code illustrates the `conversion of adjacency matrix to adjacency list` along with DFS traversal.
 
 ```java
 package javaPlayground;
@@ -2691,4 +2693,6 @@ public class j9 {
 
 ```
 
-- The above code illustrates the conversion of adjacency matrix to adjacency list and also shows the importance of visited array as when the graph has been divided into 'k' connected components then how to reach every node using the visited array.
+- The above code also shows the importance of visited array as when the graph has been divided into 'k' connected components then how to reach every node using the visited array.
+
+---
