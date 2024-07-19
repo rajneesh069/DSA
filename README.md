@@ -2467,14 +2467,14 @@ public class $2096_StepByStepDirectionsFromABinaryTreeNodeToAnother {
 ### What is a graph?
 
 - A structure with nodes/vertices and/or edges.
-- A graph could have multiple connected components and we use the concept of `visitedArray`(with length = number of nodes(if 0-based indexing) or number of nodes+1 (if 1-based indexing)) to keep track of the vertices we visit, even if the components don't appear to be connected they could be of the same graph, hence the visited array. (Will become more clear once we dive into algorithms)
+- A graph can have multiple connected components and we use the concept of `visitedArray`(with length = number of nodes(if 0-based indexing) or number of nodes+1 (if 1-based indexing)) to keep track of the vertices we visit so that every node is `visited only once`, even if the components don't appear to be connected they could be of the same graph. [(Will become more clear once we dive into algorithms!)](#breadth-first-search-or-level-order-traversal-1)
 
 ### Types of Graph:
 
 1. Directed -> The edges have arrows towards the vertices, hence giving it a direction.
 2. Undirected -> The edges don't have specific directions.
 
-- For an undirected cyclic graph the degree of the graph is 2\*(number of edges).
+- For an undirected graph the degree of the graph is 2\*(number of edges).
 
 ### Other forms are:
 
@@ -2484,19 +2484,34 @@ public class $2096_StepByStepDirectionsFromABinaryTreeNodeToAnother {
 ### Degree of a graph
 
 - For undirected graph:
-  Degree of an undirected cyclic graph = 2 \* E, where E is the number of edges.
-  To calculate degree of a vertex, simply calculate the number of edges attached to it and then sum of them all would be the degree of the grapgh.
+  Degree of an undirected graph = 2 \* E, where E is the number of edges.
+  To calculate degree of a vertex, simply calculate the number of edges attached to it and then sum of all of them would be the degree of the graph.
 
 - For directed graph:
-  Degree of a directed graph has been defined using the `In-degree` and the `Out-degree` of the nodes. As the name suggests `in-degree` of a node is the edges with arrows pointing inwards the node and `out-degree` is the edges with arrows pointing outwards.
+  Degree of a directed graph is defined using the `In-degree` and the `Out-degree` of the nodes. As the name suggests `in-degree` of a node are the number of edges with arrows pointing towards the node and `out-degree` is the number of edges with arrows pointing outwards.
 
 ---
 
 ### Ways to store a Graph(complex data structure):
 
 1. Adjacency Matrix(adjMatrix.length = number of nodes), space complexity is O(n<sup>2</sup>), where, n is the number of nodes, that's why avoided.
-2. `Adjacency list(adjList.length = number of nodes), space complexity is ~O(2n), hence this is preferred. n is the number of edges.`
-3. `Length of visited array = length of adjList+1 or length of adjList = length of adjMatrix or length of adjMatrix+1`
+2. `Adjacency list(adjList.length = number of nodes), space complexity is ~O(V + 2E), hence this is preferred. V is the number of vertices and E is the number of edges.`
+
+- Explanation of point 2:
+
+  > adj.get(u).add(v);
+
+  > adj.get(v).add(u);
+
+  The above statments tell us that each edge will be repeated twice in the list(for every u, a v and for every v, a u), hence the 2E plus the number of vertices(V) as the length of the list is V, that's why O(V + 2E).
+
+- `For directed graph it will be O(V+E)`, since no edges are repeated.
+
+---
+
+### `Length of visited array = length of adjList = length of adjMatrix = number of nodes.`
+
+---
 
 ```java
 package graphs;
