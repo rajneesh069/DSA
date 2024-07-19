@@ -2552,7 +2552,87 @@ public class AdjacencyList {
 
 For a directed graph one of the `adj.get(u).add(v)` or `adj.get(v).add(u)` is omitted as the direction would be specified.
 
+## Breadth First Search or Level Order Traversal
+
+```java
+package javaPlayground;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+
+ // Time complexity = O(N) + O(2*E)
+ // Space complexity = O(3*N)
+
+public class j10 {
+    public void bfs(ArrayList<ArrayList<Integer>> adj) {
+        boolean[] vis = new boolean[adj.size()];
+        Queue<Integer> q = new LinkedList<>();
+        ArrayList<Integer> bfs = new ArrayList<>();
+        q.offer(1); // Starting with node 1 (1-based indexing)
+        vis[1] = true;
+        while (!q.isEmpty()) {
+            Integer currentNode = q.poll();
+            bfs.add(currentNode);
+            for (Integer connectedNode : adj.get(currentNode)) {
+                if (!vis[connectedNode]) {
+                    q.offer(connectedNode);
+                    vis[connectedNode] = true;
+                }
+            }
+        }
+        System.out.println(bfs);
+    }
+
+    public static void main(String[] args) {
+        ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
+        for (int i = 0; i < 6; i++) { // Create adjacency list for 6 nodes (0 to 5)
+            adj.add(new ArrayList<>());
+        }
+        adj.get(1).add(2);
+        adj.get(1).add(3);
+        adj.get(2).add(4);
+        adj.get(2).add(5);
+        adj.get(3).add(5);
+
+        j10 obj = new j10();
+        obj.bfs(adj);
+    }
+}
+
+```
+
+- Queue stores the next level while the alogrithm traverses the current one.
+
 ## Depth First Search or DFS traversal
+
+```java
+package graphs;
+
+import java.util.ArrayList;
+
+public class DFS {
+    public void dfsTraversal(ArrayList<ArrayList<Integer>> adj) {
+        boolean[] vis = new boolean[adj.size()]; // this calls every component!
+        for (int i = 0; i < vis.length; i++) {
+            dfs(i, vis, adj);
+        }
+    }
+
+    private void dfs(int node, boolean[] vis, ArrayList<ArrayList<Integer>> adj) {
+        // this visits/traverses every node!
+        vis[node] = true;
+        System.out.println("Node: " + node);
+        for (Integer connectedNode : adj.get(node)) {
+            if (!vis[connectedNode])
+                dfs(connectedNode, vis, adj);
+        }
+    }
+}
+
+```
+
+- The following code illustrates the `conversion of adjacency matrix to adjacency list` along with DFS traversal.
 
 ```java
 package javaPlayground;
@@ -2612,55 +2692,3 @@ public class j9 {
 ```
 
 - The above code illustrates the conversion of adjacency matrix to adjacency list and also shows the importance of visited array as when the graph has been divided into 'k' connected components then how to reach every node using the visited array.
-
-## Breadth First Search or Level Order Traversal
-
-```java
-package javaPlayground;
-
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
-
- // Time complexity = O(N) + O(2*E)
- // Space complexity = O(3*N)
-
-public class j10 {
-    public void bfs(ArrayList<ArrayList<Integer>> adj) {
-        boolean[] vis = new boolean[adj.size()];
-        Queue<Integer> q = new LinkedList<>();
-        ArrayList<Integer> bfs = new ArrayList<>();
-        q.offer(1); // Starting with node 1 (1-based indexing)
-        vis[1] = true;
-        while (!q.isEmpty()) {
-            Integer currentNode = q.poll();
-            bfs.add(currentNode);
-            for (Integer connectedNode : adj.get(currentNode)) {
-                if (!vis[connectedNode]) {
-                    q.offer(connectedNode);
-                    vis[connectedNode] = true;
-                }
-            }
-        }
-        System.out.println(bfs);
-    }
-
-    public static void main(String[] args) {
-        ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
-        for (int i = 0; i < 6; i++) { // Create adjacency list for 6 nodes (0 to 5)
-            adj.add(new ArrayList<>());
-        }
-        adj.get(1).add(2);
-        adj.get(1).add(3);
-        adj.get(2).add(4);
-        adj.get(2).add(5);
-        adj.get(3).add(5);
-
-        j10 obj = new j10();
-        obj.bfs(adj);
-    }
-}
-
-```
-
-- Queue stores the next level while the alogrithm traverses the current one.

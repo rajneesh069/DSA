@@ -3,21 +3,20 @@ package graphs;
 import java.util.ArrayList;
 
 public class DFS {
-    public ArrayList<Integer> dfsOfGraph(int V, ArrayList<ArrayList<Integer>> adj) {
-        boolean[] vis = new boolean[V];
-        ArrayList<Integer> list = new ArrayList<>();
-        return dfs(V, 0, adj, vis, list);
+    public void dfsTraversal(ArrayList<ArrayList<Integer>> adj) {
+        boolean[] vis = new boolean[adj.size()]; // this calls every component!
+        for (int i = 0; i < vis.length; i++) {
+            dfs(i, vis, adj);
+        }
     }
 
-    private ArrayList<Integer> dfs(int V, int node, ArrayList<ArrayList<Integer>> adj, boolean[] vis,
-            ArrayList<Integer> list) {
-        list.add(node);
+    private void dfs(int node, boolean[] vis, ArrayList<ArrayList<Integer>> adj) {
+        // this visits/traverses every node!
         vis[node] = true;
-        for (Integer it : adj.get(node)) {
-            if (vis[it] == false) {
-                dfs(V, it, adj, vis, list);
-            }
+        System.out.println("Node: " + node);
+        for (Integer connectedNode : adj.get(node)) {
+            if (!vis[connectedNode])
+                dfs(connectedNode, vis, adj);
         }
-        return list;
     }
 }
