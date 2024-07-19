@@ -7,7 +7,6 @@ public class DFS {
         boolean[] vis = new boolean[V];
         ArrayList<Integer> list = new ArrayList<>();
         return dfs(V, 0, adj, vis, list);
-
     }
 
     private ArrayList<Integer> dfs(int V, int node, ArrayList<ArrayList<Integer>> adj, boolean[] vis,

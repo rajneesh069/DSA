@@ -2467,7 +2467,7 @@ public class $2096_StepByStepDirectionsFromABinaryTreeNodeToAnother {
 ### What is a graph?
 
 - A structure with nodes/vertices and/or edges.
-- A graph could have multiple connected components and we use the concept of `visitedArray` to keep track of the vertices we visit, even if the components don't appear to be connected they could be of the same graph, hence the visited array. (Will become more clear once we dive into algorithms)
+- A graph could have multiple connected components and we use the concept of `visitedArray`(with length = number of nodes(if 0-based indexing) or number of nodes+1 (if 1-based indexing)) to keep track of the vertices we visit, even if the components don't appear to be connected they could be of the same graph, hence the visited array. (Will become more clear once we dive into algorithms)
 
 ### Types of Graph:
 
@@ -2494,9 +2494,9 @@ public class $2096_StepByStepDirectionsFromABinaryTreeNodeToAnother {
 
 ### Ways to store a Graph(complex data structure):
 
-1. Adjacency Matrix, space complexity is O(n<sup>2</sup>), that's why avoided.
-2. `Adjacency list, space complexity is ~O(2*n), hence this is preferred. n is the number of edges.`
-   `n being the number of the nodes.`
+1. Adjacency Matrix(adjMatrix.length = number of nodes), space complexity is O(n<sup>2</sup>), where, n is the number of nodes, that's why avoided.
+2. `Adjacency list(adjList.length = number of nodes), space complexity is ~O(2n), hence this is preferred. n is the number of edges.`
+3. `Length of visited array = length of adjList+1 or length of adjList = length of adjMatrix or length of adjMatrix+1`
 
 ```java
 package graphs;
@@ -2510,7 +2510,7 @@ public class AdjacencyList {
         // 1 -- 2 -- 3 -- 1 -> graph
         int n = 3;
         ArrayList<ArrayList<Integer>> adj = new ArrayList<>(); // adjacency list
-        
+
         // we'll insert (n+1) empty lists in the 'adj' list, where 'n' is the number of
         // nodes.
         for (int i = 0; i <= n; i++) {
@@ -2551,3 +2551,64 @@ public class AdjacencyList {
 ```
 
 For a directed graph one of the `adj.get(u).add(v)` or `adj.get(v).add(u)` is omitted as the direction would be specified.
+
+## Depth First Search or DFS traversal
+
+```java
+package javaPlayground;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+@SuppressWarnings("unused")
+public class j9 {
+    public static void main(String[] args) {
+        int[][] isConnected = {
+                { 1, 1, 0 }, // 0
+                { 1, 1, 0 }, // 1
+                { 0, 0, 1 } // 2
+        };
+        findCircleNum(isConnected);
+    }
+
+    public static void findCircleNum(int[][] isConnected) {
+        // 0-based indexed graph
+        ArrayList<ArrayList<Integer>> adjacencyList = new ArrayList<ArrayList<Integer>>();
+        for (int i = 0; i < isConnected.length; i++) {
+            adjacencyList.add(new ArrayList<Integer>());
+        }
+        for (int i = 0; i < isConnected.length; i++) {
+            for (int j = 0; j < isConnected.length; j++) {
+                if (isConnected[i][j] == 1 && i != j) {
+                    adjacencyList.get(i).add(j);
+                    adjacencyList.get(j).add(i);
+                }
+            }
+        }
+
+        System.out.println("adjacencyList: " + adjacencyList);
+        boolean[] vis = new boolean[isConnected.length];
+        int count = 0;
+        for (int i = 0; i < vis.length; i++) { // it calls every component
+            if (vis[i] == false) {
+                count++;
+                dfs(i, adjacencyList, vis);
+            }
+        }
+        System.out.println(count);
+    }
+
+    private static void dfs(Integer node, ArrayList<ArrayList<Integer>> adjacencyList, boolean[] vis) {
+        // this visits every connected node of that component
+        vis[node] = true;
+        for (Integer connectedNode : adjacencyList.get(node)) {
+            if (vis[connectedNode] == false) {
+                dfs(connectedNode, adjacencyList, vis);
+            }
+        }
+    }
+}
+
+```
+
+- The above code illustrates the conversion of adjacency matrix to adjacency list and also shows the importance of visited array as when the graph has been divided into 'k' connected components then how to reach every node using the visited array.
