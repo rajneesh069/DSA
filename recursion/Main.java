@@ -9,7 +9,7 @@ public class Main {
     }
 
     // static void message(int n) {
-    // // base condition should always be written first or it'll go in an infinite
+    // base condition should always be written first or it'll go in an infinite
     // loop
     // if (n == 5) {
     // System.out.println("n: " + n);
@@ -18,7 +18,7 @@ public class Main {
     // System.out.println("n: " + n);
     // message(n + 1); // since this is the last line which is the function call,
     // this is tail
-    // // recursion
+    // recursion
     // }
 
     // static String message(int n) {

@@ -19,7 +19,7 @@ public class SubSequence {
     // return;
     // }
     // char ch = s.charAt(0);
-    // // s = "abc"
+    // s = "abc"
     // subSequences(s.substring(1), ans);
     // subSequences(s.substring(1), ans + ch); // s= abc
     // }
