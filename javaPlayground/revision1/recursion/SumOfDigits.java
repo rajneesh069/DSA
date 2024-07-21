@@ -2,8 +2,8 @@ package javaPlayground.revision1.recursion;
 
 public class SumOfDigits {
     /*
-     * Approach to hold answers from previous recursion calls and then add them to
-     * the current one
+     * Approach to hold answers from previous recursion calls and then
+     * add/concatenate them to the current one.
      */
     public static void main(String[] args) {
         System.out.println(digitSum(12345));
@@ -40,4 +40,22 @@ public class SumOfDigits {
         sum += digit;
         return digitSum(num / 10, sum);
     }
+
+    // This is the analogy of recursive method to the iterative method.
+    static int iterativeMethodDigitSum(int num) {
+        int sum = 0; // sum maintained across the loop by being created outside its scope
+        while (num != 0) { // base condition to exit
+            int digit = num % 10; // variable which needs not to be maintained
+            sum += digit;
+            num /= 10;
+        }
+        return sum; // return the final answer
+    }
+
+    /*
+     * 1. since sum is maintained across the loop calls, hence put in function
+     * parameters
+     * 2. digit needs not to be maintained so its in the loop body.
+     * 3. num==0 exits the loop hence the base condition in function body
+     */
 }
