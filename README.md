@@ -2467,7 +2467,7 @@ public class $2096_StepByStepDirectionsFromABinaryTreeNodeToAnother {
 ### What is a graph?
 
 - A structure with nodes/vertices and/or edges.
-- A graph can have multiple connected components and we use the concept of `visitedArray`(with length = number of nodes(if 0-based indexing) or number of nodes+1 (if 1-based indexing)) to keep track of the vertices we visit so that every node is `visited only once`, even if the components don't appear to be connected they could be of the same graph. [(Will become more clear once we dive into algorithms!)](#breadth-first-search-or-level-order-traversal-1)
+- A graph can have multiple connected components and we use the concept of `visitedArray`(with length = number of nodes(if 0-based indexing) or number of nodes+1 (if 1-based indexing)) to keep track of the vertices we visit so that every node is `visited only once`, even if the components don't appear to be connected they could be of the same graph. [(Will become more clear once we dive into algorithms)](#breadth-first-search-or-level-order-traversal-1)
 
 ### Types of Graph:
 
@@ -2490,11 +2490,11 @@ public class $2096_StepByStepDirectionsFromABinaryTreeNodeToAnother {
 - For directed graph:
   Degree of a directed graph is defined using the `In-degree` and the `Out-degree` of the nodes. As the name suggests `in-degree` of a node are the number of edges with arrows pointing towards the node and `out-degree` is the number of edges with arrows pointing outwards.
 
----
 
 ### Ways to store a Graph(complex data structure):
 
 1. Adjacency Matrix(adjMatrix.length = number of nodes), space complexity is O(n<sup>2</sup>), where, n is the number of nodes, that's why avoided.
+
 2. `Adjacency list(adjList.length = number of nodes), space complexity is ~O(V + 2E), hence this is preferred. V is the number of vertices and E is the number of edges.`
 
 - Explanation of point 2:
@@ -2505,7 +2505,7 @@ public class $2096_StepByStepDirectionsFromABinaryTreeNodeToAnother {
 
   The above statments tell us that each edge will be repeated twice in the list(for every u, a v and for every v, a u), hence the 2E plus the number of vertices(V) as the length of the list is V, that's why O(V + 2E).
 
-- `For directed graph it will be O(V+E)`, since no edges are repeated.
+- `For a directed graph it will be O(V+E),` since no edges are repeated.
 
 ---
 
@@ -2708,6 +2708,6 @@ public class j9 {
 
 ```
 
-- The above code also shows the importance of visited array as when the graph has been divided into 'k' connected components then how to reach every node using the visited array.
+- The above code also shows the importance of visited array as when the graph has been divided into 'k' connected components then that's how we can reach every node using the visited array.
 
 ---
