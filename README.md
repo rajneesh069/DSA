@@ -3567,10 +3567,10 @@ public class j10 {
         Queue<Integer> q = new LinkedList<>();
         ArrayList<Integer> bfs = new ArrayList<>();
         q.offer(1); // Starting with node 1 (1-based indexing)
-        vis[1] = true;
+        vis[1] = true; // whatever goes into the queue is considered to be visited
         while (!q.isEmpty()) {
             Integer currentNode = q.poll();
-            bfs.add(currentNode);
+            bfs.add(currentNode); // add the currentNode from queue into the resultant array
             for (Integer connectedNode : adj.get(currentNode)) {
                 if (!vis[connectedNode]) {
                     q.offer(connectedNode);
@@ -3599,7 +3599,7 @@ public class j10 {
 
 ```
 
-- Queue stores the next level while the alogrithm traverses the current one.
+- Queue always stores the next level while the alogrithm traverses the current one.
 
 ## Depth First Search or DFS traversal
 
