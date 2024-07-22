@@ -14,6 +14,12 @@ public class Maze {
             return;
         }
 
+        /*
+         * You cannot stand at row == 2 || col == 2 because then one of the
+         * if conditions would be satisfied and you'll make a move but rather
+         * once you reach at 2, the further moves in that direction are blocked!
+         */
+
         if (row < 2) {
             // p = p+ 'D'; Don't do this as it changes 'p' for the whole body.
             mazeTraversal(row + 1, col, p + 'D');
@@ -32,6 +38,7 @@ public class Maze {
             return current;
         }
 
+        // Here left and right refer to the calls in recursion tree and not paths.
         if (row < 2) {
             ArrayList<String> left = mazeTraversalList(row + 1, col, p + 'D');
             current.addAll(left);
