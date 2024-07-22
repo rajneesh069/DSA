@@ -3481,11 +3481,17 @@ public class $2096_StepByStepDirectionsFromABinaryTreeNodeToAnother {
 
   The above statments tell us that each edge will be repeated twice in the list(for every u, a v and for every v, a u), hence the 2E plus the number of vertices(V) as the length of the list is V, that's why O(V + 2E).
 
-- `For a directed graph it will be O(V+E),` since no edges are repeated.
+- `For a directed graph it will be O(V+E)` as no edges are repeated.
 
 ---
 
-### `Length of visited array = length of adjList = length of adjMatrix = number of nodes.`
+### if 1-based indexed graph:
+
+#### `Length of visited array = length of adjList = length of adjMatrix = number of nodes + 1.`
+
+### if 0-based indexed graph:
+
+#### `Length of visited array = length of adjList = length of adjMatrix = number of nodes.`
 
 ---
 
