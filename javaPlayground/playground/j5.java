@@ -1,4 +1,4 @@
-package javaPlayground;
+package javaPlayground.playground;
 
 public class j5 {
     public static void main(String[] args) {

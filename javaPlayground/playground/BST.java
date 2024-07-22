@@ -1,4 +1,4 @@
-package javaPlayground;
+package javaPlayground.playground;
 
 public class BST {
     private Node root;

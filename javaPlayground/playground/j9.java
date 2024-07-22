@@ -1,4 +1,4 @@
-package javaPlayground;
+package javaPlayground.playground;
 
 import java.util.ArrayList;
 import java.util.Arrays;

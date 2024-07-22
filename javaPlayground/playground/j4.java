@@ -1,4 +1,4 @@
-package javaPlayground;
+package javaPlayground.playground;
 
 //BST implementation
 public class j4 {

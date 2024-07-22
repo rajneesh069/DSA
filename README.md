@@ -80,6 +80,36 @@ static ArrayList<Integer> search(int[] arr, int target, int start) {
 
 #### Function calls return finally to the place they were called.
 
+#### Basic Concept of recursion
+
+```java
+package javaPlayground.revision1.recursion;
+
+public class Main {
+    public static void main(String[] args) {
+        message(0);
+        message2(0);
+    }
+
+    private static void message(int n) {
+        if (n == 5) { // base condition
+            return;
+        }
+        System.out.println("Hello this is the message function.\s" + n); // prints the message
+        message(++n); // calls itself till its 5
+    }
+
+    private static void message2(int n) {
+        if (n == 5) { // base condition
+            return;
+        }
+        message2(n+1); // calls itself till its 5
+        System.out.println("Hello this is the message function.\s" + n); // prints the message
+    }
+}
+
+```
+
 ##### !!! Important !!!
 
 ```java
@@ -213,6 +243,544 @@ public class BinarySearch{
         }
 
     }
+}
+
+```
+
+### Some standard approaches/problems in recursion
+
+#### Sum of digits of a number
+
+```java
+package javaPlayground.revision1.recursion;
+
+public class SumOfDigits {
+    /*
+     * Approach to hold answers from previous recursion calls and then
+     * add/concatenate them to the current one.
+     */
+    public static void main(String[] args) {
+        System.out.println(digitSum(12345));
+        System.out.println(digitSum(12345, 0));
+    }
+
+    static int digitSum(int num) {
+        return num == 0 ? 0 : (num % 10) + digitSum(num / 10);
+        // return in every function call is : digit + digitSum(num/10);
+        // except when num==0 then its 0.
+
+        /*
+         * Recursive tree :
+         * Call 1: 5 + digitSum(1234); --> 5 + 10 = 15 <-- eventually returns this
+         * Call 2: 4 + digitSum(123); --> 4 + 6 = 10
+         * Call 3: 3 + digitSum(12); --> 3 + 3 = 6
+         * Call 4: 2 + digitSum(1); --> 2 + 1 = 3
+         * Call 5: 1 + digitSum(0); --> 1 + 0 = 1
+         * Call 6: return 0;
+         *
+         */
+
+        // Then it traces back the recursion adding the answer from the previous
+        // function call to the current one eventually returning from Call 1 as 15.
+    }
+
+    static int digitSum(int num, int sum) {
+        // Pretty self explanatory, we maintained a sum across the function calls and
+        // then returned it in the base condition as an answer
+        if (num == 0) {
+            return sum;
+        }
+        int digit = num % 10;
+        sum += digit;
+        return digitSum(num / 10, sum);
+    }
+
+    // This is the analogy of recursive method to the iterative method.
+    static int iterativeMethodDigitSum(int num) {
+        int sum = 0; // sum maintained across the loop by being created outside its scope
+        while (num != 0) { // base condition to exit
+            int digit = num % 10; // variable which needs not to be maintained
+            sum += digit;
+            num /= 10;
+        }
+        return sum; // return the final answer
+    }
+
+    /*
+     * 1. since sum is maintained across the loop calls, hence put in function
+     * parameters
+     * 2. digit needs not to be maintained so its in the loop body.
+     * 3. num==0 exits the loop hence the base condition in function body
+     */
+}
+
+```
+
+#### Counting Zeroes in a number
+
+```java
+package javaPlayground.revision1.recursion;
+
+public class CountZeroes {
+    public static void main(String[] args) {
+
+    }
+
+    // Approach 1 -> maintaining the count across the function calls by
+    // parameterizing it
+
+    static int countZeroes(int num, int count) {
+        if (num == 0) {
+            return count;
+        }
+        int digit = num % 10;
+        if (digit == 0) {
+            count++;
+        }
+        return countZeroes(num / 10, count);
+    }
+
+    /*
+     * Working :-
+     * let num = 1020, count =0;
+     * Call 1: countZeroes(1020, 0)
+     * Call 2: countZeroes(102, 1)
+     * Call 3: countZeroes(10, 1)
+     * Call 4: countZeroes(1, 2)
+     * Call 5: countZeroes(0, 2)
+     * Call 6: countZeroes(0, 2) -> returns count, i.e, 2;
+     * Since every function call's return statement exited at line number 19, i.e.,
+     * at this statement : return countZeroes(num / 10, count); -> the last line
+     * hence the calls before 6 will also go back at that line return the value from
+     * previous calls and simply exit the function, and we'll get 2.
+     *
+     */
+
+    // Approach 2 : adding the count from previous calls while holding the current
+    // one
+    static int countZeroes(int num) {
+        int currentCount = 0;
+        if (num == 0) {
+            return currentCount;
+        }
+        int digit = num % 10;
+        if (digit == 0) {
+            currentCount++;
+        }
+        int previousCount = countZeroes(num / 10); // every function call before last one
+        // will come back to this line, then go below add both the variables and return.
+        return currentCount + previousCount;
+    }
+    // Approach 2 has already been discussed in sum of digits question.
+}
+
+```
+
+#### Fibonacci Sequence using recursion
+
+```java
+package javaPlayground.revision1.recursion;
+
+public class FibonacciSequence {
+    public static void main(String[] args) {
+        System.out.println(fibo(3));
+    }
+
+    private static int fibo(int n) {
+        if (n <= 1) {
+            return n;
+        }
+        return fibo(n - 1) + fibo(n - 2);
+    }
+}
+
+```
+
+#### Rotated Binary Search using Recursion
+
+```java
+package recursion;
+
+public class RotatedBinarySearch {
+    public static void main(String[] args) {
+        int[] arr = { 1, 2, 3, 4, 5 };
+        System.out.println(pivotElementWithDuplicateElementsIndex(arr, 0, arr.length - 1));
+    }
+
+    static int pivotElementWithDuplicateElementsIndex(int[] arr, int start, int end) {
+        if (start > end) {
+            return start - 1;
+        }
+        int mid = start + (end - start) / 2;
+        if (mid < arr.length - 1 && arr[mid] > arr[mid + 1]) {
+            return mid;
+        } else if (mid >= 1 && arr[mid - 1] > arr[mid]) {
+            return mid - 1;
+        } else if (arr[mid] < arr[start]) {
+            end = mid - 1;
+            return pivotElementWithDuplicateElementsIndex(arr, start, end);
+        } else if (arr[mid] == arr[end] && arr[mid] == arr[start]) {
+            if (start < end && arr[start] > arr[start + 1]) {
+                return start;
+            }
+            start++;
+            end--;
+            return pivotElementWithDuplicateElementsIndex(arr, start, end);
+        } else {
+            start = mid + 1;
+            return pivotElementWithDuplicateElementsIndex(arr, start, end);
+        }
+    }
+
+    // Second approach
+    /*
+     * static int pivotElementWithDuplicateElementsIndex(int[] arr, int start, int end) {
+        if (start > end) {
+            return start - 1;
+        }
+        int mid = start + (end - start) / 2;
+        if (mid < arr.length - 1 && arr[mid] > arr[mid + 1]) {
+            return mid;
+        } else if (mid >= 1 && arr[mid - 1] > arr[mid]) {
+            return mid - 1;
+        } else if (arr[mid] > arr[start]) {
+            start = mid + 1;
+            return pivotElementWithDuplicateElementsIndex(arr, start, end);
+        } else if (arr[start] == arr[mid] && arr[mid] != arr[end]) {
+            start = mid + 1;
+            return pivotElementWithDuplicateElementsIndex(arr, start, end);
+        } else if (arr[mid] == arr[end] && arr[mid] == arr[start]) {
+            if (start < end && arr[start] > arr[start + 1]) {
+                return start;
+            }
+            start++;
+            end--;
+            return pivotElementWithDuplicateElementsIndex(arr, start, end);
+        } else {
+            end = mid - 1;
+            return pivotElementWithDuplicateElementsIndex(arr, start, end);
+        }
+    }
+     */
+}
+
+```
+
+#### Remove A Character from string
+
+```java
+package javaPlayground.revision1.recursion;
+
+public class RemoveACharacter {
+    public static void main(String[] args) {
+        String up = new String("baccd");
+        System.out.println(removeAChar(up));
+
+    }
+
+    static String removeAChar(String up) {
+        if (up.isEmpty()) {
+            return "";
+        }
+        if (up.charAt(0) == 'c') {
+            return removeAChar(up.substring(1));
+        }
+        return up.charAt(0) + removeAChar(up.substring(1)); // holding the answer of
+        // current call and then adding to it when the previous calls return the
+        // answer
+    }
+}
+
+```
+
+### Subsequences of a string
+
+```java
+package javaPlayground.revision1.recursion;
+
+import java.util.ArrayList;
+
+public class SubSequence {
+    // For subsequences, its always processed(p) and unprocessed(up) strings
+    public static void main(String[] args) {
+        String up = "abc";
+        String p = "";
+        // subsequences(up, p);
+        // ArrayList<String> ans = subsequences(up, p, new ArrayList<String>());
+        // System.out.println(ans);
+        System.out.println(subsequencesList(up, p));
+    }
+
+    // Approach 1
+    static void subsequences(String up, String p) {
+        if (up.isEmpty()) {
+            System.out.println(p);
+            return;
+        }
+        char ch = up.charAt(0);
+        subsequences(up.substring(1), p + (ch));
+        subsequences(up.substring(1), p);
+    }
+
+    // Approach 2
+    static ArrayList<String> subsequences(String up, String p, ArrayList<String> list) {
+        if (up.isEmpty()) { // You get the answer when the "up" is empty.
+            if (!p.isEmpty())
+                list.add(p); // add it to the list and return it
+            return list;
+        }
+        char ch = up.charAt(0);
+        subsequences(up.substring(1), p + (ch), list);
+        subsequences(up.substring(1), p, list);
+        return list;
+    }
+
+    // Approach 3
+    static ArrayList<String> subsequencesList(String up, String p) {
+        ArrayList<String> current = new ArrayList<>();
+        if (up.isEmpty()) {
+            current.add(p);
+            return current;
+        }
+        char ch = up.charAt(0);
+        ArrayList<String> left = subsequencesList(up.substring(1), p + (ch));
+        ArrayList<String> right = subsequencesList(up.substring(1), p);
+        left.addAll(right);
+        return left;
+    }
+}
+
+```
+
+### Subsets of an array `without` duplicate elements
+
+```java
+package javaPlayground.revision1.recursion;
+
+import java.util.ArrayList;
+
+public class SubsetsOfAnArrayWithUniqueElements {
+    public static void main(String[] args) {
+        int[] arr = { 1, 2 };
+        // subsets : {}, {1}, {2}, {1,2}
+        System.out.println(subsetsOfAnArray(arr));
+    }
+    // we use iterative approach in this case as the recursive one needs
+    // backtracking and is less intuitive as well
+
+    static ArrayList<ArrayList<Integer>> subsetsOfAnArray(int[] arr) {
+        ArrayList<ArrayList<Integer>> outerList = new ArrayList<>();
+        outerList.add(new ArrayList<>()); // [ [] ]
+        for (int i = 0; i < arr.length; i++) {
+            int n = outerList.size();
+            for (int j = 0; j < n; j++) {
+                ArrayList<Integer> innerList = new ArrayList<>(outerList.get(j)); // copy of the outer list elements
+                innerList.add(arr[i]);
+                outerList.add(innerList);
+            }
+        }
+        return outerList;
+    }
+}
+
+```
+
+### Subsets of an array with duplicate elements
+
+```java
+package javaPlayground.revision1.recursion;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class SubsetsOfAnArrayWithDuplicateElements {
+    public static void main(String[] args) {
+        int[] arr = { 1, 2, 2 };
+        System.out.println(subsets(arr));
+    }
+
+    static ArrayList<ArrayList<Integer>> subsets(int[] arr) {
+        Arrays.sort(arr); // sort the array first
+        ArrayList<ArrayList<Integer>> outerList = new ArrayList<>();
+        outerList.add(new ArrayList<>());
+        int start = 0, end = outerList.size() - 1;
+        for (int i = 0; i < arr.length; i++) {
+            start = 0;
+            if (start < end && i > 0 && arr[i] == arr[i - 1]) {
+                start = end + 1;
+            }
+            end = outerList.size() - 1;
+            // int n = outerList.size();
+            for (int j = start; j <= end; j++) {
+                ArrayList<Integer> innerList = new ArrayList<>(outerList.get(j));
+                innerList.add(arr[i]);
+                outerList.add(innerList);
+            }
+        }
+        return outerList;
+    }
+}
+```
+
+### Permutations of a string : Processed and Unprocessed String Approach
+
+```java
+package javaPlayground.revision1.recursion;
+
+public class Permuatations {
+    public static void main(String[] args) {
+        String up = new String("abc");
+        String p = new String("");
+        permuatations(up, p);
+    }
+
+    static void permuatations(String up, String p) {
+        // since there will be variable function(recursive) calls at each step
+        // hence we'll use loops to handle them
+        if (up.isEmpty()) {
+            System.out.println(p);
+            return;
+        }
+
+        char ch = up.charAt(0);
+        for (int i = 0; i <= p.length(); i++) { // loop to fill spaces
+            String f = p.substring(0, i);
+            String s = p.substring(i, p.length());
+            permuatations(up.substring(1), f + ch + s);
+        }
+    }
+}
+
+```
+
+### Dice Roll Problem
+
+```java
+package javaPlayground.revision1.recursion;
+
+import java.util.ArrayList;
+
+public class Dice {
+    public static void main(String[] args) {
+        System.out.println(diceList(3, ""));
+    }
+
+    static void dice(int target, String p) {
+        if (target == 0) {
+            System.out.println(p);
+            return;
+        }
+
+        for (int i = 1; i <= 6 && i <= target; i++) { // loop for other combinations
+            dice(target - i, p + i);
+        }
+    }
+
+    // Another approach to hold the answer in prev and then add it to the current
+    // array list
+    static ArrayList<String> diceList(int target, String p) {
+        ArrayList<String> current = new ArrayList<>();
+        if (target == 0) {
+            current.add(p);
+            return current;
+        }
+        for (int i = 1; i <= 6 && i <= target; i++) {
+            ArrayList<String> prev = diceList(target - i, p + i);
+            current.addAll(prev);
+        }
+
+        return current;
+    }
+}
+
+```
+
+### Phone Pad Problem
+
+```java
+package javaPlayground.revision1.recursion;
+
+import java.util.ArrayList;
+
+public class PhonePad {
+    public static void main(String[] args) {
+        String up = new String("234");
+        String p = new String("");
+        phonePadCombinations(p, up);
+    }
+
+    static void phonePadCombinations(String p, String up) {
+        if (up.isEmpty()) {
+            System.out.println(p);
+            return;
+        }
+        int n = (int) (up.charAt(0) - '0');
+        if (n == 7) {
+            for (int i = 3 * (n - 2); i < 3 * (n - 1) + 1; i++) {
+                char ch = (char) ('a' + i);
+                String f = p.substring(0, p.length());
+                phonePadCombinations(f + ch, up.substring(1));
+            }
+        } else if (n == 8) {
+            for (int i = 3 * (n - 2) + 1; i < 3 * (n - 1) + 1; i++) {
+                char ch = (char) ('a' + i);
+                String f = p.substring(0, p.length());
+                phonePadCombinations(f + ch, up.substring(1));
+            }
+        } else if (n == 9) {
+            for (int i = 3 * (n - 2) + 1; i < 3 * (n - 1) + 1; i++) {
+                char ch = (char) ('a' + i);
+                String f = p.substring(0, p.length());
+                phonePadCombinations(f + ch, up.substring(1));
+            }
+        } else {
+            for (int i = 3 * (n - 2); i < 3 * (n - 1); i++) {
+                char ch = (char) ('a' + i);
+                String f = p.substring(0, p.length());
+                phonePadCombinations(f + ch, up.substring(1));
+            }
+        }
+    }
+
+    static ArrayList<String> phonePadCombinationsList(String p, String up) {
+        ArrayList<String> currentList = new ArrayList<>();
+        if (up.isEmpty()) {
+            currentList.add(p);
+            return currentList;
+        }
+        int n = (int) (up.charAt(0) - '0');
+        if (n == 7) {
+            for (int i = 3 * (n - 2); i < 3 * (n - 1) + 1; i++) {
+                char ch = (char) ('a' + i);
+                String f = p.substring(0, p.length());
+                ArrayList<String> prev = phonePadCombinationsList(f + ch, up.substring(1));
+                currentList.addAll(prev);
+            }
+        } else if (n == 8) {
+            for (int i = 3 * (n - 2) + 1; i < 3 * (n - 1) + 1; i++) {
+                char ch = (char) ('a' + i);
+                String f = p.substring(0, p.length());
+                ArrayList<String> prev = phonePadCombinationsList(f + ch, up.substring(1));
+                currentList.addAll(prev);
+            }
+        } else if (n == 9) {
+            for (int i = 3 * (n - 2) + 1; i < 3 * (n - 1) + 2; i++) {
+                char ch = (char) ('a' + i);
+                String f = p.substring(0, p.length());
+                ArrayList<String> prev = phonePadCombinationsList(f + ch, up.substring(1));
+                currentList.addAll(prev);
+            }
+        } else {
+            for (int i = 3 * (n - 2); i < 3 * (n - 1); i++) {
+                char ch = (char) ('a' + i);
+                String f = p.substring(0, p.length());
+                ArrayList<String> prev = phonePadCombinationsList(f + ch, up.substring(1));
+                currentList.addAll(prev);
+            }
+        }
+        return currentList;
+    }
+
 }
 
 ```
@@ -2489,7 +3057,6 @@ public class $2096_StepByStepDirectionsFromABinaryTreeNodeToAnother {
 
 - For directed graph:
   Degree of a directed graph is defined using the `In-degree` and the `Out-degree` of the nodes. As the name suggests `in-degree` of a node are the number of edges with arrows pointing towards the node and `out-degree` is the number of edges with arrows pointing outwards.
-
 
 ### Ways to store a Graph(complex data structure):
 
