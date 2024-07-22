@@ -493,7 +493,7 @@ public class RemoveACharacter {
 
 ```
 
-### Subsequences of a string
+### Subsequences of a string : Processed(p) and Unprocessed(up) Strings Approach
 
 ```java
 package javaPlayground.revision1.recursion;
@@ -552,7 +552,7 @@ public class SubSequence {
 
 ```
 
-### Subsets of an array `without` duplicate elements
+### Subsets of an array `without` duplicate elements : Iterative Approach
 
 ```java
 package javaPlayground.revision1.recursion;
@@ -585,7 +585,7 @@ public class SubsetsOfAnArrayWithUniqueElements {
 
 ```
 
-### Subsets of an array with duplicate elements
+### Subsets of an array with duplicate elements : Iterative Approach
 
 ```java
 package javaPlayground.revision1.recursion;
@@ -622,7 +622,7 @@ public class SubsetsOfAnArrayWithDuplicateElements {
 }
 ```
 
-### Permutations of a string : Processed and Unprocessed String Approach
+### Permutations of a string : Processed and Unprocessed Strings Approach
 
 ```java
 package javaPlayground.revision1.recursion;
@@ -653,7 +653,7 @@ public class Permuatations {
 
 ```
 
-### Dice Roll Problem
+### Dice Roll Problem using Processed and Unprocessed Strings Approach
 
 ```java
 package javaPlayground.revision1.recursion;
@@ -695,7 +695,7 @@ public class Dice {
 
 ```
 
-### Phone Pad Problem
+### Phone Pad Problem using Processed and Unprocessed Strings Approach
 
 ```java
 package javaPlayground.revision1.recursion;
