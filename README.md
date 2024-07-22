@@ -76,11 +76,15 @@ static ArrayList<Integer> search(int[] arr, int target, int start) {
 
 ## Recursion
 
+### It helps breaking large problems into smaller ones and then solve them.
+
+- Divide the problem into smaller chunks and solve them to reach the answer/goal.
+
 ### Do not overthink. Overthink about recursion after solving the problem.
 
 #### Function calls return finally to the place they were called.
 
-#### Basic Concept of recursion
+### Basic Concept of recursion
 
 ```java
 package javaPlayground.revision1.recursion;
@@ -110,7 +114,7 @@ public class Main {
 
 ```
 
-##### !!! Important !!!
+### !!! Important !!!
 
 ```java
 public class Main{
@@ -127,7 +131,7 @@ public class Main{
 
 After execution of `someFunction()`, it'll return(69 here) to that line(`int a = someFunction()`) defined above and ans will be assigned the return value of `someFunction()`.
 
-1. Identify if problem could be broken down into smaller problems.
+1. `Identify if problem could be broken down into smaller problems.`
 2. Write recurrence relation if needed.
 3. Draw the recursion tree.
 4. About the tree :
@@ -142,13 +146,13 @@ After execution of `someFunction()`, it'll return(69 here) to that line(`int a =
 
    e. See where the function call comes out.
 
-#### Types of recurrence relation
+#### Types of recurrence relations
 
-1. Linear: (fibo(n-1) + fibo(n-2))
+1. Linear : (fibo(n-1) + fibo(n-2))
 2. Divide and Conquer (e.g. Binary Search) :
    f(n) = O(1) + f(n/2) -> Recurrence Relation for Binary Search, O(1) denotes some constant time comparison/operation and since the search space is reduced by a factor(of 2 here), it is very fast.
 
-#### Variables in Recursion :
+#### Variables in Recursion
 
 1. Arguments (updated value is passed from previous function to the current function) -> think about it
 2. Return type -> easy to figure out
@@ -783,6 +787,277 @@ public class PhonePad {
 
 }
 
+```
+
+## Backtracking
+
+- We revert back the changes while returning to the original function calls in recursion.
+
+- Some standard problems to better understand the concept
+
+### Maze Traversal with Down and Right Paths
+
+```java
+package javaPlayground.revision1.backtracking;
+
+import java.util.ArrayList;
+
+public class Maze {
+    public static void main(String[] args) {
+        // mazeTraversal(0, 0, "");
+        System.out.println(mazeTraversalList(0, 0, ""));
+    }
+
+    static void mazeTraversal(int row, int col, String p) {
+        if (row == 2 && col == 2) {
+            System.out.println(p);
+            return;
+        }
+
+        /*
+         * You cannot stand at row == 2 || col == 2 because then one of the
+         * if conditions would be satisfied and you'll make a move but rather
+         * once you reach at 2, the further moves in that direction are blocked!
+         */
+
+        if (row < 2) {
+            // p = p+ 'D'; Don't do this as it changes 'p' for the whole body.
+            mazeTraversal(row + 1, col, p + 'D');
+        }
+
+        if (col < 2) {
+            // p = p + 'R'; Don't do this as it changes 'p' for the whole body.
+            mazeTraversal(row, col + 1, p + 'R');
+        }
+    }
+
+    static ArrayList<String> mazeTraversalList(int row, int col, String p) {
+        ArrayList<String> current = new ArrayList<>();
+        if (row == 2 && col == 2) {
+            current.add(p);
+            return current;
+        }
+
+        // Here left and right refer to the calls in recursion tree and not paths.
+        if (row < 2) {
+            ArrayList<String> left = mazeTraversalList(row + 1, col, p + 'D');
+            current.addAll(left);
+        }
+
+        if (col < 2) {
+            ArrayList<String> right = mazeTraversalList(row, col + 1, p + 'R');
+            current.addAll(right);
+        }
+
+        return current;
+    }
+}
+
+```
+
+### Maze Traversal with Down, Right and Diagonal Paths
+
+```java
+package javaPlayground.revision1.backtracking;
+
+import java.util.ArrayList;
+
+public class MazeWithDiagonal {
+    public static void main(String[] args) {
+        // mazeTraversal(2, 2, "");
+        System.out.println(mazeTraversalArrayList(2, 2, ""));
+    }
+
+    static void mazeTraversal(int row, int col, String p) {
+        if (row == 0 && col == 0) {
+            System.out.println(p);
+            return;
+        }
+
+        /*
+         * You cannot stand at row == 0 || col == 0 because then one of the
+         * if conditions would be satisfied and you'll make a move but rather
+         * once you reach at 0, the further moves in that direction are blocked!
+         */
+
+        if (row > 0 && col > 0) {
+            mazeTraversal(row - 1, col - 1, p + 'D'); // D : Diagonal
+        }
+
+        if (row > 0) {
+            mazeTraversal(row - 1, col, p + 'V'); // V : Vertically down
+        }
+
+        if (col > 0) {
+            mazeTraversal(row, col - 1, p + 'R'); // R : Right
+        }
+
+    }
+
+    static ArrayList<String> mazeTraversalArrayList(int row, int col, String p) {
+        ArrayList<String> currentPaths = new ArrayList<>();
+        if (row == 0 && col == 0) {
+            currentPaths.add(p);
+            return currentPaths;
+        }
+
+        if (row > 0 && col > 0) {
+            ArrayList<String> diagonalPath = mazeTraversalArrayList(row - 1, col - 1, p + 'D');
+            currentPaths.addAll(diagonalPath);
+        }
+
+        if (row > 0) {
+            ArrayList<String> downPath = mazeTraversalArrayList(row - 1, col, p + 'V');
+            currentPaths.addAll(downPath);
+        }
+        if (col > 0) {
+            ArrayList<String> rightPath = mazeTraversalArrayList(row, col - 1, p + 'R');
+            currentPaths.addAll(rightPath);
+        }
+
+        return currentPaths;
+    }
+}
+
+```
+
+### Maze Traversal with obstacles in the path
+
+```java
+package javaPlayground.revision1.backtracking;
+
+import java.util.ArrayList;
+
+public class MazeWithObstacles {
+    public static void main(String[] args) {
+        // mazeWithObstacles(2, 2, "");
+        System.out.println(mazeWithObstaclesArrayList(2, 2, ""));
+    }
+
+    static void mazeWithObstacles(int row, int col, String p) {
+        if (row == 0 && col == 0) {
+            System.out.println(p);
+            return;
+        }
+
+        if (row == 1 && col == 1) { // obstacle at (1,1)
+            return;
+        }
+
+        if (row > 0 && col > 0) {
+            mazeWithObstacles(row - 1, col - 1, p + "D");
+        }
+
+        if (row > 0) {
+            mazeWithObstacles(row - 1, col, p + 'V');
+        }
+
+        if (col > 0) {
+            mazeWithObstacles(row, col - 1, p + 'R');
+        }
+    }
+
+    static ArrayList<String> mazeWithObstaclesArrayList(int row, int col, String p) {
+        ArrayList<String> current = new ArrayList<>();
+        if (row == 0 && col == 0) {
+            current.add(p);
+            return current;
+        }
+
+        if (row == 1 && col == 1) {
+            return current;
+        }
+        if (row > 0 && col > 0) {
+            ArrayList<String> diagonal = mazeWithObstaclesArrayList(row - 1, col - 1, p + 'D');
+            current.addAll(diagonal);
+        }
+        if (row > 0) {
+            ArrayList<String> down = mazeWithObstaclesArrayList(row - 1, col, p + 'V');
+            current.addAll(down);
+        }
+        if (col > 0) {
+            ArrayList<String> right = mazeWithObstaclesArrayList(row, col - 1, p + 'R');
+            current.addAll(right);
+        }
+        return current;
+    }
+}
+
+```
+
+### Maze traveral with all paths allowed, i.e., Up, Down, Left and Right
+
+```java
+package javaPlayground.revision1.backtracking;
+
+import java.util.ArrayList;
+
+public class MazeWithAllPathsAllowed {
+    public static void main(String[] args) {
+        boolean[][] path = new boolean[3][3];
+        mazeTraversalWithAllPaths(2, 2, "", path);
+        System.out.println(mazeTraversalWithAllPathsList(2, 2, "", path));
+    }
+
+    static void mazeTraversalWithAllPaths(int row, int col, String p, boolean[][] path) {
+        if (row == 0 && col == 0) {
+            path[row][col] = false;
+            System.out.println(p);
+            return;
+        }
+        if (path[row][col] == true) { // return if already visited so that you don't get into infinite loop
+            return;
+        }
+
+        path[row][col] = true; // as soon as you visit the cell, mark it true
+        if (row > 0) {
+            mazeTraversalWithAllPaths(row - 1, col, p + 'D', path);
+
+        }
+        if (row < 2) {
+            mazeTraversalWithAllPaths(row + 1, col, p + 'U', path);
+        }
+        if (col > 0) {
+            mazeTraversalWithAllPaths(row, col - 1, p + 'R', path);
+        }
+        if (col < 2) {
+            mazeTraversalWithAllPaths(row, col + 1, p + 'L', path);
+        }
+        path[row][col] = false; // backtrack, i.e., revert the changes you made for the future calls
+    }
+
+    static ArrayList<String> mazeTraversalWithAllPathsList(int row, int col, String p, boolean[][] path) {
+        ArrayList<String> current = new ArrayList<>();
+        if (row == 0 && col == 0) {
+            path[row][col] = false;
+            current.add(p);
+            return current;
+        }
+        if (path[row][col] == true) { // return if already visited so that you don't get into infinite loop
+            return current;
+        }
+
+        path[row][col] = true; // as soon as you visit the cell, mark it true
+        if (row > 0) {
+            ArrayList<String> down = mazeTraversalWithAllPathsList(row - 1, col, p + 'D', path);
+            current.addAll(down);
+        }
+        if (row < 2) {
+            ArrayList<String> up = mazeTraversalWithAllPathsList(row + 1, col, p + 'U', path);
+            current.addAll(up);
+        }
+        if (col > 0) {
+            ArrayList<String> right = mazeTraversalWithAllPathsList(row, col - 1, p + 'R', path);
+            current.addAll(right);
+        }
+        if (col < 2) {
+            ArrayList<String> left = mazeTraversalWithAllPathsList(row, col + 1, p + 'L', path);
+            current.addAll(left);
+        }
+        path[row][col] = false; // backtrack, i.e., revert the changes you made for the future calls
+        return current;
+    }
+}
 ```
 
 ## Time Complexity
