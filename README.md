@@ -3610,6 +3610,49 @@ public class j10 {
 - It goes into the depth of one child and goes until it can't go further and then revert back.
 - Visited array in this case is a must though it could be avoided in the case of trees.
 
+- DFS Concept
+
+```java
+package luv.graphs;
+// Time Complexity : O(V + 2E) ~ O(V + E)
+
+public class DFS {
+    public static void main(String[] args) {
+
+    }
+
+    static int n, m;
+    static int[][] graph = new int[n][n];
+
+    static boolean[] vis = new boolean[n];
+
+    static void dfs(int vertex) {
+        /*
+         * Take action on vertex after entering the vertex
+         */
+        // if(vis[vertex]) {return;}
+        vis[vertex] = true;
+        for (int child : graph[vertex]) {
+            /*
+             * Take action on child before entering the child node/vertex
+             */
+            if (vis[child]) {
+                continue;
+            }
+            dfs(child);
+            /*
+             * Take action on child after exiting child node
+             */
+        }
+        /*
+         * Take action on the vertex before exiting the vertex
+         */
+    }
+}
+```
+
+- DFS Implementation
+
 ```java
 package graphs;
 
@@ -3626,8 +3669,8 @@ public class DFS {
     private void dfs(int vertex, boolean[] vis, ArrayList<ArrayList<Integer>> adj) {
         // this visits/traverses every node!
         vis[vertex] = true;
-        System.out.println("Node: " + vertex);
         for (Integer child : adj.get(vertex)) {
+            System.out.println("vertex: " + vertex + "child: "+ child);
             if (!vis[child])
                 dfs(child, vis, adj);
         }
