@@ -5,12 +5,7 @@ public class DFS {
 
     }
 
-    static int n, m;
-    static int[][] graph = new int[n][n];
-
-    static boolean[] vis = new boolean[n];
-
-    static void dfs(int vertex) {
+    static void dfs(int vertex, int[][] graph, boolean[] vis) {
         /*
          * Take action on vertex after entering the vertex
          */
@@ -23,7 +18,7 @@ public class DFS {
             if (vis[child]) {
                 continue;
             }
-            dfs(child);
+            dfs(child, graph, vis);
             /*
              * Take action on child after exiting child node
              */

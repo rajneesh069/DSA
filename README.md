@@ -3491,11 +3491,11 @@ public class $2096_StepByStepDirectionsFromABinaryTreeNodeToAnother {
 
 ### if 1-based indexed graph:
 
-#### `Length of visited array = length of adjList = length of adjMatrix = number of nodes + 1.`
+#### `Length of visited array = length of adjList = length of adjMatrix = number of vertices + 1.`
 
 ### if 0-based indexed graph:
 
-#### `Length of visited array = length of adjList = length of adjMatrix = number of nodes.`
+#### `Length of visited array = length of adjList = length of adjMatrix = number of vertices/nodes.`
 
 ---
 
@@ -3610,36 +3610,50 @@ public class j10 {
 - It goes into the depth of one child and goes until it can't go further and then revert back.
 - Visited array in this case is a must though it could be avoided in the case of trees.
 
-- DFS Concept
+### DFS Concept
 
 ```java
 package luv.graphs;
-// Time Complexity : O(V + 2E) ~ O(V + E)
 
 public class DFS {
     public static void main(String[] args) {
-
+        ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
+        int n = 10, m = 15; // n: no of vertices and m being the number of edges
+        boolean[] vis = new boolean[n];
+        for (int i = 0; i < n; i++) {
+            graph.add(new ArrayList<>());
+        }
+            // if m is given then we are given the configuration of one of the combinations
+            // 1 -- 2, we do the 2 -- 1 by ourselves and run the loop m times instead of n.
+        int count = 0;
+        for (int i = 0; i < vis.length; i++) {
+            if (!vis[i]) {
+                dfs(i, graph, vis);
+            }
+        }
     }
-
-    static int n, m;
-    static int[][] graph = new int[n][n];
-
-    static boolean[] vis = new boolean[n];
-
-    static void dfs(int vertex) {
+    /*
+     * graph = [
+     *            vertex 0 -> [ 1 , 2 , 3 ], -> it's elements are the children
+     *            vertex 1 ->  [ 4 , 5 , 6 ],
+     *         ]
+     vertex 0 -> [ 1 , 2 , 3 ] => 0 -- 1, 0 -- 2, 0--3; -- : edges
+     * 'child' itself is an array, so for(int child : graph[vertex]) => you are already inside the vertex array at a child.
+     */
+    static void dfs(int vertex, ArrayList<ArrayList<Integer>> graph, boolean[] vis) {
         /*
          * Take action on vertex after entering the vertex
          */
         // if(vis[vertex]) {return;}
         vis[vertex] = true;
-        for (int child : graph[vertex]) {
+        for (int child : graph.get(vertex)) {
             /*
-             * Take action on child before entering the child node/vertex
+             * Take action on child before entering the child node
              */
             if (vis[child]) {
                 continue;
             }
-            dfs(child);
+            dfs(child, graph, vis);
             /*
              * Take action on child after exiting child node
              */
