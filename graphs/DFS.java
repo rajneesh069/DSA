@@ -5,18 +5,18 @@ import java.util.ArrayList;
 public class DFS {
     public void dfsTraversal(ArrayList<ArrayList<Integer>> adj) {
         boolean[] vis = new boolean[adj.size()]; // this calls every component!
-        for (int i = 0; i < vis.length; i++) {
-            dfs(i, vis, adj);
+        for (int vertex = 0; vertex < vis.length; vertex++) {
+            dfs(vertex, vis, adj);
         }
     }
 
-    private void dfs(int node, boolean[] vis, ArrayList<ArrayList<Integer>> adj) {
+    private void dfs(int vertex, boolean[] vis, ArrayList<ArrayList<Integer>> adj) {
         // this visits/traverses every node!
-        vis[node] = true;
-        System.out.println("Node: " + node);
-        for (Integer connectedNode : adj.get(node)) {
-            if (!vis[connectedNode])
-                dfs(connectedNode, vis, adj);
+        vis[vertex] = true;
+        System.out.println("Node: " + vertex);
+        for (Integer child : adj.get(vertex)) {
+            if (!vis[child])
+                dfs(child, vis, adj);
         }
     }
 }

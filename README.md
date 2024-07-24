@@ -3277,6 +3277,7 @@ public class $101_SymmetricTree {
 
 - The more intuitive approach is recursion in this algorithm.
 - The methods (Pre-order, In-Order and Post-order) have been described [above](#traversal-methods-in-depth-first-search).
+- It goes into the depth of one child and goes until it can't go further and then revert back.
 
 Some Tid-bits regarding those methods:-
 
@@ -3445,6 +3446,7 @@ public class $2096_StepByStepDirectionsFromABinaryTreeNodeToAnother {
 
 - A structure with nodes/vertices and/or edges.
 - A graph can have multiple connected components and we use the concept of `visitedArray`(with length = number of nodes(if 0-based indexing) or number of nodes+1 (if 1-based indexing)) to keep track of the vertices we visit so that every node is `visited only once`, even if the components don't appear to be connected they could be of the same graph. [(Will become more clear once we dive into algorithms)](#breadth-first-search-or-level-order-traversal-1)
+- Trees are a type of graph with no cycles. If they have N vertices then number of edges equal to N-1.
 
 ### Types of Graph:
 
@@ -3469,9 +3471,11 @@ public class $2096_StepByStepDirectionsFromABinaryTreeNodeToAnother {
 
 ### Ways to store a Graph(complex data structure):
 
-1. Adjacency Matrix(adjMatrix.length = number of nodes), space complexity is O(n<sup>2</sup>), where, n is the number of nodes, that's why avoided.
+1. Adjacency Matrix(adjMatrix.length = number of nodes), space complexity is O(n<sup>2</sup>), where, n is the number of nodes, that's why avoided. We create a matrix of N X N, where N is the number of Nodes.
 
 2. `Adjacency list(adjList.length = number of nodes), space complexity is ~O(V + 2E), hence this is preferred. V is the number of vertices and E is the number of edges.`
+
+- We create a list of size V.
 
 - Explanation of point 2:
 
@@ -3603,6 +3607,9 @@ public class j10 {
 
 ## Depth First Search or DFS traversal
 
+- It goes into the depth of one child and goes until it can't go further and then revert back.
+- Visited array in this case is a must though it could be avoided in the case of trees.
+
 ```java
 package graphs;
 
@@ -3611,21 +3618,22 @@ import java.util.ArrayList;
 public class DFS {
     public void dfsTraversal(ArrayList<ArrayList<Integer>> adj) {
         boolean[] vis = new boolean[adj.size()]; // this calls every component!
-        for (int i = 0; i < vis.length; i++) {
-            dfs(i, vis, adj);
+        for (int vertex = 0; vertex < vis.length; vertex++) {
+            dfs(vertex, vis, adj);
         }
     }
 
-    private void dfs(int node, boolean[] vis, ArrayList<ArrayList<Integer>> adj) {
+    private void dfs(int vertex, boolean[] vis, ArrayList<ArrayList<Integer>> adj) {
         // this visits/traverses every node!
-        vis[node] = true;
-        System.out.println("Node: " + node);
-        for (Integer connectedNode : adj.get(node)) {
-            if (!vis[connectedNode])
-                dfs(connectedNode, vis, adj);
+        vis[vertex] = true;
+        System.out.println("Node: " + vertex);
+        for (Integer child : adj.get(vertex)) {
+            if (!vis[child])
+                dfs(child, vis, adj);
         }
     }
 }
+
 
 ```
 
@@ -3693,3 +3701,93 @@ public class j9 {
 - The above code also shows the importance of visited array as when the graph has been divided into 'k' connected components then that's how we can reach every node using the visited array.
 
 ---
+
+### Some standard questions
+
+### Rotting Oranges
+
+- This question illustrates the use of BFS for a grid and how to look at neighbours that are not always present in an adjacency matrix.
+
+- Creation of Pair data structure to store multiple values together.
+
+```java
+// Time complexity : O(m * n)
+// Space complexity : O(m * n)
+package leetcode;
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+class Pair {
+    int row;
+    int col;
+    int t;
+
+    public Pair(int row, int col, int t) {
+        this.row = row;
+        this.col = col;
+        this.t = t;
+    }
+}
+
+public class $994_RottingOranges {
+
+    public static void main(String[] args) {
+        int[][] grid = {
+                { 2, 1, 1 },
+                { 1, 1, 0 },
+                { 0, 1, 1 }
+        };
+        orangesRotting(grid);
+    }
+
+    public static int orangesRotting(int[][] grid) {
+        int maxTime = 0;
+        int m = grid.length;
+        int n = grid[0].length;
+        Queue<Pair> q = new LinkedList<>();
+        int[][] vis = new int[m][n]; // m x n
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == 2) {
+                    vis[i][j] = 2;
+                    q.offer(new Pair(i, j, 0));
+                }
+            }
+        }
+
+        int[] drow = { -1, 0, 0, 1 };
+        int[] dcol = { 0, 1, -1, 0 };
+        while (!q.isEmpty()) {
+            int row = q.peek().row;
+            int col = q.peek().col;
+            int t = q.peek().t;
+            q.poll(); // don't do q.poll().row as it will remove the first object resulting in null
+            // pointer exception for col
+            maxTime = Math.max(maxTime, t);
+            for (int i = 0; i < drow.length; i++) {
+                int nrow = row + drow[i];
+                int ncol = col + dcol[i];
+
+                if (nrow >= 0 && ncol >= 0 && nrow < m && ncol < n && vis[nrow][ncol] != 2 && grid[nrow][ncol] == 1) {
+                    q.offer(new Pair(nrow, ncol, t + 1));
+                    vis[nrow][ncol] = 2;
+                }
+
+            }
+        }
+
+        for (int i = 0; i < vis.length; i++) {
+            for (int j = 0; j < vis[0].length; j++) {
+                if (vis[i][j] != 2 && grid[i][j] == 1) {
+                    return -1;
+                }
+            }
+        }
+
+        return maxTime;
+
+    }
+}
+
+```
