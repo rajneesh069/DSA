@@ -2,6 +2,7 @@ package luv.graphs;
 
 import java.util.ArrayList;
 
+@SuppressWarnings("unused")
 public class StoringConnectedComponents {
     public static void main(String[] args) {
         ArrayList<ArrayList<Integer>> connectedComponents = new ArrayList<>();
