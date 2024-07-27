@@ -3789,14 +3789,17 @@ public class Main {
     }
 
     static void dfs(int vertex, int parent, ArrayList<ArrayList<Integer>> graph, int depth[], int height[]) {
+        // vertex is the current one and the parent one is the one from which it came from
         // do something when you enter the vertex/enter the recursion
         for (int child : graph.get(vertex)) {
+            // in context of the vertex
             if (child == parent) {
                 continue;
             }
             // do something when you enter the child/enter the recursion of that child(going
             // down)
-            depth[child] = depth[parent] + 1;
+            // 3 nodes : child, parent and vertex(the current one) and all are different
+            depth[child] = depth[vertex] + 1; // here the parent is the vertex, i.e., child of the current vertex
             dfs(child, vertex, graph, depth, height);
             height[vertex] = Math.max(height[child] + 1, height[vertex]);
             // do something when you leave the child/coming back from the recursion of that
@@ -3842,7 +3845,8 @@ public class Main {
         int currentSum = 0;
         currentSum += vertex;
         for (int child : graph.get(vertex)) {
-            if (child == parent) {
+            // for the same vertex all its children, so the parent is the vertex's parent while for all its children the parent is the vertex itself, so the parent is grandparent of the child here.
+            if (child == parent) { // 1 -- 2 : when 2 will run then 1 will be its parent and since we don't want infinite loops we avoid that condition here
                 continue;
             }
              // do something when you enter the child/enter the recursion of that child(going
@@ -3908,6 +3912,7 @@ public class Main {
             evenCount[vertex]++;
         }
         for (int child : graph.get(vertex)) {
+            // for the same vertex all its children
             if (child == parent)
                 continue;
             // entering the recursion into the child
@@ -3922,3 +3927,107 @@ public class Main {
 }
 
 ```
+
+### Diameter of a tree
+
+```java
+package luv.trees;
+
+import java.util.*;
+
+public class DiameterOfATree {
+    public static void main(String[] args) {
+        ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
+        Scanner input = new Scanner(System.in);
+        int n = input.nextInt();
+        for (int i = 0; i <= n; i++) {
+            graph.add(new ArrayList<>());
+        }
+        for (int i = 0; i < n - 1; i++) {
+            int u = input.nextInt();
+            int v = input.nextInt();
+            graph.get(u).add(v);
+            graph.get(v).add(u);
+        }
+        input.close();
+        int depth[] = new int[n + 1];
+
+        dfs(1, 0, graph, depth);
+        System.out.println("depth: " + Arrays.toString(depth));
+
+        int max_depth = -1;
+        int max_depth_node = -1;
+
+        for (int i = 0; i < depth.length; i++) {
+            if (max_depth < depth[i]) {
+                max_depth = depth[i];
+                max_depth_node = i;
+            }
+            depth[i] = 0;
+        }
+
+        System.out.println("max_depth_node: " + max_depth_node);
+        dfs(max_depth_node, 0, graph, depth);
+        for (int i = 0; i < depth.length; i++) {
+            if (max_depth < depth[i]) {
+                max_depth = depth[i];
+                max_depth_node = i;
+            }
+            depth[i] = 0;
+        }
+        System.out.println("max_depth_node: " + max_depth_node);
+        System.out.println("max_depth: " + max_depth);
+    }
+
+    static void dfs(int vertex, int parent, ArrayList<ArrayList<Integer>> graph, int[] depth) {
+        // at this point three different nodes are there : parent(the past one),
+        // vertex(the current one), child(it's future)
+        for (int child : graph.get(vertex)) {
+            // for the same vertex all its children, so the parent is the vertex's parent
+            // while for all its children the parent is the vertex itself, so the parent is
+            // grandparent of the child here.
+            if (child == parent) {
+                // 1 -- 2 : when 2 will run then 1 will be its parent and since we don't want
+                // infinite loops we avoid that condition here
+                continue;
+            }
+            System.out.println("Vertex: " + vertex + " parent: " + parent + " child: " + child);
+            depth[child] = depth[vertex] + 1;
+            dfs(child, vertex, graph, depth);
+            // coming back up in the recursion from the child
+        }
+    }
+}
+
+```
+
+#### Output:
+
+Vertex: 1 parent: 0 child: 2
+Vertex: 2 parent: 1 child: 5
+Vertex: 5 parent: 2 child: 6
+Vertex: 5 parent: 2 child: 7
+Vertex: 5 parent: 2 child: 8
+Vertex: 8 parent: 5 child: 12
+Vertex: 1 parent: 0 child: 3
+Vertex: 3 parent: 1 child: 4
+Vertex: 4 parent: 3 child: 9
+Vertex: 4 parent: 3 child: 10
+Vertex: 10 parent: 4 child: 11
+Vertex: 1 parent: 0 child: 13
+depth: [0, 0, 1, 1, 2, 2, 3, 3, 3, 3, 3, 4, 4, 1]
+max_depth_node: 11
+Vertex: 11 parent: 0 child: 10
+Vertex: 10 parent: 11 child: 4
+Vertex: 4 parent: 10 child: 3
+Vertex: 3 parent: 4 child: 1
+Vertex: 1 parent: 3 child: 2
+Vertex: 2 parent: 1 child: 5
+Vertex: 5 parent: 2 child: 6
+Vertex: 5 parent: 2 child: 7
+Vertex: 5 parent: 2 child: 8
+Vertex: 8 parent: 5 child: 12
+Vertex: 1 parent: 3 child: 13
+Vertex: 4 parent: 10 child: 9
+max_depth_node: 12
+max_depth: 8

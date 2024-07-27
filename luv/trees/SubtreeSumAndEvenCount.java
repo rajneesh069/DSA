@@ -31,13 +31,14 @@ public class SubtreeSumAndEvenCount {
             evenCount[vertex]++;
         }
         for (int child : graph.get(vertex)) {
+            // for the same vertex all its children
             if (child == parent)
                 continue;
             // entering the recursion into the child
             dfs(child, vertex, graph, subtreeSum, evenCount);
+            // coming back up in the recursion from the child
             subtreeSum[vertex] += subtreeSum[child];
             evenCount[vertex] += evenCount[child];
-            // coming back up in the recursion from the child
         }
 
     }
