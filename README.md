@@ -3810,94 +3810,69 @@ public class Main {
 
 ```
 
-- Pre-computation using DFS, like finding sum of elements of a subtree : It is done while coming back up from the recursion.(It's obvious just think about it.)
+### Pre-Computation using DFS in graphs(or trees)
 
-### Some standard questions
+- Pre-computation using DFS is like finding sum of elements of a subtree/subgraph : It is done while coming back up from the recursion.(It's obvious just think about it)
 
-### Rotting Oranges
-
-- This question illustrates the use of BFS for a grid and how to look at neighbours that are not always present in an adjacency matrix.
-
-- Creation of Pair data structure to store multiple values together.
+#### Way 1: Calling DFS for every query.
 
 ```java
-// Time complexity : O(m * n)
-// Space complexity : O(m * n)
-package leetcode;
+import java.util.*;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
-class Pair {
-    int row;
-    int col;
-    int t;
-
-    public Pair(int row, int col, int t) {
-        this.row = row;
-        this.col = col;
-        this.t = t;
-    }
-}
-
-public class $994_RottingOranges {
-
+public class Main {
     public static void main(String[] args) {
-        int[][] grid = {
-                { 2, 1, 1 },
-                { 1, 1, 0 },
-                { 0, 1, 1 }
-        };
-        orangesRotting(grid);
+        ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
+        Scanner input = new Scanner(System.in);
+        int n = input.nextInt(); // vertices
+        for (int i = 0; i <= n; i++) {
+            graph.add(new ArrayList<>());
+        }
+        for (int i = 0; i < n - 1; i++) {
+            int u = input.nextInt();
+            int v = input.nextInt();
+            graph.get(u).add(v);
+            graph.get(v).add(u);
+        }
+        input.close();
+        System.out.println(subtreeSumUsingDFS(1, 0, graph)); // subtree sum
+        System.out.println(evenCountInASubtreeUsingDFS(13, 1, graph));
     }
 
-    public static int orangesRotting(int[][] grid) {
-        int maxTime = 0;
-        int m = grid.length;
-        int n = grid[0].length;
-        Queue<Pair> q = new LinkedList<>();
-        int[][] vis = new int[m][n]; // m x n
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (grid[i][j] == 2) {
-                    vis[i][j] = 2;
-                    q.offer(new Pair(i, j, 0));
-                }
+    static int subtreeSumUsingDFS(int vertex, int parent, ArrayList<ArrayList<Integer>> graph) {
+        // context of this is the whole vertex
+        // do something when you enter the vertex/enter the recursion
+        int currentSum = 0;
+        currentSum += vertex;
+        for (int child : graph.get(vertex)) {
+            if (child == parent) {
+                continue;
             }
+             // do something when you enter the child/enter the recursion of that child(going
+            // down)
+            int prevSum = subtreeSumUsingDFS(child, vertex, graph);
+             // do something when you leave the child/coming back from the recursion of that
+            // child(coming back up)
+            currentSum += prevSum;
         }
-
-        int[] drow = { -1, 0, 0, 1 };
-        int[] dcol = { 0, 1, -1, 0 };
-        while (!q.isEmpty()) {
-            int row = q.peek().row;
-            int col = q.peek().col;
-            int t = q.peek().t;
-            q.poll(); // don't do q.poll().row as it will remove the first object resulting in null
-            // pointer exception for col
-            maxTime = Math.max(maxTime, t);
-            for (int i = 0; i < drow.length; i++) {
-                int nrow = row + drow[i];
-                int ncol = col + dcol[i];
-
-                if (nrow >= 0 && ncol >= 0 && nrow < m && ncol < n && vis[nrow][ncol] != 2 && grid[nrow][ncol] == 1) {
-                    q.offer(new Pair(nrow, ncol, t + 1));
-                    vis[nrow][ncol] = 2;
-                }
-
-            }
-        }
-
-        for (int i = 0; i < vis.length; i++) {
-            for (int j = 0; j < vis[0].length; j++) {
-                if (vis[i][j] != 2 && grid[i][j] == 1) {
-                    return -1;
-                }
-            }
-        }
-
-        return maxTime;
-
+        // do something when you leave the vertex/exit the recursion
+        return currentSum;
     }
+
+    static int evenCountInASubtreeUsingDFS(int vertex, int parent, ArrayList<ArrayList<Integer>> graph) {
+        // context is the vertex
+        int currentCount = 0;
+        if (vertex % 2 == 0) {
+            currentCount++;
+        }
+        for (int child : graph.get(vertex)) {
+            if (child == parent)
+                continue;
+            int prevCount = evenCountInASubtreeUsingDFS(child, vertex, graph);
+            currentCount += prevCount;
+        }
+        return currentCount;
+    }
+
 }
 
-``` 
+```
