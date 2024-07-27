@@ -3810,6 +3810,8 @@ public class Main {
 
 ```
 
+- Pre-computation using DFS, like finding sum of elements of a subtree : It is done while coming back up from the recursion.(It's obvious just think about it.)
+
 ### Some standard questions
 
 ### Rotting Oranges
@@ -3898,4 +3900,4 @@ public class $994_RottingOranges {
     }
 }
 
-```
+``` 
