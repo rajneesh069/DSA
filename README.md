@@ -3642,6 +3642,7 @@ public class DFS {
      */
     static void dfs(int vertex, ArrayList<ArrayList<Integer>> graph, boolean[] vis) {
         /*
+         * Current context of the function : The vertex we're going to enter
          * Take action on vertex after entering the vertex
          */
         // if(vis[vertex]) {return;}
@@ -3758,6 +3759,56 @@ public class j9 {
 - The above code also shows the importance of visited array as when the graph has been divided into 'k' connected components then that's how we can reach every node using the visited array.
 
 ---
+
+### DFS in Trees(n-Ary)
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
+        Scanner input = new Scanner(System.in);
+        int n = input.nextInt(); // vertices
+        System.out.println(n);
+        for (int i = 0; i <= n; i++) {
+            graph.add(new ArrayList<>());
+        }
+        // int m = input.nextInt(); // edges
+        // in trees, number of edges = n - 1
+        for (int i = 0; i < n - 1; i++) {
+            int u = input.nextInt();
+            int v = input.nextInt();
+            graph.get(u).add(v);
+            graph.get(v).add(u);
+        }
+        input.close();
+        int depth[] = new int[n + 1];
+        int height[] = new int[n + 1];
+        dfs(1, 0, graph, depth, height);
+        System.out.println("depth: " + Arrays.toString(depth));
+        System.out.println("height: " + Arrays.toString(height));
+    }
+
+    static void dfs(int vertex, int parent, ArrayList<ArrayList<Integer>> graph, int depth[], int height[]) {
+        // context of this is the whole vertex
+        // do something when you enter the vertex/enter the recursion
+        for (int child : graph.get(vertex)) {
+            if (child == parent) {
+                continue;
+            }
+            // do something when you enter the child/enter the recursion of that child(going
+            // down)
+            depth[child] = depth[parent] + 1;
+            dfs(child, vertex, graph, depth, height);
+            height[vertex] = Math.max(height[child] + 1, height[vertex]);
+            // do something when you leave the child/coming back from the recursion of that
+            // child(coming back up)
+        }
+        // do something when you leave the vertex/exit the recursion
+    }
+
+}
+
+```
 
 ### Some standard questions
 
