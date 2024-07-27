@@ -3789,7 +3789,6 @@ public class Main {
     }
 
     static void dfs(int vertex, int parent, ArrayList<ArrayList<Integer>> graph, int depth[], int height[]) {
-        // context of this is the whole vertex
         // do something when you enter the vertex/enter the recursion
         for (int child : graph.get(vertex)) {
             if (child == parent) {
@@ -3839,7 +3838,6 @@ public class Main {
     }
 
     static int subtreeSumUsingDFS(int vertex, int parent, ArrayList<ArrayList<Integer>> graph) {
-        // context of this is the whole vertex
         // do something when you enter the vertex/enter the recursion
         int currentSum = 0;
         currentSum += vertex;
@@ -3859,7 +3857,6 @@ public class Main {
     }
 
     static int evenCountInASubtreeUsingDFS(int vertex, int parent, ArrayList<ArrayList<Integer>> graph) {
-        // context is the vertex
         int currentCount = 0;
         if (vertex % 2 == 0) {
             currentCount++;
@@ -3871,6 +3868,55 @@ public class Main {
             currentCount += prevCount;
         }
         return currentCount;
+    }
+
+}
+
+```
+
+### Way 2: Calculating subtree sum and even count of the children of each parent
+
+```java
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
+        Scanner input = new Scanner(System.in);
+        int n = input.nextInt();
+        for (int i = 0; i <= n; i++) {
+            graph.add(new ArrayList<>());
+        }
+        for (int i = 0; i < n - 1; i++) {
+            int u = input.nextInt();
+            int v = input.nextInt();
+            graph.get(u).add(v);
+            graph.get(v).add(u);
+        }
+        input.close();
+        int subtreeSum[] = new int[n + 1];
+        int evenCount[] = new int[n + 1];
+        dfs(1, 0, graph, subtreeSum, evenCount);
+        System.out.println("subtreeSum: " + Arrays.toString(subtreeSum));
+        System.out.println("evenCount: " + Arrays.toString(evenCount));
+    }
+
+    static void dfs(int vertex, int parent, ArrayList<ArrayList<Integer>> graph, int[] subtreeSum, int[] evenCount) {
+        // going into the vertex
+        subtreeSum[vertex] += vertex;
+        if (vertex % 2 == 0) {
+            evenCount[vertex]++;
+        }
+        for (int child : graph.get(vertex)) {
+            if (child == parent)
+                continue;
+            // entering the recursion into the child
+            dfs(child, vertex, graph, subtreeSum, evenCount);
+            subtreeSum[vertex] += subtreeSum[child];
+            evenCount[vertex] += evenCount[child];
+            // coming back up in the recursion from the child
+        }
+        // exiting the vertex
     }
 
 }
