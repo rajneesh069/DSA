@@ -3642,14 +3642,15 @@ public class DFS {
      */
     static void dfs(int vertex, ArrayList<ArrayList<Integer>> graph, boolean[] vis) {
         /*
-         * Current context of the function : The vertex we're going to enter
          * Take action on vertex after entering the vertex
+         * Going down
          */
         // if(vis[vertex]) {return;}
         vis[vertex] = true;
         for (int child : graph.get(vertex)) {
             /*
              * Take action on child before entering the child node
+             * Going down
              */
             if (vis[child]) {
                 continue;
@@ -3657,10 +3658,12 @@ public class DFS {
             dfs(child, graph, vis);
             /*
              * Take action on child after exiting child node
+             * Coming back up
              */
         }
         /*
          * Take action on the vertex before exiting the vertex
+         * Coming back up
          */
     }
 }
@@ -3762,6 +3765,10 @@ public class j9 {
 
 ### DFS in Trees(n-Ary)
 
+- No need of a visited array as no loops exist in trees.
+- We just need to make sure that we don't visit the parent node which we came from and for that we can pass on the parent node to the 'dfs' function.
+- Although the exact DFS code for graphs will run for trees because visited array helps us avoiding the same node from visitation twice as that will cause an infinite loop.
+
 ```java
 public class Main {
     public static void main(String[] args) {
@@ -3814,7 +3821,7 @@ public class Main {
 
 ### Pre-Computation using DFS in graphs(or trees)
 
-- Pre-computation using DFS is like finding sum of elements of a subtree/subgraph : It is done while coming back up from the recursion.(It's obvious just think about it)
+- Pre-computation using DFS, like finding sum of elements of a subtree/subgraph, is done while coming back up from the recursion. (It's obvious just think about it)
 
 #### Way 1: Calling DFS for every query.
 
@@ -3846,7 +3853,8 @@ public class Main {
         currentSum += vertex;
         for (int child : graph.get(vertex)) {
             // for the same vertex all its children, so the parent is the vertex's parent while for all its children the parent is the vertex itself, so the parent is grandparent of the child here.
-            if (child == parent) { // 1 -- 2 : when 2 will run then 1 will be its parent and since we don't want infinite loops we avoid that condition here
+            if (child == parent) {
+                // 1 -- 2 : when 2 will run then 1 will be its parent and since we don't want infinite loops we avoid that condition here
                 continue;
             }
              // do something when you enter the child/enter the recursion of that child(going
@@ -3878,7 +3886,7 @@ public class Main {
 
 ```
 
-### Way 2: Calculating subtree sum and even count of the children of each parent
+#### Way 2: Calculating subtree sum and even count of the children of each parent
 
 ```java
 import java.util.*;
@@ -3929,6 +3937,18 @@ public class Main {
 ```
 
 ### Diameter of a tree
+
+- Diameter of a tree = max(depth between any two nodes)
+
+##### Brute Force approach
+
+- Brute Force method would be to find the depth between every node and then traversing through that array and finding the maximum depth among them.
+
+##### Optimized approach
+
+- Assume any node to be the root and then go down and find the node at maximum depth. That node will be one of ends of the diameter.
+
+- Then assume that max depth node to be the root and run DFS algorithm to go again to the node which has maximum depth w.r.t this node, this new found node will be the other end of the diameter.
 
 ```java
 package luv.trees;
@@ -4001,33 +4021,64 @@ public class DiameterOfATree {
 
 ```
 
+---
+
 #### Output:
 
-Vertex: 1 parent: 0 child: 2
-Vertex: 2 parent: 1 child: 5
-Vertex: 5 parent: 2 child: 6
-Vertex: 5 parent: 2 child: 7
-Vertex: 5 parent: 2 child: 8
-Vertex: 8 parent: 5 child: 12
-Vertex: 1 parent: 0 child: 3
-Vertex: 3 parent: 1 child: 4
-Vertex: 4 parent: 3 child: 9
-Vertex: 4 parent: 3 child: 10
-Vertex: 10 parent: 4 child: 11
-Vertex: 1 parent: 0 child: 13
-depth: [0, 0, 1, 1, 2, 2, 3, 3, 3, 3, 3, 4, 4, 1]
-max_depth_node: 11
-Vertex: 11 parent: 0 child: 10
-Vertex: 10 parent: 11 child: 4
-Vertex: 4 parent: 10 child: 3
-Vertex: 3 parent: 4 child: 1
-Vertex: 1 parent: 3 child: 2
-Vertex: 2 parent: 1 child: 5
-Vertex: 5 parent: 2 child: 6
-Vertex: 5 parent: 2 child: 7
-Vertex: 5 parent: 2 child: 8
-Vertex: 8 parent: 5 child: 12
-Vertex: 1 parent: 3 child: 13
-Vertex: 4 parent: 10 child: 9
-max_depth_node: 12
-max_depth: 8
+    Vertex: 1 parent: 0 child: 2
+
+    Vertex: 2 parent: 1 child: 5
+
+    Vertex: 5 parent: 2 child: 6
+
+    Vertex: 5 parent: 2 child: 7
+
+    Vertex: 5 parent: 2 child: 8
+
+    Vertex: 8 parent: 5 child: 12
+
+    Vertex: 1 parent: 0 child: 3
+
+    Vertex: 3 parent: 1 child: 4
+
+    Vertex: 4 parent: 3 child: 9
+
+    Vertex: 4 parent: 3 child: 10
+
+    Vertex: 10 parent: 4 child: 11
+
+    Vertex: 1 parent: 0 child: 13
+
+    depth: [0, 0, 1, 1, 2, 2, 3, 3, 3, 3, 3, 4, 4, 1]
+
+    max_depth_node: 11
+
+    Vertex: 11 parent: 0 child: 10
+
+    Vertex: 10 parent: 11 child: 4
+
+    Vertex: 4 parent: 10 child: 3
+
+    Vertex: 3 parent: 4 child: 1
+
+    Vertex: 1 parent: 3 child: 2
+
+    Vertex: 2 parent: 1 child: 5
+
+    Vertex: 5 parent: 2 child: 6
+
+    Vertex: 5 parent: 2 child: 7
+
+    Vertex: 5 parent: 2 child: 8
+
+    Vertex: 8 parent: 5 child: 12
+
+    Vertex: 1 parent: 3 child: 13
+
+    Vertex: 4 parent: 10 child: 9
+
+    max_depth_node: 12
+
+    max_depth: 8
+
+---

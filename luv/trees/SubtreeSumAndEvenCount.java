@@ -18,9 +18,12 @@ public class SubtreeSumAndEvenCount {
             graph.get(v).add(u);
         }
         input.close();
+
         int subtreeSum[] = new int[n + 1];
         int evenCount[] = new int[n + 1];
+
         dfs(1, 0, graph, subtreeSum, evenCount);
+
         System.out.println("subtreeSum: " + Arrays.toString(subtreeSum));
         System.out.println("evenCount: " + Arrays.toString(evenCount));
     }
@@ -40,6 +43,7 @@ public class SubtreeSumAndEvenCount {
             subtreeSum[vertex] += subtreeSum[child];
             evenCount[vertex] += evenCount[child];
         }
+        // subtreeSum[vertex] += vertex; -> do either of one
 
     }
 

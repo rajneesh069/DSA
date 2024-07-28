@@ -12,12 +12,12 @@ public class DFS {
         // if(vis[vertex]) {return;}
         vis[vertex] = true;
         for (int child : graph[vertex]) {
-            /*
-             * Take action on child before entering the child node
-             */
             if (vis[child]) {
                 continue;
             }
+            /*
+             * Take action on child before entering the child node
+             */
             dfs(child, graph, vis);
             /*
              * Take action on child after exiting child node
