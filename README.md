@@ -789,6 +789,20 @@ public class PhonePad {
 
 ```
 
+- Backtracking in Recursion
+
+- Backtracking is simply used to maintain the state of recursion, i.e., for the same function when the recursion comes back up to it from the stack then the variable's in the body/parameters need to be same.
+
+- For example, when we pass some string/array using reference then the actual string/array is being modified in each function call hence when the recursion comes back up in the tree to run some code below the call then the actual string/array for that function would have been modified which would result in unexpected behavior. So to reset it to the original state, i.e., to the state in which the recursion started for that string/array we revert the changes.
+
+This preserves the actual state of the recursion and allows us to traverse through the recursive tree properly.
+
+- Maze traversal is the best example for this.
+
+- Or when we pass some array/string/variable and we need to come back up in the function to perform some operation on it then we might need to use backtracking if the operations are needed to be performed on the previous version of the variable, i.e., the one with which the recursion was called.
+
+- It's nothing different from recursion, just a fancy name.
+
 ## Backtracking
 
 - We revert back the changes while returning to the original function calls in recursion.
@@ -4082,3 +4096,72 @@ public class DiameterOfATree {
     max_depth: 8
 
 ---
+
+### Lowest Common Ancestor of two nodes in a tree
+
+- While travelling up from the bottom of the tree, the first common node we find for the given nodes, is called the LCA(Lowest Common Ancestor).
+
+- To find LCA we store the path of both the given nodes in an array and then loop through them till the last common index, that element is our LCA.
+
+- And for this, we'll need to store the parents of each node, in an array, so that we can easily trace the path of each node to the root node. For this we'll use DFS.
+
+```java
+public static void main(String[] args) {
+        ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
+        Scanner input = new Scanner(System.in);
+        int n = input.nextInt();
+        for (int i = 0; i <= n; i++) {
+            graph.add(new ArrayList<>());
+        }
+        for (int i = 0; i < n - 1; i++) {
+            int u = input.nextInt();
+            int v = input.nextInt();
+            graph.get(u).add(v);
+            graph.get(v).add(u);
+        }
+        input.close();
+
+        int par[] = new int[n + 1];
+        dfs(1, -1, graph, par); // dfs to store parent of each vertex
+
+        // paths of each from 'node to vertex'
+        List<Integer> path1 = path(10, par);
+        List<Integer> path2 = path(3, par);
+
+        int length = Math.min(path1.size(), path2.size());
+        int LCA = -1;
+
+        // looping through both the path arrays to find the lowest common ancestor
+        for (int i = 0; i < length; i++) {
+            if (path1.get(i) == path2.get(i)) {
+                LCA = path1.get(i);
+            } else {
+                break;
+            }
+        }
+
+        System.out.println(LCA);
+    }
+
+    static void dfs(int vertex, int parent, ArrayList<ArrayList<Integer>> graph, int[] par) {
+        par[vertex] = parent;
+        for (int child : graph.get(vertex)) {
+
+            if (child == parent) {
+                continue;
+            }
+            // going down in the recursion of the child
+            dfs(child, vertex, graph, par);
+            // coming back up in the recursion from the child
+        }
+    }
+
+    static List<Integer> path(int vertex, int[] par) {
+        List<Integer> ans = new ArrayList<>();
+        while (vertex != -1) {
+            ans.add(vertex);
+            vertex = par[vertex];
+        }
+        return ans.reversed(); // important step!! As we traverse the tree from bottom to top through the parent array, we actually need the path from 'node to vertex', hence the 'ans' list has been reversed.
+    }
+```
