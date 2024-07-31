@@ -12,6 +12,8 @@ public class Heap<T extends Comparable<T>> {
         heap.insert(12);
         heap.insert(13);
         System.out.println(heap.heapSort());
+        // if an unsorted array is given and we want to make a heap out of it, start
+        // from N/2 till 1 and then do downheap on every index.
     }
 
     private ArrayList<T> list;

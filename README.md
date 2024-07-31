@@ -3474,13 +3474,124 @@ Example: In case of max heap(similarly, min heap will give minimum item in const
 - Every node value >= All of its children(in case of Max Heap).
 - root = i = 1 (in our case 0th index has been left empty).
 - parent(i) = i/2.
-- left(i) = 2*i.
-- right(i) = 2*i + 1.
+- left(i) = 2\*i.
+- right(i) = 2\*i + 1.
 - In case of min heap, every node value <= all of it's children.
 
 - Only use heaps when you're confident that you're working with a condition.\
 
-#### How to insert an item in a heap?
+### Code
+
+```java
+package heaps;
+
+import java.util.*;
+
+// Min heap
+public class Heap<T extends Comparable<T>> {
+
+    public static void main(String[] args) throws Exception {
+        Heap<Integer> heap = new Heap<>();
+        heap.insert(10);
+        heap.insert(11);
+        heap.insert(12);
+        heap.insert(13);
+        System.out.println(heap.heapSort());
+    }
+
+    private ArrayList<T> list;
+
+    private void swap(int first, int second) {
+        T temp = list.get(second);
+        list.set(second, list.get(first));
+        list.set(first, temp);
+    }
+
+    // these methods return the indices -> left, right and parent
+    private int parent(int index) {
+        return (index - 1) / 2;
+    }
+
+    private int left(int index) {
+        return 2 * index + 1;
+    }
+
+    private int right(int index) {
+        return index * 2 + 2;
+    }
+
+    public void insert(T value) {
+        list.add(value);
+        // Now we'll apply upheap
+        upheap(list.size() - 1);
+    }
+
+    private void upheap(int i) {
+        if (i == 0) {
+            return;
+        }
+        int p = parent(i);
+        if (list.get(i).compareTo(list.get(p)) < 0) {
+            swap(i, p);
+            upheap(p);
+        }
+
+    }
+
+    private void downheap(int i) {
+        if (i == list.size()) {
+            return;
+        }
+        int min = i;
+        int left = left(i);
+        int right = right(i);
+
+        if (left < list.size() && list.get(min).compareTo(list.get(left)) > 0) {
+            min = left;
+        }
+        if (right < list.size() && list.get(min).compareTo(list.get(right)) > 0) {
+            min = right;
+        }
+
+        if (min != i) {
+            swap(i, min);
+            downheap(min);
+        }
+    }
+
+    public T remove() throws Exception {
+        if (list.isEmpty()) {
+            throw new Exception("List is empty.");
+        }
+        T root = list.get(0);
+        T last = list.remove(list.size() - 1);
+        if (!list.isEmpty()) {
+            list.set(0, last);
+            downheap(0);
+        }
+        return root;
+    }
+
+    public ArrayList<T> heapSort() throws Exception {
+        if (list.isEmpty()) {
+            throw new Exception("The list is empty.");
+        }
+        ArrayList<T> data = new ArrayList<>();
+        while (!list.isEmpty()) {
+            data.add(this.remove());
+        }
+
+        return data;
+    }
+
+    public Heap() {
+        list = new ArrayList<>();
+    }
+}
+```
+
+## Hashmaps and Hashtables
+Hashcode : It basically 
 
 
 ## Graphs
