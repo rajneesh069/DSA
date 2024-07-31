@@ -3454,6 +3454,35 @@ public class $2096_StepByStepDirectionsFromABinaryTreeNodeToAnother {
 
 ```
 
+## Heaps
+
+Stored as an array internally but is represented as a tree. And that array may not be sorted.
+
+Example: In case of max heap(similarly, min heap will give minimum item in constant time) we want the first item to be maximum, rest of the array may not be sorted that's all.
+
+#### Properties
+
+- Complete Binary Tree Representation(Nodes are inserted from the left side).
+- No pointers like `Node left` or `Node right` is required.
+- `Height is logN so insertion/removal takes O(logN) time.`
+- Upheap method is used to insert an element in heap.
+- Heap sort takes O(NlogN) time, because we simply remove every element and just store it in an array list.
+
+#### Let's discus the case of max heap in detail:
+
+- Highest item at the very first index.
+- Every node value >= All of its children(in case of Max Heap).
+- root = i = 1 (in our case 0th index has been left empty).
+- parent(i) = i/2.
+- left(i) = 2*i.
+- right(i) = 2*i + 1.
+- In case of min heap, every node value <= all of it's children.
+
+- Only use heaps when you're confident that you're working with a condition.\
+
+#### How to insert an item in a heap?
+
+
 ## Graphs
 
 ### What is a graph?
@@ -3661,6 +3690,7 @@ public class BFS {
 }
 
 ```
+
 - In an equally weighted graph BFS always gives shortest path between nodes.
 - Queue always stores the next level while the alogrithm traverses the current one.
 
