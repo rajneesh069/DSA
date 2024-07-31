@@ -2,13 +2,16 @@ package heaps;
 
 import java.util.*;
 
-@SuppressWarnings("unused")
-
 // Min heap
 public class Heap<T extends Comparable<T>> {
 
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws Exception {
+        Heap<Integer> heap = new Heap<>();
+        heap.insert(10);
+        heap.insert(11);
+        heap.insert(12);
+        heap.insert(13);
+        System.out.println(heap.heapSort());
     }
 
     private ArrayList<T> list;
@@ -75,17 +78,19 @@ public class Heap<T extends Comparable<T>> {
         if (list.isEmpty()) {
             throw new Exception("List is empty.");
         }
-        T last = list.get(list.size() - 1);
-        T temp = list.get(0);
+        T root = list.get(0);
+        T last = list.remove(list.size() - 1);
         if (!list.isEmpty()) {
             list.set(0, last);
             downheap(0);
         }
-
-        return temp;
+        return root;
     }
 
     public ArrayList<T> heapSort() throws Exception {
+        if (list.isEmpty()) {
+            throw new Exception("The list is empty.");
+        }
         ArrayList<T> data = new ArrayList<>();
         while (!list.isEmpty()) {
             data.add(this.remove());
@@ -95,6 +100,6 @@ public class Heap<T extends Comparable<T>> {
     }
 
     public Heap() {
-
+        list = new ArrayList<>();
     }
 }
