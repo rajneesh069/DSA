@@ -9,6 +9,6 @@ public class GCD {
         if (a == 0) {
             return b;
         }
-        return HCF(b % a, b);
+        return HCF(b % a, a);
     }
 }

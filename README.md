@@ -1252,14 +1252,51 @@ So, suppose 3x + 9y = 18, then the GCD of 3 and 9 will be 3 and will come out as
 For, 2x+4y = 5 however, we can't do it, as 2 will be HCF and come out as common from the equation which won't divide 5 hence no combination of x and y will ever result in 5 as an answer.
 
 If GCD is 1, then you can form any type RHS from the combination of x and y.
+package bitwiseManipulation;
 
 ### Euclid's algorithm : gcd(a,b) = gcd(rem(b,a),a)
+
+```java
+public class GCD {
+    public static void main(String[] args) {
+        System.out.println(HCF(4, 8));
+    }
+
+    static int HCF(int a, int b) {
+        if (a == 0) {
+            return b;
+        }
+        return HCF(b % a, a);
+    }
+}
+```
 
 ## LCM
 
 Definition : Minimum number dvisible by both the numbers.
 
 HCF \* LCM = Product of 2 numbers
+
+```java
+package bitwiseManipulation;
+
+public class FindLCMOfTwoNumbers {
+    public static void main(String[] args) {
+        System.out.println(LCM(33, 11));
+    }
+
+    static int LCM(int a, int b) {
+        return a * b / GCD(a, b);
+    }
+
+    static int GCD(int a, int b) { // Euclid's algo
+        if (a == 0) {
+            return b;
+        }
+        return GCD(b % a, a);
+    }
+}
+```
 
 ## Linked List
 
@@ -3591,10 +3628,108 @@ public class Heap<T extends Comparable<T>> {
 ```
 
 ## Hashmaps and Hashtables
-Hashcode : It basically 
+### Why hashmaps?
+We use hashmaps to retrieve any element in O(1) time.
+### What are hashmaps?
+It's a data strutcure which consists of key-value pair(s).
+
+| Key (Name) | Value (Marks) |
+|------------|:---------------:|
+| Rajneesh | 88 |
+| Karan | 69 |
+| Mukul | 68 |
+|Lakshya | 39|
+
+map.get("Rajneesh") = 88 : In O(1) time.
+
+### How do they work?
+Hashcode : It is a numeric representation of a data type/structure. It is derived using some mathematical function.
+
+E.g., hash("Rajneesh") = 12434352 or hash(78) = 78. It is computed via a mathematical function and they are unique.
+
+- Hashcodes could be used to store the data in an array at that particular index.
+  Like if we wanna store "Rajneesh" in an array, then we can store it at the index which equals its hashcode, but that poses of problem of the array being very big in size as the hashcode grows for the objects/strings/numbers. This is what a hashtable is(in this case in a form of an array), and thats how we store data in it.
+    Example : Generating a frequency array for elements of an array.
+
+- We can then think of using the modulo operator(like %10) and store it in an array of desired size. Although, the problem arises that what if two hashcodes have same modulo with a given number, say 10, this is called collision.
+
+#### Ways to deal with collisions
+
+1. Chaining
+2. Open Addressing
+
+- Chaining
+
+    So, we can have a linked list at every index of the hashtable(an array in our case basically) and we can simply then insert multiple elements at one index, but what if all the elements fall at the same index, then it will take O(n) time to retrieve and the benefits of hashmaps are gone.
+
+    Then we use a cheat, i.e., Simple Uniform Hashing, which makes use of the following assumption.
+
+    Assumption : Every key is equally likely to be hashed to any slot on the table independent of where all the previous keys were hashed.
+
+    n = total number of keys
+
+    m = size of the table
+    
+    &alpha; = load factor
+
+    &alpha; = n/m &rarr; expected number of keys per slot
+
+    So if m = 10(size), n = 20(number of items to be inserted), then &alpha; = 2, i.e., at each index we expect two items, irrespective of the hashcode or any oher factor, because this approach assumes equal probability.
+    Then time of retrieval for the linked list approach will be O(1 + &alpha;).
+    If &alpha; is constant then the time complexity is constant.
+
+    - Hash Functions 
+
+    1. Division method : h(k) = k%m (m could be size of th array or any other number), and we assume it to be a prime number but not too close to a power of 2 or 10.
+
+    2. Multiplication method : h(k) = [(a.k)%2] >> (w-r)
+
+    a = random number
+    
+    w = number of bits in k
+
+    m = 2<sup>r</sup>
+
+    a is odd and 2<sup>w-1</sup> < a < 2<sup>w</sup>, and a is not too close to the bounds.
+
+    Size of the table : m = &theta;(n)
+
+    Small : slow
+
+    Big : Waste of space
+
+    Idea : Start small and slowly scale.
+    When the hashtable gets filled up, double the size. Doubling the table and inserting n items costs us O(n) time.
+
+    So for an average/amortized constant time : number of item(s) = 1, then O(1) time is required.
+
+    If, n = m/4, then we shrink the array by a factor of 2. That again leads to an average of O(1) time.
+
+- Open Addressing
+    - One item per slot : m >= n (size >= number of items)
+    - Probe &rarr; try : if that slot is filled up then look for other indices. Also if an item is deleted we put a flag there to know that it was deleted.
+
+Probing Techniques :
+1. Linear Probing : h(k,i) = (h(k) + i) % m &rarr; Problem isthat a cluster is formed, so we need to jump farther.
+2. Double Hashing : h(k,i) = (h<sub>1</sub>(k) + i * h<sub>2</sub>(k)) % m
+If h<sub>2</sub>(k) is relatively prime to m for all k, then it will cover all slots. 
+
+    (h<sub>1</sub>(k) + i * h<sub>2</sub>(k)) % m = (h<sub>1</sub>(k) + j * h<sub>2</sub>(k)) % m &rarr; m divides (i-j)
+
+- Uniform Hashing Assumption
+
+    Every key is equally likely to have m! permutations.
+    Cost of next operation <= 1/(1-&alpha;) 
+
+    &alpha; = 90%, then 10 expected probes.
+
+#### When to use which?
+1. OA &rarr; better cache performance(pointers not needed)
+2. Chaining &rarr; less sensitive to hash functions.
 
 
-## Graphs
+
+## Graphs 
 
 ### What is a graph?
 
