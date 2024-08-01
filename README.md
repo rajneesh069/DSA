@@ -3682,7 +3682,7 @@ E.g., hash("Rajneesh") = 12434352 or hash(78) = 78. It is computed via a mathema
 
     1. Division method : h(k) = k%m (m could be size of th array or any other number), and we assume it to be a prime number but not too close to a power of 2 or 10.
 
-    2. Multiplication method : h(k) = [(a.k)%2] >> (w-r)
+    2. Multiplication method : h(k) = [(a&middot;k)%2] >> (w-r)
 
     a = random number
     
@@ -3727,8 +3727,37 @@ If h<sub>2</sub>(k) is relatively prime to m for all k, then it will cover all s
 1. OA &rarr; better cache performance(pointers not needed)
 2. Chaining &rarr; less sensitive to hash functions.
 
+### Java has TreeMap, HashMap, HashSet, TreeSet.
+
+    All of them take constant time to perform CRUD operations.
+
+- HashSet : Contains only unique elements.
+- HashMap : Contains key-value pairs.
+- TreeMap : Map in sorted order. Red-black tree based.
+- TreeSet : Sets in sorted order. Red-black tree based.
 
 
+```java
+package hashMapsAndHashTables;
+
+import java.util.HashMap;
+import java.util.HashSet;
+
+public class HashMapsAndHashSets {
+    public static void main(String[] args) {
+        HashMap<String, Integer> map = new HashMap<>(); // java hashmap implementation
+        map.put("Rajneesh", 69);
+        map.put("Sachin", 68);
+        System.out.println(map.get("Rajneesh"));
+
+        HashSet<Integer> set = new HashSet<>(); // java hashset implementation
+        set.add(36);
+        set.add(36);
+        System.out.println(set);
+    }
+}
+
+```
 ## Graphs 
 
 ### What is a graph?
