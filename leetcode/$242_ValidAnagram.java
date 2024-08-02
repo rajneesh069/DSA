@@ -1,6 +1,5 @@
 package leetcode;
 
-import java.util.TreeSet;
 
 public class $242_ValidAnagram {
     public static void main(String[] args) {
