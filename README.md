@@ -3831,7 +3831,7 @@ public class $242_ValidAnagram {
 }
 ```
 
-3. Storing frequency of elements of an array in hashmap : Q169 on leetcode
+3. Storing frequency of elements of an array in hashmap and iterating through a hashmap : Q169 on leetcode
 ```java
 public int majorityElement(int[] nums) {
         int n = nums.length;
