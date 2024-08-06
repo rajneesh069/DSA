@@ -556,6 +556,32 @@ public class SubSequence {
 
 ```
 
+### Subsets of an array with unique elements : Recursive Approach - Recommended
+- Always have an index 'i' in the parameter for array in recursion.
+```java
+import java.util.*;
+public class Subsets{
+public List<List<Integer>> subsets(int[] arr) {
+        List<List<Integer>> ans = new ArrayList<>();
+        findSubsets(arr, 0, ans, new ArrayList<>());
+        return ans;
+    }
+
+    private static void findSubsets(int[] arr, int i, List<List<Integer>> ans, List<Integer> ds){
+        if(i==arr.length){
+            ans.add(new ArrayList<>(ds));
+            return;
+        }
+
+        ds.add(arr[i]);
+        findSubsets(arr, i+1, ans, ds);
+        ds.removeLast();
+
+        findSubsets(arr, i+1, ans, ds);
+    }
+}
+```
+
 ### Subsets of an array `without` duplicate elements : Iterative Approach
 
 ```java
@@ -588,6 +614,32 @@ public class SubsetsOfAnArrayWithUniqueElements {
 }
 
 ```
+
+### Subsets of an array with duplicate elements : Recursive Approach - RECOMMENDED
+- Always use an index 'i' to traverse through the array in recursion.
+- The for loop intuition came from the Combinaton Sum II problem, as we have to remove duplicates.
+```java
+import java.util.*;
+class Solution {
+    public List<List<Integer>> subsetsWithDup(int[] arr) {
+        Arrays.sort(arr);
+        List<List<Integer>> ans = new ArrayList<>();
+        findSubsets(arr, 0, new ArrayList<>(), ans);
+        return ans;
+    }
+
+    private static void findSubsets(int[] arr, int ind, List<Integer> ds, List<List<Integer>> ans){
+        ans.add(new ArrayList<>(ds)); // creating a new array list each time
+
+        for(int i = ind; i<arr.length; i++){
+            if(i>ind && arr[i]==arr[i-1]) continue;
+            ds.add(arr[i]);
+            findSubsets(arr, i+1, ds, ans);
+            ds.removeLast();
+        }
+    }
+}
+``` 
 
 ### Subsets of an array with duplicate elements : Iterative Approach
 
@@ -693,7 +745,7 @@ public class $39_CombinationSum {
 
 ```
 
-### Array Subsequences with NO DUPLICATE ELEMENTS
+### Array Subsequences with NO DUPLICATE ELEMENTS IN THE FINAL ARRAY
 
 ```java
 package leetcode;
@@ -707,8 +759,8 @@ public class $40_CombinationSum2 {
 
     private static void findCombinations(int ind, int target, ArrayList<ArrayList<Integer>> ans, ArrayList<Integer> ds,
             int[] arr) {
-                // sort the array in the main function
-           if (target == 0) {
+            // sort the array in the main function
+            if (target == 0) {
                 ans.add(new ArrayList<>(ds));
                 return;
             }
