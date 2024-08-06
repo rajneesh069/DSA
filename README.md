@@ -657,6 +657,78 @@ public class Permuatations {
 
 ```
 
+### Array Subsequences : Recursive Approach
+
+- Never modify the original array and always take an index 'i' to traverse through it.
+
+```java
+package leetcode;
+
+import java.util.*;
+
+public class $39_CombinationSum {
+    public static void main(String[] args) {
+
+    }
+
+    static void findCombinations(int[] nums, ArrayList<Integer> ds, int i, int target) {
+        if (i == nums.length) {
+            if (target == 0) {
+                System.out.println(ds);
+            }
+
+            return;
+        }
+
+        if (nums[i] <= target) {
+            ds.add(nums[i]);
+            findCombinations(nums, ds, i + 1, target - nums[i]);
+            ds.removeLast();
+        }
+
+        findCombinations(nums, ds, i + 1, target);
+
+    }
+}
+
+```
+
+### Array Subsequences with NO DUPLICATE ELEMENTS
+
+```java
+package leetcode;
+
+import java.util.*;
+@SuppressWarnings("unused")
+public class $40_CombinationSum2 {
+    public static void main(String[] args) {
+
+    }
+
+    private static void findCombinations(int ind, int target, ArrayList<ArrayList<Integer>> ans, ArrayList<Integer> ds,
+            int[] arr) {
+                // sort the array in the main function
+           if (target == 0) {
+                ans.add(new ArrayList<>(ds));
+                return;
+            }
+        
+
+        for (int i = ind; i < arr.length; i++) {
+            if (i > ind && arr[i] == arr[i - 1])
+                continue;
+            if (arr[i] > target)
+                break;
+
+            ds.add(arr[i]);
+            findCombinations(i + 1, target - arr[i], ans, ds, arr);
+            ds.removeLast();
+        }
+        }
+}
+
+```
+
 ### Dice Roll Problem using Processed and Unprocessed Strings Approach
 
 ```java
@@ -1299,7 +1371,8 @@ public class FindLCMOfTwoNumbers {
 ```
 
 - Sum of divisors from 1 to N
-E.g. for n = 3, the answer is : (1*3) + (2*1) + (3*1)
+  E.g. for n = 3, the answer is : (1*3) + (2*1) + (3\*1)
+
 ```java
 class Solution{
     static long sumOfDivisors(int N){
@@ -3642,21 +3715,26 @@ public class Heap<T extends Comparable<T>> {
 ```
 
 ## Hashmaps and Hashtables
+
 ### Why hashmaps?
+
 We use hashmaps to retrieve any element in O(1) time.
+
 ### What are hashmaps?
+
 It's a data strutcure which consists of key-value pair(s).
 
 | Key (Name) | Value (Marks) |
-|------------|:---------------:|
-| Rajneesh | 88 |
-| Karan | 69 |
-| Mukul | 68 |
-|Lakshya | 39|
+| ---------- | :-----------: |
+| Rajneesh   |      88       |
+| Karan      |      69       |
+| Mukul      |      68       |
+| Lakshya    |      39       |
 
 map.get("Rajneesh") = 88 : In O(1) time.
 
 ### How do they work?
+
 Hashcode : It is a numeric representation of a data type/structure. It is derived using some mathematical function.
 
 E.g., hash("Rajneesh") = 12434352 or hash(78) = 78. It is computed via a mathematical function and they are unique.
@@ -3667,7 +3745,7 @@ E.g., hash("Rajneesh") = 12434352 or hash(78) = 78. It is computed via a mathema
 
 - Hashcodes could be used to store the data in an array at that particular index.
   Like if we wanna store "Rajneesh" in an array, then we can store it at the index which equals its hashcode, but that poses of problem of the array being very big in size as the hashcode grows for the objects/strings/numbers. This is what a hashtable is(in this case in a form of an array), and thats how we store data in it.
-    Example : Generating a frequency array for elements of an array.
+  Example : Generating a frequency array for elements of an array.
 
 - We can then think of using the modulo operator(like %10) and store it in an array of desired size. Although, the problem arises that what if two hashcodes have same modulo with a given number, say 10, this is called collision.
 
@@ -3678,70 +3756,72 @@ E.g., hash("Rajneesh") = 12434352 or hash(78) = 78. It is computed via a mathema
 
 - Chaining
 
-    So, we can have a linked list at every index of the hashtable(an array in our case basically) and we can simply then insert multiple elements at one index, but what if all the elements fall at the same index, then it will take O(n) time to retrieve and the benefits of hashmaps are gone.
+  So, we can have a linked list at every index of the hashtable(an array in our case basically) and we can simply then insert multiple elements at one index, but what if all the elements fall at the same index, then it will take O(n) time to retrieve and the benefits of hashmaps are gone.
 
-    Then we use a cheat, i.e., Simple Uniform Hashing, which makes use of the following assumption.
+  Then we use a cheat, i.e., Simple Uniform Hashing, which makes use of the following assumption.
 
-    Assumption : Every key is equally likely to be hashed to any slot on the table independent of where all the previous keys were hashed.
+  Assumption : Every key is equally likely to be hashed to any slot on the table independent of where all the previous keys were hashed.
 
-    n = total number of keys
+  n = total number of keys
 
-    m = size of the table
-    
-    &alpha; = load factor
+  m = size of the table
 
-    &alpha; = n/m &rarr; expected number of keys per slot
+  &alpha; = load factor
 
-    So if m = 10(size), n = 20(number of items to be inserted), then &alpha; = 2, i.e., at each index we expect two items, irrespective of the hashcode or any oher factor, because this approach assumes equal probability.
-    Then time of retrieval for the linked list approach will be O(1 + &alpha;).
-    If &alpha; is constant then the time complexity is constant.
+  &alpha; = n/m &rarr; expected number of keys per slot
 
-    - Hash Functions 
+  So if m = 10(size), n = 20(number of items to be inserted), then &alpha; = 2, i.e., at each index we expect two items, irrespective of the hashcode or any oher factor, because this approach assumes equal probability.
+  Then time of retrieval for the linked list approach will be O(1 + &alpha;).
+  If &alpha; is constant then the time complexity is constant.
 
-    1. Division method : h(k) = k%m (m could be size of th array or any other number), and we assume it to be a prime number but not too close to a power of 2 or 10.
+  - Hash Functions
 
-    2. Multiplication method : h(k) = [(a&middot;k)%2] >> (w-r)
+  1. Division method : h(k) = k%m (m could be size of th array or any other number), and we assume it to be a prime number but not too close to a power of 2 or 10.
 
-    a = random number
-    
-    w = number of bits in k
+  2. Multiplication method : h(k) = [(a&middot;k)%2] >> (w-r)
 
-    m = 2<sup>r</sup>
+  a = random number
 
-    a is odd and 2<sup>w-1</sup> < a < 2<sup>w</sup>, and a is not too close to the bounds.
+  w = number of bits in k
 
-    Size of the table : m = &theta;(n)
+  m = 2<sup>r</sup>
 
-    Small : slow
+  a is odd and 2<sup>w-1</sup> < a < 2<sup>w</sup>, and a is not too close to the bounds.
 
-    Big : Waste of space
+  Size of the table : m = &theta;(n)
 
-    Idea : Start small and slowly scale.
-    When the hashtable gets filled up, double the size. Doubling the table and inserting n items costs us O(n) time.
+  Small : slow
 
-    So for an average/amortized constant time : number of item(s) = 1, then O(1) time is required.
+  Big : Waste of space
 
-    If, n = m/4, then we shrink the array by a factor of 2. That again leads to an average of O(1) time.
+  Idea : Start small and slowly scale.
+  When the hashtable gets filled up, double the size. Doubling the table and inserting n items costs us O(n) time.
+
+  So for an average/amortized constant time : number of item(s) = 1, then O(1) time is required.
+
+  If, n = m/4, then we shrink the array by a factor of 2. That again leads to an average of O(1) time.
 
 - Open Addressing
-    - One item per slot : m >= n (size >= number of items)
-    - Probe &rarr; try : if that slot is filled up then look for other indices. Also if an item is deleted we put a flag there to know that it was deleted.
+  - One item per slot : m >= n (size >= number of items)
+  - Probe &rarr; try : if that slot is filled up then look for other indices. Also if an item is deleted we put a flag there to know that it was deleted.
 
 Probing Techniques :
-1. Linear Probing : h(k,i) = (h(k) + i) % m &rarr; Problem isthat a cluster is formed, so we need to jump farther.
-2. Double Hashing : h(k,i) = (h<sub>1</sub>(k) + i * h<sub>2</sub>(k)) % m
-If h<sub>2</sub>(k) is relatively prime to m for all k, then it will cover all slots. 
 
-    (h<sub>1</sub>(k) + i * h<sub>2</sub>(k)) % m = (h<sub>1</sub>(k) + j * h<sub>2</sub>(k)) % m &rarr; m divides (i-j)
+1.  Linear Probing : h(k,i) = (h(k) + i) % m &rarr; Problem isthat a cluster is formed, so we need to jump farther.
+2.  Double Hashing : h(k,i) = (h<sub>1</sub>(k) + i \* h<sub>2</sub>(k)) % m
+    If h<sub>2</sub>(k) is relatively prime to m for all k, then it will cover all slots.
+
+        (h<sub>1</sub>(k) + i * h<sub>2</sub>(k)) % m = (h<sub>1</sub>(k) + j * h<sub>2</sub>(k)) % m &rarr; m divides (i-j)
 
 - Uniform Hashing Assumption
 
-    Every key is equally likely to have m! permutations.
-    Cost of next operation <= 1/(1-&alpha;) 
+  Every key is equally likely to have m! permutations.
+  Cost of next operation <= 1/(1-&alpha;)
 
-    &alpha; = 90%, then 10 expected probes.
+  &alpha; = 90%, then 10 expected probes.
 
 #### When to use which?
+
 1. OA &rarr; better cache performance(pointers not needed)
 2. Chaining &rarr; less sensitive to hash functions.
 
@@ -3753,7 +3833,6 @@ If h<sub>2</sub>(k) is relatively prime to m for all k, then it will cover all s
 - HashMap : Contains key-value pairs.
 - TreeMap : Map in sorted order. Red-black tree based.
 - TreeSet : Sets in sorted order. Red-black tree based.
-
 
 ```java
 package hashMapsAndHashTables;
@@ -3778,7 +3857,9 @@ public class HashMapsAndHashSets {
 ```
 
 ### Illustrations
+
 1. Add two numbers of an array to a target. Q1 on leetcode.
+
 ```java
 package leetcode;
 
@@ -3796,12 +3877,13 @@ public class $1_TwoSum {
 
         prev.put(n,i);
        }
-        return new int[]{};  
+        return new int[]{};
     }
 }
 ```
 
 2. Hashtable usage, Q242 on leetcode, check if two strings are anagrams
+
 ```java
 package leetcode;
 
@@ -3832,6 +3914,7 @@ public class $242_ValidAnagram {
 ```
 
 3. Storing frequency of elements of an array in hashmap and iterating through a hashmap : Q169 on leetcode
+
 ```java
 public int majorityElement(int[] nums) {
         int n = nums.length;
@@ -3853,7 +3936,7 @@ public int majorityElement(int[] nums) {
     }
 ```
 
-## Graphs 
+## Graphs
 
 ### What is a graph?
 
