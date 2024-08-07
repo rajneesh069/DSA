@@ -19,10 +19,11 @@ public class BFS {
         input.close();
 
         boolean[] vis = new boolean[n + 1];
-        bfs(1, graph, vis);
+        int level[] = new int[n + 1];
+        bfs(1, graph, vis, level);
     }
 
-    static void bfs(int source, ArrayList<ArrayList<Integer>> graph, boolean[] vis) {
+    static void bfs(int source, ArrayList<ArrayList<Integer>> graph, boolean[] vis, int[] level) {
         Queue<Integer> q = new LinkedList<>();
         q.add(source);
         vis[source] = true;
@@ -32,6 +33,7 @@ public class BFS {
                 if (!vis[child]) {
                     q.add(child);
                     vis[child] = true;
+                    level[child] = level[currentVertex] + 1;
                 }
             }
         }
