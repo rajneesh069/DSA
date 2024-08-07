@@ -557,7 +557,9 @@ public class SubSequence {
 ```
 
 ### Subsets of an array with unique elements : Recursive Approach - Recommended
+
 - Always have an index 'i' in the parameter for array in recursion.
+
 ```java
 import java.util.*;
 public class Subsets{
@@ -616,8 +618,10 @@ public class SubsetsOfAnArrayWithUniqueElements {
 ```
 
 ### Subsets of an array with duplicate elements : Recursive Approach - RECOMMENDED
+
 - Always use an index 'i' to traverse through the array in recursion.
 - The for loop intuition came from the Combinaton Sum II problem, as we have to remove duplicates.
+
 ```java
 import java.util.*;
 class Solution {
@@ -639,7 +643,7 @@ class Solution {
         }
     }
 }
-``` 
+```
 
 ### Subsets of an array with duplicate elements : Iterative Approach
 
@@ -709,6 +713,43 @@ public class Permuatations {
 
 ```
 
+### Permutations of an array with No duplicate elements - Recursive - RECOMMENDED
+
+```java
+package recursion.permutations;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ArrayPermutations {
+    public List<List<Integer>> permute(int[] nums) {
+        boolean[] map = new boolean[nums.length];
+        List<List<Integer>> ans = new ArrayList<>();
+        findPermutations(nums, map, ans, new ArrayList<Integer>());
+        return ans;
+    }
+
+    private static void findPermutations(int[] nums, boolean[] map, List<List<Integer>> ans, List<Integer> ds) {
+        if (ds.size() == nums.length) {
+            ans.add(new ArrayList<>(ds));
+            return;
+        }
+
+        for (int i = 0; i < nums.length; i++) {
+            if (map[i]==true) {
+               continue;
+            }
+            map[i] = true;
+            ds.add(nums[i]);
+            findPermutations(nums, map, ans, ds);
+            ds.removeLast();
+            map[i] = false;
+        }
+    }
+}
+
+```
+
 ### Array Subsequences : Recursive Approach
 
 - Never modify the original array and always take an index 'i' to traverse through it.
@@ -764,7 +805,7 @@ public class $40_CombinationSum2 {
                 ans.add(new ArrayList<>(ds));
                 return;
             }
-        
+
 
         for (int i = ind; i < arr.length; i++) {
             if (i > ind && arr[i] == arr[i - 1])
