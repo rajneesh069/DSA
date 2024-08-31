@@ -1312,7 +1312,7 @@ For binary search : a1 = 1, b1 = 1/2, e1(x) = 0, g(x) = c
    3. a % 4 == 2 : a + 1
    4. a % 4 == 3 : 0
 3. bit ^ 1 = flipped bit
-4. To find ith set bit in 'n', do (1<<(i-1)) & (n) : This is masking and is used at many places.
+4. `To find ith set bit in 'n', do (1<<(i-1)) & (n), if i is 1-based, if it is 0-based just put i: This is masking and is used at many places.`
 
 ### AND(&)
 
